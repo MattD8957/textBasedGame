@@ -6891,21 +6891,7 @@ System.out.println("                                      '-' -.\\");
                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
                                    System.out.println("The fourth henchman now has " + goblinFollowerFour.getHP() + " HP.");
                                }
-                           }
-                            else//improper selection
-                            {
-                                System.out.println("You failed to make a selection.");
-                                //Wait
-                                try
-                                {
-                                    Thread.sleep(750);
-                                }
-                                catch(InterruptedException ex)
-                                {
-                                   Thread.currentThread().interrupt();
-                                }
-                                paladin.kill();//set health to 0 to end loop
-                            }
+                           }                           
                            else//improper selection
                            {
                                System.out.println("You failed to make a selection.");
