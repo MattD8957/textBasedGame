@@ -1,10 +1,11 @@
 package textBasedGame;
 import java.util.*;
 import java.util.Random;
+import Constants.java;
 
 public class Main {
     public static void main(String args[]) {
-        //Variables
+
         String moveOn; //Player imputs when to continue
         String characterName; //gets the name the player wants for the player 
         int upperbound = 0;//sets the upperbound of Randoms 
@@ -40,7 +41,6 @@ public class Main {
         boolean startRandom = true;//starts the random number loops
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
-        
         
         //Scanner
         Scanner scanner = new Scanner(System.in);
@@ -5367,7 +5367,7 @@ System.out.println("                                      '-' -.\\");
                            }
                            //Create Dragon 
                            Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
-                           while(!paladin.isDead() && !dragon.isDead())
+                           while(!barbarian.isDead() && !dragon.isDead())
                            {
                                System.out.println("The Dragon has " + dragon.getHP() + " HP.");
                                System.out.println("1 for Strong");
@@ -5885,7 +5885,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else if(attackTarget == 2) //Follower 1
@@ -5924,7 +5924,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else//improper selection
@@ -5939,7 +5939,7 @@ System.out.println("                                      '-' -.\\");
                                {
                                    Thread.currentThread().interrupt();
                                }
-                               paladin.kill();//set health to 0 to end loop
+                               barbarian.kill();//set health to 0 to end loop
                            }
                            //Goblins turn
                            if(!goblinLeader.isDead())
@@ -5968,7 +5968,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                            {
@@ -6060,7 +6060,7 @@ System.out.println("                                      '-' -.\\");
                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                        System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
-                       while(!paladin.isDead() && !goblinsAreDead)
+                       while(!barbarian.isDead() && !goblinsAreDead)
                        {
                            System.out.println("Who will you attack?"); //Chooses who will be attacked
                            System.out.println("1 for leader");
@@ -6108,7 +6108,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else if(attackTarget == 2) //Follower 1
@@ -6172,7 +6172,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else//improper selection
@@ -6187,7 +6187,7 @@ System.out.println("                                      '-' -.\\");
                                {
                                    Thread.currentThread().interrupt();
                                }
-                               paladin.kill();//set health to 0 to end loop
+                               barbarian.kill();//set health to 0 to end loop
                            }
                            //Goblins turn
                            if(!goblinLeader.isDead())
@@ -6216,7 +6216,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                            {
@@ -6244,7 +6244,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                            {
@@ -6360,7 +6360,7 @@ System.out.println("                                      '-' -.\\");
                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                        System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
-                       while(!paladin.isDead() && !goblinsAreDead)
+                       while(!barbarian.isDead() && !goblinsAreDead)
                        {
                            System.out.println("Who will you attack?"); //Chooses who will be attacked
                            System.out.println("1 for leader");
@@ -6409,7 +6409,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else if(attackTarget == 2) //Follower 1
@@ -6498,7 +6498,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else//improper selection
@@ -6513,7 +6513,7 @@ System.out.println("                                      '-' -.\\");
                                {
                                    Thread.currentThread().interrupt();
                                }
-                               paladin.takeDamage(paladin.getMaxHP());//set health to 0 to end loop
+                               barbarian.takeDamage(barbarian.getMaxHP());//set health to 0 to end loop
                            }
                            //Goblins turn
                            if(!goblinLeader.isDead())
@@ -6739,7 +6739,7 @@ System.out.println("                                      '-' -.\\");
                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                        System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", " + goblinFollowerThree.getHP() + ", and " + goblinFollowerFour.getHP() + " Hp.");//Add per the amount of hench henchmen
-                       while(!paladin.isDead() && !goblinsAreDead)
+                       while(!barbarian.isDead() && !goblinsAreDead)
                        {
                            System.out.println("Who will you attack?"); //Chooses who will be attacked
                            System.out.println("1 for leader");
@@ -6789,7 +6789,7 @@ System.out.println("                                      '-' -.\\");
                                    {
                                        Thread.currentThread().interrupt();
                                    }
-                                   paladin.kill();//set health to 0 to end loop
+                                   barbarian.kill();//set health to 0 to end loop
                                }
                            }
                            else if(attackTarget == 2) //Follower 1
@@ -6904,7 +6904,7 @@ System.out.println("                                      '-' -.\\");
                                {
                                    Thread.currentThread().interrupt();
                                }
-                               paladin.kill();//set health to 0 to end loop
+                               barbarian.kill();//set health to 0 to end loop
                            }
                            //Goblins turn
                            if(!goblinLeader.isDead())
@@ -6913,19 +6913,19 @@ System.out.println("                                      '-' -.\\");
                                if(attackChoice == 1)//Strong attack
                                {
                                    damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 2)//Standard attack
                                {
                                    damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 3)//Weak attack
                                {
                                    damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                    if(damageTaken >= 0)//Positive attack
                                    {
-                                       paladin.takeDamage(damageTaken); 
+                                       barbarian.takeDamage(damageTaken); 
                                    }
                                    else if(damageTaken < 0)//negative attack
                                    {
@@ -6933,7 +6933,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                            {
@@ -6941,19 +6941,19 @@ System.out.println("                                      '-' -.\\");
                                if(attackChoice == 1)//Strong attack
                                {
                                    damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 2)//Standard attack
                                {
                                    damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 3)//Weak attack
                                {
                                    damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                    if(damageTaken >= 0)//Positive attack
                                    {
-                                       paladin.takeDamage(damageTaken); 
+                                       barbarian.takeDamage(damageTaken); 
                                    }
                                    else if(damageTaken < 0)//negative attack
                                    {
@@ -6961,7 +6961,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                            {
@@ -6969,19 +6969,19 @@ System.out.println("                                      '-' -.\\");
                                if(attackChoice == 1)//Strong attack
                                {
                                    damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 2)//Standard attack
                                {
                                    damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 3)//Weak attack
                                {
                                    damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
                                    if(damageTaken >= 0)//Positive attack
                                    {
-                                       paladin.takeDamage(damageTaken); 
+                                       barbarian.takeDamage(damageTaken); 
                                    }
                                    else if(damageTaken < 0)//negative attack
                                    {
@@ -6989,7 +6989,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                            {
@@ -6997,19 +6997,19 @@ System.out.println("                                      '-' -.\\");
                                if(attackChoice == 1)//Strong attack
                                {
                                    damageTaken = goblinFollowerThree.getAttack() + strong.getAttackPenalty(); 
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 2)//Standard attack
                                {
                                    damageTaken = goblinFollowerThree.getAttack() + standard.getAttackPenalty();
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 3)//Weak attack
                                {
                                    damageTaken = goblinFollowerThree.getAttack() + weak.getAttackPenalty();
                                    if(damageTaken >= 0)//Positive attack
                                    {
-                                       paladin.takeDamage(damageTaken); 
+                                       barbarian.takeDamage(damageTaken); 
                                    }
                                    else if(damageTaken < 0)//negative attack
                                    {
@@ -7017,7 +7017,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The third henchman attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            if(!goblinFollowerFour.isDead())// Goblin Follower 4's turn
                            {
@@ -7025,19 +7025,19 @@ System.out.println("                                      '-' -.\\");
                                if(attackChoice == 1)//Strong attack
                                {
                                    damageTaken = goblinFollowerFour.getAttack() + strong.getAttackPenalty(); 
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 2)//Standard attack
                                {
                                    damageTaken = goblinFollowerFour.getAttack() + standard.getAttackPenalty();
-                                   paladin.takeDamage(damageTaken);
+                                   barbarian.takeDamage(damageTaken);
                                }
                                else if(attackChoice == 3)//Weak attack
                                {
                                    damageTaken = goblinFollowerFour.getAttack() + weak.getAttackPenalty();
                                    if(damageTaken >= 0)//Positive attack
                                    {
-                                       paladin.takeDamage(damageTaken); 
+                                       barbarian.takeDamage(damageTaken); 
                                    }
                                    else if(damageTaken < 0)//negative attack
                                    {
@@ -7045,7 +7045,7 @@ System.out.println("                                      '-' -.\\");
                                    }
                                }
                                System.out.println("The fourth henchman attacks doing " + damageTaken + " damage.");
-                               System.out.println("You now have " + paladin.getHP() + " HP.");
+                               System.out.println("You now have " + barbarian.getHP() + " HP.");
                            }
                            //add extras
                            if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead() || !goblinFollowerFour.isDead())//If any goblin is alive
@@ -7061,8 +7061,8 @@ System.out.println("                                      '-' -.\\");
                    if(goblinsAreDead)
                    {
                        System.out.println("Congratulations you beat the goblin horde! You get to keep their artifacts.");
-                       paladin.increaseArtifacts(10);
-                       System.out.println("You now have " + paladin.getArtifact() + " artifacts.");
+                       barbarian.increaseArtifacts(10);
+                       System.out.println("You now have " + barbarian.getArtifact() + " artifacts.");
                    }
                }
                else if(event == 5)//Fight guards
@@ -7696,7 +7696,7 @@ System.out.println("                                      '-' -.\\");
                        {
                            Thread.currentThread().interrupt();
                        }
-                       paladin.kill();//set health to 0 to end loop
+                       barbarian.kill();//set health to 0 to end loop
                    }
                }
                //Win screen
