@@ -1,4 +1,4 @@
-package textBasedGame;
+package TextBasedGame;
 
 //Manage all enimies
 public class Enemy {

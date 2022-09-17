@@ -1,4 +1,4 @@
-package textBasedGame;
+package TextBasedGame;
 //Manage Attack types
 public class Attack {
     private int damage;

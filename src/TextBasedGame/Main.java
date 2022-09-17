@@ -1,7 +1,8 @@
-package textBasedGame;
+package TextBasedGame;
 import java.util.*;
 import java.util.Random;
-import Constants.java;
+//import Constants.java;
+//import Art.java;
 
 public class Main {
     public static void main(String args[]) {
@@ -42,8 +43,15 @@ public class Main {
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
         
+        //Set up art
+        Art art = new Dragon();
+
         //Scanner
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+
+
+
+        
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -58,7 +66,7 @@ public class Main {
         System.out.println("1 for Rogue");//Rogue
         System.out.println("2 for Palidin");//Paladin
         System.out.println("3 for Barbarian");//Barbarian
-        chosenClass = scanner.nextInt();
+        chosenClass = input.nextInt();
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -67,7 +75,7 @@ public class Main {
         {
             //Gets players name for charecter then clears screen
             System.out.println("What would you like to name your charecter?");
-            characterName = scanner.next();
+            characterName = input.next();
             System.out.print("\033[H\033[2J");
             System.out.flush(); 
             
@@ -76,7 +84,7 @@ public class Main {
             //Set up the three attacks
             Attack strong = new Attack(25, 50, 10); // Damage, Max damage, weakness
             Attack standard = new Attack(15, 40, 0); // Damage, Max damage, weakness
-            Attack weak = new Attack(5, 30, -10); // Damage, Max damage, weakness
+            Attack weak = new Attack(5, 30, -10); // Damage, Max damage, weakness]
             //Information for player at start of game
             System.out.println("The objective of the game is to collect 25 artifacts.");//Decide on amount of artifacts
             System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
@@ -86,7 +94,7 @@ public class Main {
             System.out.println("You start with 100Hp and doing 15dmg for standard attacks.");
             System.out.println("Press any key to continue ");
             //Wait until player presses a button
-            moveOn = scanner.next();
+            moveOn = input.next();
             //Clears screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -154,7 +162,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("You can either rob it or try to escape");
                     System.out.println("1 to escape");
                     System.out.println("2 to atempt to rob the dragon");
-                    int dragonChoice = scanner.nextInt();
+                    int dragonChoice = input.nextInt();
                     
                     if(dragonChoice == 1)//1 For escape
                     // 1 in 5 chance of freedom 
@@ -241,7 +249,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -332,7 +340,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -435,7 +443,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -500,7 +508,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("Type 1 to start a brawl.");
                     System.out.println("Type 2 to buy a weapon from a local salesman."); 
                     System.out.println("Type 3 to talk to the guards and get a quest.");
-                    barChoice = scanner.nextInt();
+                    barChoice = input.nextInt();
                     
                     if(barChoice == 1)//Start a brawl
                     {
@@ -561,7 +569,7 @@ System.out.println("                                      '-' -.\\");
                         System.out.println("The second quest is to defeat an evil queen.");
                         System.out.println("The third quest is");
                         System.out.println("Which quest do you choose. Type 1, 2, or 3");
-                        questChoice = scanner.nextInt();
+                        questChoice = input.nextInt();
                         if(questChoice == 1)//Defeat smugiling group
                         {
                             
@@ -717,12 +725,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("Who will you attack?"); //Chooses who will be attacked
                             System.out.println("1 for leader");
                             System.out.println("2 for henchman");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -947,12 +955,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("1 for leader");
                             System.out.println("2 for henchman");
                             System.out.println("3 for henchamn 2");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -1254,12 +1262,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("2 for henchman");
                             System.out.println("3 for henchamn 2");
                             System.out.println("4 for henchman 3");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -1639,12 +1647,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("3 for henchamn 2");
                             System.out.println("4 for henchman 3");
                             System.out.println("5 for henchman 4");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -1979,7 +1987,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("1 to go with them willingly.");
                     System.out.println("2 to beg for mercy.");
                     System.out.println("3 to fight back and try to escape.");
-                    townChoice = scanner.nextInt();
+                    townChoice = input.nextInt();
                     if(townChoice == 1)//Go willingly
                     {
                         System.out.println("You go with the gaurds.");
@@ -2137,7 +2145,7 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("1 for Strong attack");
                             System.out.println("2 for Standard attack");
                             System.out.println("3 for Weak attack");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             System.out.println("Which gaurd will you attack?");
                             System.out.println("Gaurd one " + guardOne.getHP() + "Hp.");
                             System.out.println("Gaurd two " + guardTwo.getHP() + "Hp.");
@@ -2145,7 +2153,7 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("Gaurd four " + guardFour.getHP() + "Hp.");
                             System.out.println("Gaurd five " + guardFive.getHP() + "Hp.");
                             System.out.println("Gaurd six " + guardSix.getHP() + "Hp.");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             if(attackTarget == 1)//Guard one
                             {
                                 System.out.println("You attack guard one.");
@@ -2652,7 +2660,7 @@ System.out.println("                                      '-' -.\\");
         {
             //Gets players name for charecter then clears screen
             System.out.println("What would you like to name your charecter?");
-            characterName = scanner.next();
+            characterName = input.next();
             System.out.print("\033[H\033[2J");
             System.out.flush(); 
             
@@ -2671,7 +2679,7 @@ System.out.println("                                      '-' -.\\");
             System.out.println("You start with 100Hp and doing 20dmg for standard attacks.");
             System.out.println("Press any key to continue ");
             //Wait until player presses a button
-            moveOn = scanner.next();
+            moveOn = input.next();
             //Clears screen
             System.out.print("\033[H\033[2J");
             System.out.flush();
@@ -2739,7 +2747,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("You can either rob it or try to escape");
                     System.out.println("1 to escape");
                     System.out.println("2 to atempt to rob the dragon");
-                    int dragonChoice = scanner.nextInt();
+                    int dragonChoice = input.nextInt();
                     
                     if(dragonChoice == 1)//1 For escape
                     // 1 in 5 chance of freedom 
@@ -2821,7 +2829,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -2912,7 +2920,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -3015,7 +3023,7 @@ System.out.println("                                      '-' -.\\");
                                 System.out.println("1 for Strong");
                                 System.out.println("2 for Standard");
                                 System.out.println("3 for Weak");
-                                attackChoice = scanner.nextInt();
+                                attackChoice = input.nextInt();
                                 if(attackChoice == 1)
                                 {
                                     System.out.println("You choose a strong attack");
@@ -3080,7 +3088,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("Type 1 to start a brawl.");
                     System.out.println("Type 2 to buy a weapon from a local salesman."); 
                     System.out.println("Type 3 to talk to the guards and get a quest.");
-                    barChoice = scanner.nextInt();
+                    barChoice = input.nextInt();
                     
                     if(barChoice == 1)//Start a brawl
                     {
@@ -3141,7 +3149,7 @@ System.out.println("                                      '-' -.\\");
                         System.out.println("The second quest is to defeat an evil queen.");
                         System.out.println("The third quest is");
                         System.out.println("Which quest do you choose. Type 1, 2, or 3");
-                        questChoice = scanner.nextInt();
+                        questChoice = input.nextInt();
                         if(questChoice == 1)//Defeat smugiling group
                         {
                             
@@ -3291,12 +3299,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("Who will you attack?"); //Chooses who will be attacked
                             System.out.println("1 for leader");
                             System.out.println("2 for henchman");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -3514,12 +3522,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("1 for leader");
                             System.out.println("2 for henchman");
                             System.out.println("3 for henchamn 2");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -3815,12 +3823,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("2 for henchman");
                             System.out.println("3 for henchamn 2");
                             System.out.println("4 for henchman 3");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -4195,12 +4203,12 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("3 for henchamn 2");
                             System.out.println("4 for henchman 3");
                             System.out.println("5 for henchman 4");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             System.out.println("What type of attack would you like to use?");
                             System.out.println("1 for Strong");
                             System.out.println("2 for Standard");
                             System.out.println("3 for Weak");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println("You attack the Leader.");
@@ -4535,7 +4543,7 @@ System.out.println("                                      '-' -.\\");
                     System.out.println("1 to go with them willingly.");
                     System.out.println("2 to beg for mercy.");
                     System.out.println("3 to fight back and try to escape.");
-                    townChoice = scanner.nextInt();
+                    townChoice = input.nextInt();
                     if(townChoice == 1)//Go willingly
                     {
                         System.out.println("You go with the gaurds.");
@@ -4689,7 +4697,7 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("1 for Strong attack");
                             System.out.println("2 for Standard attack");
                             System.out.println("3 for Weak attack");
-                            attackChoice = scanner.nextInt();
+                            attackChoice = input.nextInt();
                             System.out.println("Which gaurd will you attack?");
                             System.out.println("Gaurd one " + guardOne.getHP() + "Hp.");
                             System.out.println("Gaurd two " + guardTwo.getHP() + "Hp.");
@@ -4697,7 +4705,7 @@ System.out.println("                                      '-' -.\\");
                             System.out.println("Gaurd four " + guardFour.getHP() + "Hp.");
                             System.out.println("Gaurd five " + guardFive.getHP() + "Hp.");
                             System.out.println("Gaurd six " + guardSix.getHP() + "Hp.");
-                            attackTarget = scanner.nextInt();
+                            attackTarget = input.nextInt();
                             if(attackTarget == 1)//Guard one
                             {
                                 System.out.println("You attack guard one.");
@@ -5204,7 +5212,7 @@ System.out.println("                                      '-' -.\\");
         {
            //Gets players name for charecter then clears screen
            System.out.println("What would you like to name your charecter?");
-           characterName = scanner.next();
+           characterName = input.next();
            System.out.print("\033[H\033[2J");
            System.out.flush(); 
            
@@ -5223,7 +5231,7 @@ System.out.println("                                      '-' -.\\");
            System.out.println("You start with 100Hp and doing 25dmg for standard attacks.");
            System.out.println("Press any key to continue ");
            //Wait until player presses a button
-           moveOn = scanner.next();
+           moveOn = input.next();
            //Clears screen
            System.out.print("\033[H\033[2J");
            System.out.flush();
@@ -5291,7 +5299,7 @@ System.out.println("                                      '-' -.\\");
                    System.out.println("You can either rob it or try to escape");
                    System.out.println("1 to escape");
                    System.out.println("2 to atempt to rob the dragon");
-                   int dragonChoice = scanner.nextInt();
+                   int dragonChoice = input.nextInt();
                    
                    if(dragonChoice == 1)//1 For escape
                    // 1 in 5 chance of freedom 
@@ -5373,7 +5381,7 @@ System.out.println("                                      '-' -.\\");
                                System.out.println("1 for Strong");
                                System.out.println("2 for Standard");
                                System.out.println("3 for Weak");
-                               attackChoice = scanner.nextInt();
+                               attackChoice = input.nextInt();
                                if(attackChoice == 1)
                                {
                                    System.out.println("You choose a strong attack");
@@ -5464,7 +5472,7 @@ System.out.println("                                      '-' -.\\");
                                System.out.println("1 for Strong");
                                System.out.println("2 for Standard");
                                System.out.println("3 for Weak");
-                               attackChoice = scanner.nextInt();
+                               attackChoice = input.nextInt();
                                if(attackChoice == 1)
                                {
                                    System.out.println("You choose a strong attack");
@@ -5567,7 +5575,7 @@ System.out.println("                                      '-' -.\\");
                                System.out.println("1 for Strong");
                                System.out.println("2 for Standard");
                                System.out.println("3 for Weak");
-                               attackChoice = scanner.nextInt();
+                               attackChoice = input.nextInt();
                                if(attackChoice == 1)
                                {
                                    System.out.println("You choose a strong attack");
@@ -5632,7 +5640,7 @@ System.out.println("                                      '-' -.\\");
                    System.out.println("Type 1 to start a brawl.");
                    System.out.println("Type 2 to buy a weapon from a local salesman."); 
                    System.out.println("Type 3 to talk to the guards and get a quest.");
-                   barChoice = scanner.nextInt();
+                   barChoice = input.nextInt();
                    
                    if(barChoice == 1)//Start a brawl
                    {
@@ -5693,7 +5701,7 @@ System.out.println("                                      '-' -.\\");
                        System.out.println("The second quest is to defeat an evil queen.");
                        System.out.println("The third quest is");
                        System.out.println("Which quest do you choose. Type 1, 2, or 3");
-                       questChoice = scanner.nextInt();
+                       questChoice = input.nextInt();
                        if(questChoice == 1)//Defeat smugiling group
                        {
                            
@@ -5843,12 +5851,12 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("Who will you attack?"); //Chooses who will be attacked
                            System.out.println("1 for leader");
                            System.out.println("2 for henchman");
-                           attackTarget = scanner.nextInt();
+                           attackTarget = input.nextInt();
                            System.out.println("What type of attack would you like to use?");
                            System.out.println("1 for Strong");
                            System.out.println("2 for Standard");
                            System.out.println("3 for Weak");
-                           attackChoice = scanner.nextInt();
+                           attackChoice = input.nextInt();
                            if(attackTarget == 1)// Leader
                            {
                                System.out.println("You attack the Leader.");
@@ -6066,12 +6074,12 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("1 for leader");
                            System.out.println("2 for henchman");
                            System.out.println("3 for henchamn 2");
-                           attackTarget = scanner.nextInt();
+                           attackTarget = input.nextInt();
                            System.out.println("What type of attack would you like to use?");
                            System.out.println("1 for Strong");
                            System.out.println("2 for Standard");
                            System.out.println("3 for Weak");
-                           attackChoice = scanner.nextInt();
+                           attackChoice = input.nextInt();
                            if(attackTarget == 1)// Leader
                            {
                                System.out.println("You attack the Leader.");
@@ -6367,12 +6375,12 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("2 for henchman");
                            System.out.println("3 for henchamn 2");
                            System.out.println("4 for henchman 3");
-                           attackTarget = scanner.nextInt();
+                           attackTarget = input.nextInt();
                            System.out.println("What type of attack would you like to use?");
                            System.out.println("1 for Strong");
                            System.out.println("2 for Standard");
                            System.out.println("3 for Weak");
-                           attackChoice = scanner.nextInt();
+                           attackChoice = input.nextInt();
                            if(attackTarget == 1)// Leader
                            {
                                System.out.println("You attack the Leader.");
@@ -6747,12 +6755,12 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("3 for henchamn 2");
                            System.out.println("4 for henchman 3");
                            System.out.println("5 for henchman 4");
-                           attackTarget = scanner.nextInt();
+                           attackTarget = input.nextInt();
                            System.out.println("What type of attack would you like to use?");
                            System.out.println("1 for Strong");
                            System.out.println("2 for Standard");
                            System.out.println("3 for Weak");
-                           attackChoice = scanner.nextInt();
+                           attackChoice = input.nextInt();
                            if(attackTarget == 1)// Leader
                            {
                                System.out.println("You attack the Leader.");
@@ -7073,7 +7081,7 @@ System.out.println("                                      '-' -.\\");
                    System.out.println("1 to go with them willingly.");
                    System.out.println("2 to beg for mercy.");
                    System.out.println("3 to fight back and try to escape.");
-                   townChoice = scanner.nextInt();
+                   townChoice = input.nextInt();
                    if(townChoice == 1)//Go willingly
                    {
                        System.out.println("You go with the gaurds.");
@@ -7227,7 +7235,7 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("1 for Strong attack");
                            System.out.println("2 for Standard attack");
                            System.out.println("3 for Weak attack");
-                           attackChoice = scanner.nextInt();
+                           attackChoice = input.nextInt();
                            System.out.println("Which gaurd will you attack?");
                            System.out.println("Gaurd one " + guardOne.getHP() + "Hp.");
                            System.out.println("Gaurd two " + guardTwo.getHP() + "Hp.");
@@ -7235,7 +7243,7 @@ System.out.println("                                      '-' -.\\");
                            System.out.println("Gaurd four " + guardFour.getHP() + "Hp.");
                            System.out.println("Gaurd five " + guardFive.getHP() + "Hp.");
                            System.out.println("Gaurd six " + guardSix.getHP() + "Hp.");
-                           attackTarget = scanner.nextInt();
+                           attackTarget = input.nextInt();
                            if(attackTarget == 1)//Guard one
                            {
                                System.out.println("You attack guard one.");
@@ -7748,7 +7756,7 @@ System.out.println("                                      '-' -.\\");
         
         
 
-        scanner.close();
+        input.close();
     }
   }
 
