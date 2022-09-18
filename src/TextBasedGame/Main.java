@@ -42,8 +42,9 @@ public class Main {
         boolean startRandom = true;//starts the random number loops
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
+        boolean foughtOnce = false; //Checks if player has fought to give combat explanation
         //create Art
-        Art art = new Art();
+        ArtAndText art = new ArtAndText();
 
 
         //Scanner
@@ -52,16 +53,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         //entrance screen
-        System.out.println(" ____      ____      __                                     ");
-        System.out.println("|_  _|    |_  _|    [  |                                    ");
-        System.out.println("  \\ \\  /\\  / /.---.  | |  .---.   .--.   _ .--..--.  .---.  ");
-        System.out.println("   \\ \\/  \\/ // /__\\\\ | | / /'`\\]/ .'`\\ \\[ `.-. .-. |/ /__\\\\ ");
-        System.out.println("    \\  /\\  / | \\__., | | | \\__. | \\__. | | | | | | || \\__., ");
-        System.out.println("     \\/  \\/   '.__.'[___]'.___.' '.__.' [___||__||__]'.__.' ");
-        System.out.println("Choose a class:");
-        System.out.println("1 for Rogue");//Rogue
-        System.out.println("2 for Palidin");//Paladin
-        System.out.println("3 for Barbarian");//Barbarian
+        art.getWelcomeArt();
         chosenClass = scanner.nextInt();
         //Clears screen
         System.out.print("\033[H\033[2J");
@@ -76,19 +68,12 @@ public class Main {
             System.out.flush(); 
             
             Character rogue = new Character (100, 100, characterName, 15, 40, 0); // Sets HP, Max HP, Name, and initial attack damage can be changed, Max damage, treasures, in order.
-            // For all but change the names currently set up for Rogue
             //Set up the three attacks
             Attack strong = new Attack(25, 50, 10); // Damage, Max damage, weakness
             Attack standard = new Attack(15, 40, 0); // Damage, Max damage, weakness
             Attack weak = new Attack(5, 30, -10); // Damage, Max damage, weakness
-            //Information for player at start of game
-            System.out.println("The objective of the game is to collect 25 artifacts.");//Decide on amount of artifacts
-            System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-            System.out.println("Strong attacks do more damage but leaves you vunerable.");
-            System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-            System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
-            System.out.println("You start with 100Hp and doing 15dmg for standard attacks.");
-            System.out.println("Press any key to continue ");
+            //Information for player at start of game TODO Decide on amount of artifacts
+            art.getGameExplantion();
             //Wait until player presses a button
             moveOn = scanner.next();
             //Clears screen
@@ -122,11 +107,8 @@ public class Main {
                 //EVENTS
                 if(event == 0) //Fight dragon
                 {
-                    System.out.println("You meet a dragon.");
+                    //Start text and picture
                     art.getDragonArt();
-                    System.out.println("You can either rob it or try to escape");
-                    System.out.println("1 to escape");
-                    System.out.println("2 to atempt to rob the dragon");
                     int dragonChoice = scanner.nextInt();
                     
                     if(dragonChoice == 1)//1 For escape
@@ -167,6 +149,9 @@ public class Main {
                         {
                             //Message after failing to escape
                             System.out.println("You fail to ecapse and awake the dragon. You will have to fight him.");
+                            if(!foughtOnce){
+                                art.getCombatExplanation();
+                            }
                             //Wait
                             {try
                             {
@@ -204,10 +189,7 @@ public class Main {
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             //Explanation for player at start of battle
-                            System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-                            System.out.println("Strong attacks do more damage but leaves you vunerable.");
-                            System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-                            System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
+                            art.getCombatExplanation();
                             while(!rogue.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
@@ -270,6 +252,7 @@ public class Main {
                                System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
                                rogue.increaseArtifacts(1); 
                                System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                               foughtOnce = true;
                             }
                         }
                     }
@@ -299,6 +282,9 @@ public class Main {
                             }
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
+                            if(!foughtOnce){
+                                art.getCombatExplanation();
+                            }
                             while(!rogue.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
@@ -361,6 +347,7 @@ public class Main {
                                System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
                                rogue.increaseArtifacts(1); 
                                System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                               foughtOnce = true;
                             }
                         }
                     else //type a number or letter that is not an option 
@@ -375,12 +362,15 @@ public class Main {
                         {
                             Thread.currentThread().interrupt();
                         }
-                        rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                        rogue.kill();//set health to 0 to end loop
                     }
                 }
                 else if(event == 1)//Fight Bear
                 {
                     System.out.println("You are travaling in the forest when you run into an agressive bear.");
+                    if(!foughtOnce){
+                        art.getCombatExplanation();
+                    }
                     //Create bear
                     startRandom = true;
                     while(startRandom == true)
@@ -402,6 +392,7 @@ public class Main {
                         bearAttack += 10;//bears do 10 to 20 dmg                            startRandom = false;
                     }
                     Enemy bear = new Enemy(bearHP, bearAttack); //HP then attack dmg
+
                     while(!rogue.isDead() && !bear.isDead())
                         {
                                 System.out.println("The bear has " + bear.getHP() + " HP.");
@@ -464,15 +455,12 @@ public class Main {
                         System.out.println("Congratulations you beat the bear! You get to keep its artifact.");
                         rogue.increaseArtifacts(.5); 
                         System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                        foughtOnce = true;
                     }
                 }
                 else if(event == 2)//Go into a bar
                 {
-                    System.out.println("You walk into a bar.");
-                    System.out.println("You have three choices,");
-                    System.out.println("Type 1 to start a brawl.");
-                    System.out.println("Type 2 to buy a weapon from a local salesman."); 
-                    System.out.println("Type 3 to talk to the guards and get a quest.");
+                    art.getBarText();
                     barChoice = scanner.nextInt();
                     
                     if(barChoice == 1)//Start a brawl
@@ -495,7 +483,7 @@ public class Main {
                     {
                         System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15.");
                         //Determine the additional damage for the futre.
-                        System.out.println("Attack before addition " + rogue.getAttack());
+                        System.out.println("Attack before addition: " + rogue.getAttack());
                         startRandom = true;
                         while(startRandom == true) 
                         {
@@ -513,7 +501,7 @@ public class Main {
                         }
                         if(rogue.getAttack() <= rogue.getMaxAttack())//If not over max attack damage state attack damage
                         {
-                            System.out.println("New attack damage " + rogue.getAttack());
+                            System.out.println("New attack damage: " + rogue.getAttack());
                         }
                         else if(rogue.getAttack() > rogue.getMaxAttack())//If over max attack damage set to max attack damage and then state attack damage 
                         {
@@ -528,12 +516,7 @@ public class Main {
                     else if(barChoice == 3)// Get quest from guards
                     {
                         //TODO Finish this
-                        System.out.println("You talk to the guards to get a quest.");
-                        System.out.println("He gives you three quests and tells you to choose one.");
-                        System.out.println("The first quest is to take down a smugiling ring.");
-                        System.out.println("The second quest is to defeat an evil queen.");
-                        System.out.println("The third quest is");
-                        System.out.println("Which quest do you choose. Type 1, 2, or 3");
+                        art.getguardQuestText();
                         questChoice = scanner.nextInt();
                         if(questChoice == 1)//Defeat smugiling group
                         {
@@ -677,10 +660,9 @@ public class Main {
                         
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
-                        System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-                        System.out.println("Strong attacks do more damage but leaves you vunerable.");
-                        System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-                        System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
+                        if(!foughtOnce){
+                            art.getCombatExplanation();
+                        }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
@@ -691,10 +673,7 @@ public class Main {
                             System.out.println("1 for leader");
                             System.out.println("2 for henchman");
                             attackTarget = scanner.nextInt();
-                            System.out.println("What type of attack would you like to use?");
-                            System.out.println("1 for Strong");
-                            System.out.println("2 for Standard");
-                            System.out.println("3 for Weak");
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -723,16 +702,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -762,31 +732,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                //Wait
-                                try
-                                {
-                                    Thread.sleep(750);
-                                }
-                                catch(InterruptedException ex)
-                                {
-                                    Thread.currentThread().interrupt();
-                                }
-                                rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                rogue.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -906,10 +858,9 @@ public class Main {
                         
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
-                        System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-                        System.out.println("Strong attacks do more damage but leaves you vunerable.");
-                        System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-                        System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
+                        if(!foughtOnce){
+                            art.getCombatExplanation();
+                        }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
@@ -921,10 +872,7 @@ public class Main {
                             System.out.println("2 for henchman");
                             System.out.println("3 for henchamn 2");
                             attackTarget = scanner.nextInt();
-                            System.out.println("What type of attack would you like to use?");
-                            System.out.println("1 for Strong");
-                            System.out.println("2 for Standard");
-                            System.out.println("3 for Weak");
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -953,16 +901,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -1017,31 +956,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                //Wait
-                                try
-                                {
-                                    Thread.sleep(750);
-                                }
-                                catch(InterruptedException ex)
-                                {
-                                    Thread.currentThread().interrupt();
-                                }
-                                rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                rogue.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -1212,10 +1133,9 @@ public class Main {
                     
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
-                        System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-                        System.out.println("Strong attacks do more damage but leaves you vunerable.");
-                        System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-                        System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
+                        if(!foughtOnce){
+                            art.getCombatExplanation();
+                        }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
@@ -1228,10 +1148,7 @@ public class Main {
                             System.out.println("3 for henchamn 2");
                             System.out.println("4 for henchman 3");
                             attackTarget = scanner.nextInt();
-                            System.out.println("What type of attack would you like to use?");
-                            System.out.println("1 for Strong");
-                            System.out.println("2 for Standard");
-                            System.out.println("3 for Weak");
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -1260,16 +1177,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -1349,31 +1257,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                //Wait
-                                try
-                                {
-                                    Thread.sleep(750);
-                                }
-                                catch(InterruptedException ex)
-                                {
-                                    Thread.currentThread().interrupt();
-                                }
-                                rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                rogue.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -1499,7 +1389,7 @@ public class Main {
                             }
                         }
                     }
-                    else if(goblinFollowersCount == 4)//If 4 followers
+                    else if(goblinFollowersCount == 4)//If 4 followers Maybe Delete
                     {
                         //Creates follower goblin one
                         startRandom = true;
@@ -1596,10 +1486,9 @@ public class Main {
                         
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
-                        System.out.println("Fighting will be turn based, and you have 3 types of attacks strong, standard, and weak.");
-                        System.out.println("Strong attacks do more damage but leaves you vunerable.");
-                        System.out.println("Standard attacks do a normal amount of damage and leaves you in a standard position of defense.");
-                        System.out.println("Weak attacks do less damage but leaves you in a defensive position and so you take less damage.");
+                        if(!foughtOnce){
+                            art.getCombatExplanation();
+                        }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
@@ -1613,10 +1502,7 @@ public class Main {
                             System.out.println("4 for henchman 3");
                             System.out.println("5 for henchman 4");
                             attackTarget = scanner.nextInt();
-                            System.out.println("What type of attack would you like to use?");
-                            System.out.println("1 for Strong");
-                            System.out.println("2 for Standard");
-                            System.out.println("3 for Weak");
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -1645,16 +1531,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -1759,31 +1636,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    //Wait
-                                    try
-                                    {
-                                        Thread.sleep(750);
-                                    }
-                                    catch(InterruptedException ex)
-                                    {
-                                        Thread.currentThread().interrupt();
-                                    }
-                                    rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                    rogue.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                //Wait
-                                try
-                                {
-                                    Thread.sleep(750);
-                                }
-                                catch(InterruptedException ex)
-                                {
-                                    Thread.currentThread().interrupt();
-                                }
-                                rogue.takeDamage(rogue.getMaxHP());//set health to 0 to end loop
+                                rogue.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -1946,12 +1805,7 @@ public class Main {
                 }
                 else if(event == 5)//Fight guards
                 {
-                    System.out.println("You enter a town to rest but the gaurds stop you.");
-                    System.out.println("They belive you to be a criminal and arrest you.");
-                    System.out.println("As they take you to jail you have 3 options.");
-                    System.out.println("1 to go with them willingly.");
-                    System.out.println("2 to beg for mercy.");
-                    System.out.println("3 to fight back and try to escape.");
+                    art.getGuardFightText();
                     townChoice = scanner.nextInt();
                     if(townChoice == 1)//Go willingly
                     {
@@ -2591,34 +2445,35 @@ public class Main {
                     //sleep command
                     try
                     {
-                        Thread.sleep(500);
+                        Thread.sleep(3000);
                     }
                     catch(InterruptedException ex)
                     {
                         Thread.currentThread().interrupt();
                     }
-                    System.out.println("__      __    ____     __    __      ___       ___    _____      __      _  _______ ");
-                    System.out.println(") \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / ");
-                    System.out.println(" \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  ");
-                    System.out.println("  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   ");
-                    System.out.println("   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   ");
-                    System.out.println("    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    ");
-                    System.out.println("   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   ");
-                    System.out.println(moveOn);
+                    //Win screen
+                    art.getYouWin();
+                    //End program
+                    System.exit(1);
                 }
             }
             //Death screen
             {
+                try
+                    {
+                        Thread.sleep(3000);
+                    }
+                    catch(InterruptedException ex)
+                    {
+                        Thread.currentThread().interrupt();
+                    }
+                //Clear screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                System.out.println("          _______             ______  _________ _______  ______   _  ");
-                System.out.println("|\\     /|(  ___  )|\\     /|  (  __  \\ \\__   __/(  ____ \\(  __  \\ ( ) ");
-                System.out.println("( \\   / )| (   ) || )   ( |  | (  \\  )   ) (   | (    \\/| (  \\  )| | ");
-                System.out.println(" \\ (_) / | |   | || |   | |  | |   ) |   | |   | (__    | |   ) || | ");
-                System.out.println("  \\   /  | |   | || |   | |  | |   | |   | |   |  __)   | |   | || | ");
-                System.out.println("   ) (   | |   | || |   | |  | |   ) |   | |   | (      | |   ) |(_) ");
-                System.out.println("   | |   | (___) || (___) |  | (__/  )___) (___| (____/\\| (__/  ) _  "); 
-                System.out.println("   \\_/   (_______)(_______)  (______/ \\_______/(_______/(______/ (_) ");
+                //Death screen
+                art.getYouDied();
+                //End program
+                System.exit(2);
             }
         }
         else if(chosenClass == 2)//Paladin
