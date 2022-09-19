@@ -53,7 +53,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         //entrance screen
-        art.getWelcomeArt();
+        System.out.print(art.getWelcomeArt());
         chosenClass = scanner.nextInt();
         //Clears screen
         System.out.print("\033[H\033[2J");
