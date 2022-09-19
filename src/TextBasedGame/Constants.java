@@ -1,5 +1,5 @@
 package TextBasedGame;
 
 public final class Constants {
-    //public static final
+    public static final int eventUpperBound = 5;  
 }
