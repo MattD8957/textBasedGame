@@ -17,7 +17,7 @@ public class Main {
         int dragonAttack = 1; //This is for class creation
         int attackChoice = 0; // This is to choose your attack
         int bearHP = 0; //This is for class creation
-        int bearAttack = 0; //This is for class creation
+        int bearAttackDMG = 0; //This is for class creation
         int goblinLeaderDamage = 0; //This is for class creation
         int goblinLeaderHealth = 0; //This is for class creation
         int goblinFollowersCount = 0; //This is for if that creates goblins
@@ -92,7 +92,6 @@ public class Main {
                     Thread.currentThread().interrupt();
                 }
                 }
-                startRandom = true;
                 event = randomNum.randomNumber(Constants.eventUpperBound);
                 //Clears screen
                 System.out.print("\033[H\033[2J");
@@ -118,6 +117,7 @@ public class Main {
                             escapeChance = rand.nextInt(upperbound);//generates number 0 to 4
                             startRandom = false;
                         } 
+                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChance)
                         if(escapeChance == 0)//escape succesfully
                         {
                             System.out.println("You succesfully escape and can continue your journey.");
@@ -158,12 +158,10 @@ public class Main {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
                             //Fight dragon same code as below
-                                //generate dragon Hp 10-75 
                             dragonHP = randomNum.randomNumber(Constants.dragonHPUpperBound);
                             dragonHP += 10;//Dragon health 10 - 75
-                                //Geerates dragon attack dmg 20 - 35
-                            dragonAttack = randomNum.randomNumber(Constants.dragonAttackDamageUpperBound);
-                            dragonAttack += 20;
+                            dragonAttack = randomNum.randomNumber(Constants.dragonAttackDMGUpperBound);
+                            dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             //Explanation for player at start of battle
@@ -194,7 +192,7 @@ public class Main {
                                     System.out.println("You do " + weak.getAttackDamage() + " damage.");
                                     System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
                                 }
-                                if(!dragon.isDead())//If still alive dragons turn
+                                if(!dragon.isDead())//If still alive dragon's turn
                                 {
                                     //To determine which attack was used and so what buff
                                     if(attackChoice == 1)//Strong attack
@@ -235,27 +233,10 @@ public class Main {
                     else if(dragonChoice == 2)//To rob the dragon
                     {
                         //Fight dragon same code as above
-                        //generate dragon Hp 10-75 
-                            startRandom = true;
-                            while(startRandom == true)
-                            { 
-                                //generates dragon HP
-                                Random rand = new Random();//creates random class
-                                upperbound = 66; //sets upperbound = to 66
-                                dragonHP = rand.nextInt(upperbound);//generates number 0 to 65
-                                startRandom = false;
-                                dragonHP += 10;//Dragon health 10 - 75
-                            }
-                            startRandom = true;
-                            while(startRandom == true)
-                            { 
-                                //generates dragons attack
-                                Random rand = new Random();//creates random class
-                                upperbound = 16; //sets upperbound = to 16, 
-                                dragonAttack = rand.nextInt(upperbound);//generates number 0 to 15
-                                dragonAttack += 20;
-                                startRandom = false;
-                            }
+                        dragonHP = randomNum.randomNumber(Constants.dragonHPUpperBound);
+                        dragonHP += 10;//Dragon health 10 - 75
+                        dragonAttack = randomNum.randomNumber(Constants.dragonAttackDMGUpperBound);
+                        dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             if(!foughtOnce){
@@ -287,7 +268,7 @@ public class Main {
                                     System.out.println("You do " + weak.getAttackDamage() + " damage.");
                                     System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
                                 }
-                                if(!dragon.isDead())//If still alive dragons turn
+                                if(!dragon.isDead())//If still alive dragon's turn
                                 {
                                     //To determine which attack was used and so what buff
                                     if(attackChoice == 1)//Strong attack
@@ -337,26 +318,11 @@ public class Main {
                         System.out.print(art.getCombatExplanation());
                     }
                     //Create bear
-                    startRandom = true;
-                    while(startRandom == true)
-                    { 
-                        //generates bear's HP
-                        Random rand = new Random();//creates random class
-                        upperbound = 26; //sets upperbound = to 26
-                        bearHP = rand.nextInt(upperbound);//generates number 0 to 25
-                        startRandom = false;
-                        bearHP += 20;//bear health 20 - 45
-                    }
-                    startRandom = true;
-                    while(startRandom == true)
-                    { 
-                        //generates bear's attack
-                        Random rand = new Random();//creates random class
-                        upperbound = 11; //sets upperbound = to 11, 
-                        bearAttack = rand.nextInt(upperbound);//generates number 0 to 10
-                        bearAttack += 10;//bears do 10 to 20 dmg                            startRandom = false;
-                    }
-                    Enemy bear = new Enemy(bearHP, bearAttack); //HP then attack dmg
+                    bearHP = randomNum.randomNumber(Constants.bearHPUpperBound);
+                    bearHP += 20;//bear health 20 - 45
+                    bearAttackDMG = randomNum.randomNumber(Constants.bearAttackDMGUpperBound);
+                    bearAttackDMG += 10;//bears do 10 to 20 dmg
+                    Enemy bear = new Enemy(bearHP, bearAttackDMG); //HP then attack dmg
 
                     while(!rogue.isDead() && !bear.isDead())
                         {
@@ -430,14 +396,7 @@ public class Main {
                     {
                         System.out.println("You decide to start a brawl");
                         //Determine amount of damage taken.
-                        startRandom = true;
-                        while(startRandom == true) 
-                        {
-                            Random rand = new Random();//creates random class
-                            upperbound = 21; //sets upperbound = to 20
-                            damageTaken = rand.nextInt(upperbound);//generates number 0 to 20
-                            startRandom = false;
-                        }
+                        damageTaken = randomNum.randomNumber(Constants.barFightDMGTakenUpperBound);
                         System .out.println("In the fight you take " + damageTaken + " damage.");
                         rogue.takeDamage(damageTaken);
                         System.out.println("You now have " + rogue.getHP() + " HP.");
@@ -446,22 +405,14 @@ public class Main {
                     {
                         System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15.");
                         //Determine the additional damage for the futre.
-                        System.out.println("Attack before addition: " + rogue.getAttack());
-                        startRandom = true;
-                        while(startRandom == true) 
-                        {
-                            Random rand = new Random();//creates random class
-                            upperbound = 15; //sets upperbound to 15
-                            atk = rand.nextInt(upperbound);//generates number 0 to 14
+                        System.out.println("Attack before addition: " + rogue.getAttack()); 
+                            atk = randomNum.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
                             atk ++;
                             //incerase attack damage
                             rogue.increaseAttack(atk);
                             strong.increaseAttackDamage(atk);
                             standard.increaseAttackDamage(atk);
                             weak.increaseAttackDamage(atk);
-                            
-                            startRandom = false;
-                        }
                         if(rogue.getAttack() <= rogue.getMaxAttack())//If not over max attack damage state attack damage
                         {
                             System.out.println("New attack damage: " + rogue.getAttack());
@@ -525,10 +476,12 @@ public class Main {
                         Random rand = new Random();//creates random class
                         upperbound = 41; //sets upperbound = to 40
                         amountHealed = rand.nextInt(upperbound);//generates number 0 to 40
-                        amountHealed += 10;
+                        
                         System.out.println("He heals you " + amountHealed + "HP");
                         startRandom = false;
                     }
+                    randomNum.randomNumber(Constants.doctorAmountHealed);
+                    amountHealed += 10;
                     if (rogue.heal(amountHealed) < rogue.getMaxHP())//If not over max health state new health.
                     {
                         System.out.println("Your new health is " + rogue.getHP());
