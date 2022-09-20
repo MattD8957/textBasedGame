@@ -158,27 +158,12 @@ public class Main {
                             System.out.print("\033[H\033[2J");
                             System.out.flush();
                             //Fight dragon same code as below
-                            //generate dragon Hp 10-75 
-                            startRandom = true;
-                            while(startRandom == true)
-                            { 
-                                //generates dragon HP
-                                Random rand = new Random();//creates random class
-                                upperbound = 66; //sets upperbound = to 66
-                                dragonHP = rand.nextInt(upperbound);//generates number 0 to 65
-                                startRandom = false;
-                                dragonHP += 10;//Dragon health 10 - 75
-                            }
-                            startRandom = true;
-                            while(startRandom == true)
-                            { 
-                                //generates dragons attack
-                                Random rand = new Random();//creates random class
-                                upperbound = 16; //sets upperbound = to 16, 
-                                dragonAttack = rand.nextInt(upperbound);//generates number 0 to 15
-                                dragonAttack += 20;
-                                startRandom = false;
-                            }
+                                //generate dragon Hp 10-75 
+                            dragonHP = randomNum.randomNumber(Constants.dragonHPUpperBound);
+                            dragonHP += 10;//Dragon health 10 - 75
+                                //Geerates dragon attack dmg 20 - 35
+                            dragonAttack = randomNum.randomNumber(Constants.dragonAttackDamageUpperBound);
+                            dragonAttack += 20;
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             //Explanation for player at start of battle
