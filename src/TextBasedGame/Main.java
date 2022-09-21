@@ -20,7 +20,7 @@ public class Main {
         int bearAttackDMG = 0; //This is for class creation
         int goblinLeaderDamage = 0; //This is for class creation
         int goblinLeaderHealth = 0; //This is for class creation
-        int goblinFollowersCount = 0; //This is for if that creates goblins
+        int goblinFollowerCount = 0; //This is for if that creates goblins
         int goblinFollowerOneHealth = 0; //This is for class creation
         int goblinFollowerOneDamage = 0; //This is for class creation
         int goblinFollowerTwoHealth = 0; //This is for class creation
@@ -117,7 +117,7 @@ public class Main {
                             escapeChance = rand.nextInt(upperbound);//generates number 0 to 4
                             startRandom = false;
                         } 
-                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChance)
+                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChance);
                         if(escapeChance == 0)//escape succesfully
                         {
                             System.out.println("You succesfully escape and can continue your journey.");
@@ -470,17 +470,7 @@ public class Main {
                         Thread.currentThread().interrupt();
                     }
                     //decide on amount healed 10-50
-                    startRandom = true;
-                    while(startRandom == true) 
-                    {
-                        Random rand = new Random();//creates random class
-                        upperbound = 41; //sets upperbound = to 40
-                        amountHealed = rand.nextInt(upperbound);//generates number 0 to 40
-                        
-                        System.out.println("He heals you " + amountHealed + "HP");
-                        startRandom = false;
-                    }
-                    randomNum.randomNumber(Constants.doctorAmountHealed);
+                    randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
                     amountHealed += 10;
                     if (rogue.heal(amountHealed) < rogue.getMaxHP())//If not over max health state new health.
                     {
@@ -494,75 +484,33 @@ public class Main {
                 }
                 else if(event == 4)//Goblin horde
                 {
-                    System.out.println("You are travaling and a group of golblins is trying to rob you.");
-                    //Create the golblins
+                    System.out.println("You are travaling and a group of goblins is trying to rob you.");
+                    //Create the goblins
                     //Create leader Goblin
-                    startRandom = true;
-                    while(startRandom == true)
-                    {
-                        //Random number to get Leader damage
-                        Random rand = new Random();//creates random class
-                        upperbound = 16; //sets upperbound to 16
-                        goblinLeaderDamage = rand.nextInt(upperbound);//generates number 0 to 15
-                        goblinLeaderDamage += 10;
-                        startRandom = false;
-                    } 
-                    startRandom = true;
-                    while(startRandom == true)
-                    {
-                        //Random number to get Leader health
-                        Random rand = new Random();//creates random class
-                        upperbound = 26; //sets upperbound = to 26, needs to be one greater than desired amount
-                        goblinLeaderHealth = rand.nextInt(upperbound);//generates number 0 to 25
-                        goblinLeaderHealth += 20;
-                        startRandom = false;
-                    }   
+                    goblinLeaderDamage = randomNum.randomNumber(Constants.goblinLeaderDMGUpperBound);
+                    goblinLeaderDamage += 10;
+                    goblinLeaderHealth = randomNum.randomNumber(Constants.goblinLeaderHealthUpperBound);
+                    goblinLeaderHealth += 20; //20 - 45 HP
                     Enemy goblinLeader = new Enemy (goblinLeaderHealth, goblinLeaderDamage);//Hp, Attack dmg
                     
                     //Random number to get amount of follower goblins
-                    startRandom = true;
-                    while(startRandom == true)
-                    {
-                        //Random number to get amount of goblin followers
-                        Random rand = new Random();//creates random class
-                        upperbound = 4; //sets upperbound = to 3
-                        goblinFollowersCount = rand.nextInt(upperbound);//generates number 0 to 3
-                        goblinFollowersCount ++;//Makes range 1 - 4
-                        startRandom = false;
-                    } 
-                    
-                    if(goblinFollowersCount == 1)//If 1 follower
+                    goblinFollowerCount = randomNum.randomNumber(Constants.goblinFollowerCountUpperBound);
+                    goblinFollowerCount ++;//Makes range 1 - 4
+                    if(goblinFollowerCount == 1)//If 1 follower
                     {
                         //Creates follower goblin one
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerOne damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerOneDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllowerOne health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerOneHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerOneDMGUpperBound);
+                        goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerOneHealth = randomNum.randomNumber(Constants.goblinFollowerOneHealthUpperBound);
+                        goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerOne = new Enemy (goblinFollowerOneHealth, goblinFollowerOneDamage); // creates Goblin follower 1
-                        
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
                         if(!foughtOnce){
                             System.out.print(art.getCombatExplanation());
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
+                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His follower has " + goblinFollowerOne.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!rogue.isDead() && !goblinsAreDead)
@@ -706,7 +654,7 @@ public class Main {
                             }
                         }
                     }
-                    else if(goblinFollowersCount == 2)//If 2 followers Copy but add one more loop
+                    else if(goblinFollowerCount == 2)//If 2 followers Copy but add one more loop
                     {
                         //Creates follower goblin one
                         startRandom = true;
@@ -760,7 +708,7 @@ public class Main {
                             System.out.print(art.getCombatExplanation());
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
+                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!rogue.isDead() && !goblinsAreDead)
@@ -958,7 +906,7 @@ public class Main {
                             }
                         }
                     }
-                    else if(goblinFollowersCount == 3)//If 3 followers
+                    else if(goblinFollowerCount == 3)//If 3 followers
                     {
                         //Creates follower goblin one
                         startRandom = true;
@@ -1035,7 +983,7 @@ public class Main {
                             System.out.print(art.getCombatExplanation());
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
+                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!rogue.isDead() && !goblinsAreDead)
@@ -1747,7 +1695,7 @@ public class Main {
                             courtSentancing = rand.nextInt(upperbound);//generates number 0 to 30
                             startRandom = false;
                         }
-                        System.out.println("The trial passes and at the end you are sentaced.");
+                        System.out.println("The trial passes and at the end you are sentenced.");
                         //Chances out of 30
                         // Fine 15 in 31
                         // Jail 10 in 31
@@ -1764,7 +1712,7 @@ public class Main {
                                 fine = rand.nextInt(upperbound);//generates number 0 to 5
                                 startRandom = false;
                             }
-                            System.out.println("You are sentanced to pay a fine of " + fine + " artifacts.");
+                            System.out.println("You are sentenced to pay a fine of " + fine + " artifacts.");
                             fine *= -1;
                             rogue.increaseArtifacts(fine);
                             System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
@@ -1772,7 +1720,7 @@ public class Main {
                         else if((courtSentancing >= 15) && (courtSentancing <= 24))//Jail
                         {
                             //Jail time take dmg 0 - 10
-                            System.out.println("You are then sentanced to one year in jail");
+                            System.out.println("You are then sentenced to one year in jail");
                             startRandom = true;
                             while(startRandom == true) //Random number to get Event
                             {
@@ -2345,7 +2293,7 @@ public class Main {
                 {
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
-                    System.out.println("Congradulations " + characterName);
+                    System.out.println("Congratulations " + characterName);
                     //sleep command
                     try
                     {

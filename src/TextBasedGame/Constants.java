@@ -14,4 +14,15 @@ public final class Constants {
     public static final int barAttackDMGIncreaseUpperBound = 15;
     //Doctor Constants
     public static final int doctorAmountHealedUpperBound = 41;
+    //Goblin Horde
+    public static final int goblinLeaderDMGUpperBound = 16;
+    public static final int goblinLeaderHealthUpperBound = 25;
+    public static final int goblinFollowerCountUpperBound = 4;
+    public static final int goblinFollowerOneDMGUpperBound = 5;
+    public static final int goblinFollowerOneHealthUpperBound = 11;
+    /*public static final int goblinFollower;
+    public static final int goblinFollower;
+    public static final int goblinFollower;
+    public static final int goblinFollower;
+    public static final int goblinFollower;*/
 }
