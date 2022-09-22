@@ -6,12 +6,12 @@ import javax.lang.model.util.ElementScanner6;
 
 public class Main {
     public static void main(String args[]) {
-        //Charecter creation
-        int charecterHPCreation = 0;
-        int charecterMaxHPCreation = 0;
-        int charecterStandardAtackCreation = 0;
-        int charecterMaxAttackCreation = 0;
-        int charecterStartingTreasureCreation = 0;
+        //Character creation
+        int CharacterHPCreation = 0;
+        int CharacterMaxHPCreation = 0;
+        int CharacterStandardAtackCreation = 0;
+        int CharacterMaxAttackCreation = 0;
+        int CharacterStartingTreasureCreation = 0;
         int characterAttackStrongDMG = 0;
         int characterAttackStandardDMG = 0;
         int characterAttackWeakDMG = 0;
@@ -75,19 +75,19 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         
-        //Gets players name for charecter then clears screen
-        System.out.println("What would you like to name your charecter?");
+        //Gets players name for Character then clears screen
+        System.out.println("What would you like to name your Character?");
         characterName = scanner.next();
         System.out.print("\033[H\033[2J");
         System.out.flush();
         if(chosenClass == 1)//Rogue
         {
-            //Charecter Attributes
-            charecterHPCreation = 100;
-            charecterMaxHPCreation = 100;
-            charecterStandardAtackCreation = 15;
-            charecterMaxAttackCreation = 30;
-            charecterStartingTreasureCreation = 0;
+            //Character Attributes
+            CharacterHPCreation = 100;
+            CharacterMaxHPCreation = 100;
+            CharacterStandardAtackCreation = 15;
+            CharacterMaxAttackCreation = 30;
+            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 25;
             characterAttackStrongMaxDMG = 45;
@@ -103,12 +103,12 @@ public class Main {
         }
         else if(chosenClass == 2) //Paladin
         {
-            //Charecter Attributes
-            charecterHPCreation = 100;
-            charecterMaxHPCreation = 100;
-            charecterStandardAtackCreation = 15;
-            charecterMaxAttackCreation = 30;
-            charecterStartingTreasureCreation = 0;
+            //Character Attributes
+            CharacterHPCreation = 100;
+            CharacterMaxHPCreation = 100;
+            CharacterStandardAtackCreation = 15;
+            CharacterMaxAttackCreation = 30;
+            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 25;
             characterAttackStrongMaxDMG = 45;
@@ -124,12 +124,12 @@ public class Main {
         }
         else if(chosenClass == 3) //Barbarian
         {
-            //Charecter Attributes
-            charecterHPCreation = 100;
-            charecterMaxHPCreation = 100;
-            charecterStandardAtackCreation = 15;
-            charecterMaxAttackCreation = 30;
-            charecterStartingTreasureCreation = 0;
+            //Character Attributes
+            CharacterHPCreation = 100;
+            CharacterMaxHPCreation = 100;
+            CharacterStandardAtackCreation = 15;
+            CharacterMaxAttackCreation = 30;
+            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 25;
             characterAttackStrongMaxDMG = 45;
@@ -148,8 +148,8 @@ public class Main {
             System.out.println("You failed to make a selection try again.");  
             System.exit(0);
         }
-        //CREATE the charecter
-            Character character = new Character(charecterHPCreation, charecterMaxHPCreation, characterName, charecterStandardAtackCreation, charecterMaxAttackCreation, charecterStartingTreasureCreation);
+        //CREATE the Character
+            Character character = new Character(CharacterHPCreation, CharacterMaxHPCreation, characterName, CharacterStandardAtackCreation, CharacterMaxAttackCreation, CharacterStartingTreasureCreation);
             Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongWeakness); // Damage, Max damage, weakness
             Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardWeakness); // Damage, Max damage, weakness
             Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
