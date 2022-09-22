@@ -2,9 +2,26 @@ package TextBasedGame;
 import java.util.*;
 import java.util.Random;
 
+import javax.lang.model.util.ElementScanner6;
+
 public class Main {
     public static void main(String args[]) {
-
+        //Charecter creation
+        int charecterHPCreation = 0;
+        int charecterMaxHPCreation = 0;
+        int charecterStandardAtackCreation = 0;
+        int charecterMaxAttackCreation = 0;
+        int charecterStartingTreasureCreation = 0;
+        int characterAttackStrongDMG = 0;
+        int characterAttackStandardDMG = 0;
+        int characterAttackWeakDMG = 0;
+        int characterAttackStrongMaxDMG = 0;
+        int characterAttackStandardMaxDMG = 0;
+        int characterAttackWeakMaxDMG = 0;
+        int characterAttackStrongWeakness = 10;
+        int characterAttackStandardWeakness = 0;
+        int characterAttackWeakWeakness = -10;
+        //Rest of Game
         String moveOn = "Hi!"; //Player imputs when to continue
         String characterName; //gets the name the player wants for the player 
         int upperbound = 0;//sets the upperbound of Randoms 
@@ -58,34 +75,101 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
         
+        //Gets players name for charecter then clears screen
+        System.out.println("What would you like to name your charecter?");
+        characterName = scanner.next();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         if(chosenClass == 1)//Rogue
         {
-            //Gets players name for charecter then clears screen
-            System.out.println("What would you like to name your charecter?");
-            characterName = scanner.next();
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); 
-            
-            Character rogue = new Character (100, 100, characterName, 15, 40, 0); // Sets HP, Max HP, Name, and initial attack damage can be changed, Max damage, treasures, in order.
-            //Set up the three attacks
-            Attack strong = new Attack(25, 50, 10); // Damage, Max damage, weakness
-            Attack standard = new Attack(15, 40, 0); // Damage, Max damage, weakness
-            Attack weak = new Attack(5, 30, -10); // Damage, Max damage, weakness
-            //Information for player at start of game TODO Decide on amount of artifacts
-            System.out.print(art.getGameExplantion());
-            //Wait until player presses a button
-            moveOn = scanner.next();
-            //Clears screen
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            //Charecter Attributes
+            charecterHPCreation = 100;
+            charecterMaxHPCreation = 100;
+            charecterStandardAtackCreation = 15;
+            charecterMaxAttackCreation = 30;
+            charecterStartingTreasureCreation = 0;
+            //Strong Attack Atributes
+            characterAttackStrongDMG = 25;
+            characterAttackStrongMaxDMG = 45;
+            characterAttackStrongWeakness = 10;
+            //Standard Attack Atributes
+            characterAttackStandardDMG = 15;
+            characterAttackStandardMaxDMG = 35;
+            characterAttackStandardWeakness = 0;
+            //Weak Attack Atributes
+            characterAttackWeakDMG = 5;
+            characterAttackWeakMaxDMG = 25;
+            characterAttackWeakWeakness = -10;
+        }
+        else if(chosenClass == 2) //Paladin
+        {
+            //Charecter Attributes
+            charecterHPCreation = 100;
+            charecterMaxHPCreation = 100;
+            charecterStandardAtackCreation = 15;
+            charecterMaxAttackCreation = 30;
+            charecterStartingTreasureCreation = 0;
+            //Strong Attack Atributes
+            characterAttackStrongDMG = 25;
+            characterAttackStrongMaxDMG = 45;
+            characterAttackStrongWeakness = 10;
+            //Standard Attack Atributes
+            characterAttackStandardDMG = 15;
+            characterAttackStandardMaxDMG = 35;
+            characterAttackStandardWeakness = 0;
+            //Weak Attack Atributes
+            characterAttackWeakDMG = 5;
+            characterAttackWeakMaxDMG = 25;
+            characterAttackWeakWeakness = -10;
+        }
+        else if(chosenClass == 3) //Barbarian
+        {
+            //Charecter Attributes
+            charecterHPCreation = 100;
+            charecterMaxHPCreation = 100;
+            charecterStandardAtackCreation = 15;
+            charecterMaxAttackCreation = 30;
+            charecterStartingTreasureCreation = 0;
+            //Strong Attack Atributes
+            characterAttackStrongDMG = 25;
+            characterAttackStrongMaxDMG = 45;
+            characterAttackStrongWeakness = 10;
+            //Standard Attack Atributes
+            characterAttackStandardDMG = 15;
+            characterAttackStandardMaxDMG = 35;
+            characterAttackStandardWeakness = 0;
+            //Weak Attack Atributes
+            characterAttackWeakDMG = 5;
+            characterAttackWeakMaxDMG = 25;
+            characterAttackWeakWeakness = -10;
+        }
+        else
+        {
+            System.out.println("You failed to make a selection try again.");  
+            System.exit(0);
+        }
+        //CREATE the charecter
+            Character character = new Character(charecterHPCreation, charecterMaxHPCreation, characterName, charecterStandardAtackCreation, charecterMaxAttackCreation, charecterStartingTreasureCreation);
+            Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongWeakness); // Damage, Max damage, weakness
+            Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardWeakness); // Damage, Max damage, weakness
+            Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
+        
+
+        //Information for player at start of game TODO Decide on amount of artifacts
+        System.out.print(art.getGameExplantion());
+        //Wait until player presses a button
+        moveOn = scanner.next();
+        //Clears screen
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
 
             //Start game loop
-            while(!rogue.isDead())
+            while(!character.isDead())
             { 
                 //sleep command
                 {try
                 {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                 }
                 catch(InterruptedException ex)
                 {
@@ -108,15 +192,6 @@ public class Main {
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
                     {
-                        startRandom = true;
-                        while(startRandom == true)
-                        { 
-                            //generates percent chances
-                            Random rand = new Random();//creates random class
-                            upperbound = 5; //sets upperbound = to 4, needs to be one greater than desired amount
-                            escapeChance = rand.nextInt(upperbound);//generates number 0 to 4
-                            startRandom = false;
-                        } 
                         escapeChance = randomNum.randomNumber(Constants.dragonEscapeChance);
                         if(escapeChance == 0)//escape succesfully
                         {
@@ -133,9 +208,9 @@ public class Main {
                             damageTaken = rand.nextInt(upperbound);//generates number 0 to 10
                             startRandom = false;
                         }
-                            rogue.takeDamage(damageTaken);
+                            character.takeDamage(damageTaken);
                             System.out.println("On your way out you fall and take some damage.");
-                            System.out.println("You succesfully escape only taking " + damageTaken + " damge, you now have " + rogue.getHP() + "HP.");
+                            System.out.println("You succesfully escape only taking " + damageTaken + " damge, you now have " + character.getHP() + "HP.");
                             System.out.println("You leave and continue your journey.");
                         }
                         else if((escapeChance == 3) || (escapeChance == 4))//You fail to escape and have to fight the dragon
@@ -166,7 +241,7 @@ public class Main {
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             //Explanation for player at start of battle
                             System.out.print(art.getCombatExplanation());
-                            while(!rogue.isDead() && !dragon.isDead())
+                            while(!character.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
                                 System.out.print(art.getAttackTypeChoiceText());
@@ -198,19 +273,19 @@ public class Main {
                                     if(attackChoice == 1)//Strong attack
                                     {
                                         damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 2)//Standard attack
                                     {
                                         damageTaken = dragon.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 3)//Weak attack
                                     {
                                         damageTaken = dragon.getAttack() + weak.getAttackPenalty();
                                         if(damageTaken >= 0)//Positive attack
                                         {
-                                           rogue.takeDamage(damageTaken); 
+                                           character.takeDamage(damageTaken); 
                                         }
                                         else if(damageTaken < 0)//negative attack
                                         {
@@ -218,14 +293,14 @@ public class Main {
                                         }
                                     }
                                     System.out.println("The dragon attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + rogue.getHP() + " HP.");
+                                    System.out.println("You now have " + character.getHP() + " HP.");
                                 }
                             }
                             if(dragon.isDead())//After loop ends if Dragon died
                             {
                                System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
-                               rogue.increaseArtifacts(1); 
-                               System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                               character.increaseArtifacts(1); 
+                               System.out.println("You now have " + character.getArtifact() + " artifacts.");
                                foughtOnce = true;
                             }
                         }
@@ -242,7 +317,7 @@ public class Main {
                             if(!foughtOnce){
                                 System.out.print(art.getCombatExplanation());
                             }
-                            while(!rogue.isDead() && !dragon.isDead())
+                            while(!character.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
                                 System.out.print(art.getAttackTypeChoiceText());
@@ -274,19 +349,19 @@ public class Main {
                                     if(attackChoice == 1)//Strong attack
                                     {
                                         damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 2)//Standard attack
                                     {
                                         damageTaken = dragon.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 3)//Weak attack
                                     {
                                         damageTaken = dragon.getAttack() + weak.getAttackPenalty();
                                         if(damageTaken >= 0)//Positive attack
                                         {
-                                           rogue.takeDamage(damageTaken); 
+                                           character.takeDamage(damageTaken); 
                                         }
                                         else if(damageTaken < 0)//negative attack
                                         {
@@ -294,21 +369,21 @@ public class Main {
                                         }
                                     }
                                     System.out.println("The dragon attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + rogue.getHP() + " HP.");
+                                    System.out.println("You now have " + character.getHP() + " HP.");
                                 }
                             }
                             if(dragon.isDead())//After loop ends if Dragon died
                             {
                                System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
-                               rogue.increaseArtifacts(1); 
-                               System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                               character.increaseArtifacts(1); 
+                               System.out.println("You now have " + character.getArtifact() + " artifacts.");
                                foughtOnce = true;
                             }
                         }
                     else //type a number or letter that is not an option 
                     {
                         System.out.println("You failed to make a selection.");
-                        rogue.kill();//set health to 0 to end loop
+                        character.kill();//set health to 0 to end loop
                     }
                 }
                 else if(event == 1)//Fight Bear
@@ -324,7 +399,7 @@ public class Main {
                     bearAttackDMG += 10;//bears do 10 to 20 dmg
                     Enemy bear = new Enemy(bearHP, bearAttackDMG); //HP then attack dmg
 
-                    while(!rogue.isDead() && !bear.isDead())
+                    while(!character.isDead() && !bear.isDead())
                         {
                                 System.out.println("The bear has " + bear.getHP() + " HP.");
                                 System.out.print(art.getAttackTypeChoiceText());
@@ -356,19 +431,19 @@ public class Main {
                                     if(attackChoice == 1)//Strong attack
                                     {
                                         damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 2)//Standard attack
                                     {
                                         damageTaken = bear.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                     }
                                     else if(attackChoice == 3)//Weak attack
                                     {
                                         damageTaken = bear.getAttack() + weak.getAttackPenalty();
                                         if(damageTaken >= 0)//Positive attack
                                         {
-                                           rogue.takeDamage(damageTaken); 
+                                           character.takeDamage(damageTaken); 
                                         }
                                         else if(damageTaken < 0)//negative attack
                                         {
@@ -376,14 +451,14 @@ public class Main {
                                         }
                                     }
                                     System.out.println("The bear attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + rogue.getHP() + " HP.");
+                                    System.out.println("You now have " + character.getHP() + " HP.");
                                 }
                             }
                     if(bear.isDead())//After loop ends if Bear died
                     {
                         System.out.println("Congratulations you beat the bear! You get to keep its artifact.");
-                        rogue.increaseArtifacts(.5); 
-                        System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                        character.increaseArtifacts(.5); 
+                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
                         foughtOnce = true;
                     }
                 }
@@ -398,32 +473,32 @@ public class Main {
                         //Determine amount of damage taken.
                         damageTaken = randomNum.randomNumber(Constants.barFightDMGTakenUpperBound);
                         System .out.println("In the fight you take " + damageTaken + " damage.");
-                        rogue.takeDamage(damageTaken);
-                        System.out.println("You now have " + rogue.getHP() + " HP.");
+                        character.takeDamage(damageTaken);
+                        System.out.println("You now have " + character.getHP() + " HP.");
                     }
                     else if(barChoice == 2)//Buy a weapon
                     {
                         System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15.");
                         //Determine the additional damage for the futre.
-                        System.out.println("Attack before addition: " + rogue.getAttack()); 
+                        System.out.println("Attack before addition: " + character.getAttack()); 
                             atk = randomNum.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
                             atk ++;
                             //incerase attack damage
-                            rogue.increaseAttack(atk);
+                            character.increaseAttack(atk);
                             strong.increaseAttackDamage(atk);
                             standard.increaseAttackDamage(atk);
                             weak.increaseAttackDamage(atk);
-                        if(rogue.getAttack() <= rogue.getMaxAttack())//If not over max attack damage state attack damage
+                        if(character.getAttack() <= character.getMaxAttack())//If not over max attack damage state attack damage
                         {
-                            System.out.println("New attack damage: " + rogue.getAttack());
+                            System.out.println("New attack damage: " + character.getAttack());
                         }
-                        else if(rogue.getAttack() > rogue.getMaxAttack())//If over max attack damage set to max attack damage and then state attack damage 
+                        else if(character.getAttack() > character.getMaxAttack())//If over max attack damage set to max attack damage and then state attack damage 
                         {
-                            rogue.setMaxAttack();
+                            character.setMaxAttack();
                             strong.setMaxAttackDamage();
                             standard.setMaxAttackDamage();
                             weak.setMaxAttackDamage();
-                            System.out.println("New attack damage " + rogue.getAttack());
+                            System.out.println("New attack damage " + character.getAttack());
                             
                         }
                     }
@@ -447,13 +522,13 @@ public class Main {
                         else
                         {
                             System.out.println("You failed to make a selection.");
-                            rogue.kill();//set health to 0 to end loop
+                            character.kill();//set health to 0 to end loop
                         }
                     }
                     else // type a number or letter that is not an option 
                     {
                         System.out.println("You failed to make a selection.");
-                        rogue.kill();//set health to 0 to end loop
+                        character.kill();//set health to 0 to end loop
                     }
                 }
                 else if(event == 3)//Go to a doctor
@@ -472,14 +547,14 @@ public class Main {
                     //decide on amount healed 10-50
                     randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
                     amountHealed += 10;
-                    if (rogue.heal(amountHealed) < rogue.getMaxHP())//If not over max health state new health.
+                    if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
                     {
-                        System.out.println("Your new health is " + rogue.getHP());
+                        System.out.println("Your new health is " + character.getHP());
                     }
-                    else if (rogue.heal(amountHealed) > rogue.getMaxHP())//When over max health says so and set to max
+                    else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
                     {
-                        rogue.setMaxHP();
-                        System.out.println("Your new health is " + rogue.getHP());    
+                        character.setMaxHP();
+                        System.out.println("Your new health is " + character.getHP());    
                     }
                 }
                 else if(event == 4)//Goblin horde
@@ -495,13 +570,13 @@ public class Main {
                     
                     //Random number to get amount of follower goblins
                     goblinFollowerCount = randomNum.randomNumber(Constants.goblinFollowerCountUpperBound);
-                    goblinFollowerCount ++;//Makes range 1 - 4
+                    goblinFollowerCount ++;//Makes range 1 - 3
                     if(goblinFollowerCount == 1)//If 1 follower
                     {
                         //Creates follower goblin one
-                        goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerOneDMGUpperBound);
+                        goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
                         goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
-                        goblinFollowerOneHealth = randomNum.randomNumber(Constants.goblinFollowerOneHealthUpperBound);
+                        goblinFollowerOneHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
                         goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerOne = new Enemy (goblinFollowerOneHealth, goblinFollowerOneDamage); // creates Goblin follower 1
                         //Start fight Same in every if statment for amount of followers
@@ -513,7 +588,7 @@ public class Main {
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His follower has " + goblinFollowerOne.getHP() + " Hp.");//Add per the amount of hench henchmen
-                        while(!rogue.isDead() && !goblinsAreDead)
+                        while(!character.isDead() && !goblinsAreDead)
                         {
                             System.out.println("Who will you attack?"); //Chooses who will be attacked
                             System.out.println("1 for leader");
@@ -548,7 +623,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -578,13 +653,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                rogue.kill();//set health to 0 to end loop
+                                character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -593,19 +668,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -613,7 +688,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -621,19 +696,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -641,7 +716,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead())//If any goblin is alive
@@ -657,52 +732,18 @@ public class Main {
                     else if(goblinFollowerCount == 2)//If 2 followers Copy but add one more loop
                     {
                         //Creates follower goblin one
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerOne damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerOneDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllowerOne health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerOneHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
+                        goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerOneHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
+                        goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerOne = new Enemy (goblinFollowerOneHealth, goblinFollowerOneDamage); // creates Goblin follower 1 
-                        
                         //Creates follower goblin two
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerTwo damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerTwoDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerTwoDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Two's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerTwoHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerTwoHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerTwoDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
+                        goblinFollowerTwoDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerTwoHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
+                        goblinFollowerTwoHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerTwo = new Enemy (goblinFollowerTwoHealth, goblinFollowerTwoDamage); // creates Goblin follower 2
                         
-                        //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
                         if(!foughtOnce){
                             System.out.print(art.getCombatExplanation());
@@ -711,7 +752,7 @@ public class Main {
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
-                        while(!rogue.isDead() && !goblinsAreDead)
+                        while(!character.isDead() && !goblinsAreDead)
                         {
                             System.out.println("Who will you attack?"); //Chooses who will be attacked
                             System.out.println("1 for leader");
@@ -747,7 +788,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -802,13 +843,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                rogue.kill();//set health to 0 to end loop
+                                character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -817,19 +858,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -837,7 +878,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -845,19 +886,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -865,7 +906,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
@@ -873,19 +914,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -893,7 +934,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead())//If any goblin is alive
@@ -909,75 +950,24 @@ public class Main {
                     else if(goblinFollowerCount == 3)//If 3 followers
                     {
                         //Creates follower goblin one
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerOne damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerOneDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllowerOne health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerOneHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
+                        goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerOneHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
+                        goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerOne = new Enemy (goblinFollowerOneHealth, goblinFollowerOneDamage); // creates Goblin follower 1 
-                        
                         //Creates follower goblin two
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerTwo damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerTwoDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerTwoDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Two's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerTwoHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerTwoHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerTwoDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
+                        goblinFollowerTwoDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerTwoHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
+                        goblinFollowerTwoHealth += 10; //Changes health range to 10 - 20
                         Enemy goblinFollowerTwo = new Enemy (goblinFollowerTwoHealth, goblinFollowerTwoDamage); // creates Goblin follower 2
-                        
                         //Creates follower goblin three
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerThree damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerThreeDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerThreeDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Three's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerThreeHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerThreeHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
+                        goblinFollowerThreeDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
+                        goblinFollowerThreeDamage += 10; //Changes damage range to 10 - 15
+                        goblinFollowerThreeHealth = randomNum.randomNumber(Constants.goblinFollowerHealthUpperBound);
+                        goblinFollowerThreeHealth += 7; //Changes health range to 7 - 17
                         Enemy goblinFollowerThree = new Enemy (goblinFollowerThreeHealth, goblinFollowerThreeDamage); // creates Goblin follower 3
-                    
-                        //Start fight Same in every if statment for amount of followers
+
                         //Fighting Explanation
                         if(!foughtOnce){
                             System.out.print(art.getCombatExplanation());
@@ -986,7 +976,7 @@ public class Main {
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
                         System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
-                        while(!rogue.isDead() && !goblinsAreDead)
+                        while(!character.isDead() && !goblinsAreDead)
                         {
                             System.out.println("Who will you attack?"); //Chooses who will be attacked
                             System.out.println("1 for leader");
@@ -1023,7 +1013,7 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 2) //Follower 1
@@ -1103,13 +1093,13 @@ public class Main {
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
                             {
                                 System.out.println("You failed to make a selection.");
-                                rogue.kill();//set health to 0 to end loop
+                                character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
                             if(!goblinLeader.isDead())
@@ -1118,19 +1108,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -1138,7 +1128,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -1146,19 +1136,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -1166,7 +1156,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
@@ -1174,19 +1164,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -1194,7 +1184,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
@@ -1202,19 +1192,19 @@ public class Main {
                                 if(attackChoice == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
+                                    character.takeDamage(damageTaken);
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
                                     {
-                                       rogue.takeDamage(damageTaken); 
+                                       character.takeDamage(damageTaken); 
                                     }
                                     else if(damageTaken < 0)//negative attack
                                     {
@@ -1222,7 +1212,7 @@ public class Main {
                                     }
                                 }
                                 System.out.println("The third henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())//If any goblin is alive
@@ -1235,418 +1225,11 @@ public class Main {
                             }
                         }
                     }
-                    /*else if(goblinFollowersCount == 4)//If 4 followers Maybe Delete Its impossible
-                    {
-                        //Creates follower goblin one
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerOne damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerOneDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerOneDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllowerOne health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerOneHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerOneHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
-                        Enemy goblinFollowerOne = new Enemy (goblinFollowerOneHealth, goblinFollowerOneDamage); // creates Goblin follower 1 
-                        
-                        //Creates follower goblin two
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerTwo damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerTwoDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerTwoDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Two's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerTwoHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerTwoHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
-                        Enemy goblinFollowerTwo = new Enemy (goblinFollowerTwoHealth, goblinFollowerTwoDamage); // creates Goblin follower 2
-                        
-                        //Creates follower goblin three
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerThree damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerThreeDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerThreeDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Three's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerThreeHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerThreeHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
-                        Enemy goblinFollowerThree = new Enemy (goblinFollowerThreeHealth, goblinFollowerThreeDamage); // creates Goblin follower 3
-                        
-                        //Creates follower goblin four
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get followerFour damage
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound to 5
-                            goblinFollowerFourDamage = rand.nextInt(upperbound);//generates number 0 to 5
-                            goblinFollowerFourDamage += 10; //Changes damage range to 10 - 15
-                            startRandom = false;
-                        } 
-                        startRandom = true;
-                        while(startRandom == true)
-                        {
-                            //Random number to get folllower Four's health
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            goblinFollowerFourHealth = rand.nextInt(upperbound);//generates number 0 to 10
-                            goblinFollowerFourHealth += 10; //Changes health range to 10 - 20
-                            startRandom = false;
-                        }
-                        Enemy goblinFollowerFour = new Enemy (goblinFollowerFourHealth, goblinFollowerFourDamage); // creates Goblin follower 4
-                        
-                        
-                        //Start fight Same in every if statment for amount of followers
-                        //Fighting Explanation
-                        if(!foughtOnce){
-                            System.out.print(art.getCombatExplanation());
-                        }
-                        //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowersCount + " henchmen.");
-                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
-                        System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", " + goblinFollowerThree.getHP() + ", and " + goblinFollowerFour.getHP() + " Hp.");//Add per the amount of hench henchmen
-                        while(!rogue.isDead() && !goblinsAreDead)
-                        {
-                            System.out.println("Who will you attack?"); //Chooses who will be attacked
-                            System.out.println("1 for leader");
-                            System.out.println("2 for henchman");
-                            System.out.println("3 for henchamn 2");
-                            System.out.println("4 for henchman 3");
-                            System.out.println("5 for henchman 4");
-                            attackTarget = scanner.nextInt();
-                            System.out.print(art.getAttackTypeChoiceText());
-                            attackChoice = scanner.nextInt();
-                            if(attackTarget == 1)// Leader
-                            {
-                                System.out.println("You attack the Leader.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinLeader.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinLeader.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinLeader.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
-                                }
-                                else//improper selection
-                                {
-                                    System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
-                                }
-                            }
-                            else if(attackTarget == 2) //Follower 1
-                            {
-                                System.out.println("You attack the Henchman.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
-                                }
-                            }
-                            else if(attackTarget == 3) //Follower 2
-                            {
-                                System.out.println("You attack the second henchman.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinFollowerTwo.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinFollowerTwo.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchan now has " + goblinFollowerTwo.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinFollowerTwo.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
-                                }
-                            }
-                            else if(attackTarget == 4) //Follower 3
-                            {
-                                System.out.println("You attack the third henchman.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinFollowerThree.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchman now has " + goblinFollowerThree.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinFollowerThree.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchan now has " + goblinFollowerThree.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinFollowerThree.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchman now has " + goblinFollowerThree.getHP() + " HP.");
-                                }
-                            else if(attackTarget == 5) //Follower 4
-                            {
-                                System.out.println("You attack the fourth Henchman.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinFollowerFour.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The fourth henchman now has " + goblinFollowerFour.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinFollowerFour.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The fourth henchman now has " + goblinFollowerFour.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinFollowerFour.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The fourth henchman now has " + goblinFollowerFour.getHP() + " HP.");
-                                }
-                            }
-                                else//improper selection
-                                {
-                                    System.out.println("You failed to make a selection.");
-                                    rogue.kill();//set health to 0 to end loop
-                                }
-                            }
-                            else//improper selection
-                            {
-                                System.out.println("You failed to make a selection.");
-                                rogue.kill();//set health to 0 to end loop
-                            }
-                            //Goblins turn
-                            if(!goblinLeader.isDead())
-                            {
-                                //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 2)//Standard attack
-                                {
-                                    damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
-                                       rogue.takeDamage(damageTaken); 
-                                    }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
-                            }
-                            if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
-                            {
-                                //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 2)//Standard attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
-                                       rogue.takeDamage(damageTaken); 
-                                    }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
-                            }
-                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
-                            {
-                                //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 2)//Standard attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
-                                       rogue.takeDamage(damageTaken); 
-                                    }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
-                            }
-                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
-                            {
-                                //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 2)//Standard attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
-                                       rogue.takeDamage(damageTaken); 
-                                    }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                System.out.println("The third henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
-                            }
-                            if(!goblinFollowerFour.isDead())// Goblin Follower 4's turn
-                            {
-                                //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    damageTaken = goblinFollowerFour.getAttack() + strong.getAttackPenalty(); 
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 2)//Standard attack
-                                {
-                                    damageTaken = goblinFollowerFour.getAttack() + standard.getAttackPenalty();
-                                    rogue.takeDamage(damageTaken);
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    damageTaken = goblinFollowerFour.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
-                                       rogue.takeDamage(damageTaken); 
-                                    }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                System.out.println("The fourth henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + rogue.getHP() + " HP.");
-                            }
-                            //add extras
-                            if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead() || !goblinFollowerFour.isDead())//If any goblin is alive
-                            {
-                                goblinsAreDead = false;
-                            }
-                            else if (goblinLeader.isDead() && goblinFollowerOne.isDead() && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead() && goblinFollowerFour.isDead())//if all goblins are dead
-                            {
-                                goblinsAreDead = true;    
-                            }
-                        }
-                    }*/
                     if(goblinsAreDead)
                     {
                         System.out.println("Congratulations you beat the goblin horde! You get to keep their artifacts.");
-                        rogue.increaseArtifacts(10);
-                        System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                        character.increaseArtifacts(7);
+                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
                     }
                 }
                 else if(event == 5)//Fight guards
@@ -1658,14 +1241,7 @@ public class Main {
                         System.out.println("You go with the gaurds.");
                         System.out.println("They put you in a cell and tell you that the sentanceing will happen the next Monday.");
                         //Random to decide if fight starts 1 in 6 it does
-                        startRandom = true;
-                        while(startRandom == true) //Random number to get Event
-                        {
-                            Random rand = new Random();//creates random class
-                            upperbound = 6; //sets upperbound = to 6, needs to be one greater than desired amount
-                            fightStart = rand.nextInt(upperbound);//generates number 0 to 5
-                            startRandom = false;
-                        }
+                        fightStart = randomNum.randomNumber(Constants.townJailChanceFightUpperBound);
                         if(fightStart == 0)//If var = 0 then start fight if not continue
                         {
                             System.out.println("During lunch the next day a fight breaks out.");
@@ -1678,23 +1254,16 @@ public class Main {
                                 startRandom = false;
                             } 
                             System.out.println("In the brawl you lose " + damageTaken + " Hp.");
-                            System.out.println("You now have " + rogue.getHP() + "Hp.");
+                            System.out.println("You now have " + character.getHP() + "Hp.");
                             System.out.println("The rest of your stay is uneventful");
                         }
-                        else if((fightStart == 1) || (fightStart == 2) || (fightStart == 3) || (fightStart == 4) || (fightStart == 5))
+                        else if((fightStart >= 1) && (fightStart <= 5))
                         {
                             System.out.println("Your stay was uneventful."); 
                         }
                         System.out.println("Monday arrives and you are taken to the court.");
                         //Random to get sentance 
-                        startRandom = true;
-                        while(startRandom == true) //Random number to get court Sentance
-                        {
-                            Random rand = new Random();//creates random class
-                            upperbound = 31; //sets upperbound to 31, needs to be one greater than desired amount
-                            courtSentancing = rand.nextInt(upperbound);//generates number 0 to 30
-                            startRandom = false;
-                        }
+                        courtSentancing = randomNum.randomNumber(Constants.townCourtSentancingUpperBound);
                         System.out.println("The trial passes and at the end you are sentenced.");
                         //Chances out of 30
                         // Fine 15 in 31
@@ -1704,31 +1273,17 @@ public class Main {
 
                         if((courtSentancing >= 0) && (courtSentancing <= 14))//Fine
                         {
-                            startRandom = true;
-                            while(startRandom == true) //Random number to get fine amount
-                            {
-                                Random rand = new Random();//creates random class
-                                upperbound = 6; //sets upperbound = 6, needs to be one greater than desired amount
-                                fine = rand.nextInt(upperbound);//generates number 0 to 5
-                                startRandom = false;
-                            }
+                            fine = randomNum.randomNumber(Constants.townFineUpperBound);
                             System.out.println("You are sentenced to pay a fine of " + fine + " artifacts.");
                             fine *= -1;
-                            rogue.increaseArtifacts(fine);
-                            System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                            character.increaseArtifacts(fine);
+                            System.out.println("You now have " + character.getArtifact() + " artifacts.");
                         }
                         else if((courtSentancing >= 15) && (courtSentancing <= 24))//Jail
                         {
                             //Jail time take dmg 0 - 10
                             System.out.println("You are then sentenced to one year in jail");
-                            startRandom = true;
-                            while(startRandom == true) //Random number to get Event
-                            {
-                                Random rand = new Random();//creates random class
-                                upperbound = 11; //sets upperbound = 11, needs to be one greater than desired amount
-                                damageTaken = rand.nextInt(upperbound);//generates number 0 to 10
-                                startRandom = false;
-                            }
+                            damageTaken = randomNum.randomNumber(Constants.townDMGTakenFromJailUpperBound);
                             //Wait
                             try
                             {
@@ -1739,34 +1294,19 @@ public class Main {
                                 Thread.currentThread().interrupt();
                             }
                             System.out.println("Near the end of your stay you get sick and take " + damageTaken + " dmg.");
-                            rogue.takeDamage(damageTaken);
-                            System.out.println("You now have " + rogue.getHP() + "Hp.");
+                            character.takeDamage(damageTaken);
+                            System.out.println("You now have " + character.getHP() + "Hp.");
                         }
                         else if((courtSentancing >= 25) && (courtSentancing <= 29) )//Fine and Jail
                         {
                             //Fine
-                            {startRandom = true;
-                            while(startRandom == true) //Random number to get Event
-                            {
-                                Random rand = new Random();//creates random class
-                                upperbound = 6; //sets upperbound = 6, needs to be one greater than desired amount
-                                fine = rand.nextInt(upperbound);//generates number 0 to 5
-                                startRandom = false;
-                            }
+                            fine = randomNum.randomNumber(Constants.townFineUpperBound);
                             System.out.println("You are first sentanced to pay a fine of " + fine + " artifacts.");
-                            rogue.increaseArtifacts(fine);
-                            System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
-                            }
+                            character.increaseArtifacts(fine);
+                            System.out.println("You now have " + character.getArtifact() + " artifacts.");
                             //Jail time take dmg 0 - 10
-                            {System.out.println("You are then sentanced to one year in jail");
-                            startRandom = true;
-                            while(startRandom == true) //Random number to get Event
-                            {
-                                Random rand = new Random();//creates random class
-                                upperbound = 11; //sets upperbound = 11, needs to be one greater than desired amount
-                                damageTaken = rand.nextInt(upperbound);//generates number 0 to 10
-                                startRandom = false;
-                            }
+                            System.out.println("You are then sentanced to one year in jail");
+                            damageTaken = randomNum.randomNumber(Constants.townDMGTakenFromJailUpperBound);
                             //Wait
                             try
                             {
@@ -1777,14 +1317,13 @@ public class Main {
                                 Thread.currentThread().interrupt();
                             }
                             System.out.println("Near the end of your stay you get sick and take " + damageTaken + " dmg.");
-                            rogue.takeDamage(damageTaken);
-                            System.out.println("You now have " + rogue.getHP() + "Hp.");
-                            }
+                            character.takeDamage(damageTaken);
+                            System.out.println("You now have " + character.getHP() + "Hp.");
                         }
                         else if(courtSentancing == 30)//Execution
                         {
                             System.out.println("You are convicted of murder and sentanced to death.");
-                            rogue.kill();
+                            character.kill();
                         } 
                     }
                     else if(townChoice == 2)//Beg for mercy
@@ -1793,8 +1332,8 @@ public class Main {
                         System.out.flush();
                         System.out.println("You beg for mercy.");
                         System.out.println("They decide to be leniant and give you a fine of 3 artifacts instead.");
-                        rogue.increaseArtifacts(-3);
-                        System.out.println("You now have " + rogue.getArtifact() + " artifacts.");
+                        character.increaseArtifacts(-3);
+                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
                     }
                     else if(townChoice == 3)//Fight back
                     {
@@ -1822,7 +1361,7 @@ public class Main {
                         if(!foughtOnce){
                             System.out.print(art.getCombatExplanation());
                         }
-                        while(!rogue.isDead() && !guardsAreDead )  
+                        while(!character.isDead() && !guardsAreDead )  
                         {
                             System.out.print(art.getAttackTypeChoiceText());
                             attackChoice = scanner.nextInt();
@@ -1860,23 +1399,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardOne.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardOne.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardOne.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardThree.isDead())//Gaurd three's turn
@@ -1884,23 +1423,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardThree.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardThree.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardThree.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                             }
@@ -1930,23 +1469,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardTwo.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardTwo.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardTwo.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardFour.isDead())//Gaurd four's turn
@@ -1954,23 +1493,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFour.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardFour.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardFour.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                             }
@@ -2000,23 +1539,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardThree.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard three attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardThree.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard three attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardThree.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard three attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardFive.isDead())//Gaurd five's turn
@@ -2024,23 +1563,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFive.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardFive.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardFive.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 } 
                             }
@@ -2070,23 +1609,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFour.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardFour.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardFour.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardFour.isDead())//Gaurd six's turn
@@ -2094,23 +1633,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardSix.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardSix.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardSix.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }                                
                             }
@@ -2140,23 +1679,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFive.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardFive.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardFive.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardOne.isDead())//Gaurd one's turn
@@ -2164,23 +1703,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardOne.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardOne.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardOne.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd one attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                             }
@@ -2210,23 +1749,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardSix.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardSix.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardSix.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                                 if(!guardTwo.isDead())//Gaurd two's turn
@@ -2234,23 +1773,23 @@ public class Main {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardTwo.getAttack() + strong.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 2)//Standard
                                     {
                                         damageTaken = guardTwo.getAttack() + standard.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                     else if(attackChoice == 3)//Weak
                                     {
                                         damageTaken = guardTwo.getAttack() + weak.getAttackPenalty();
-                                        rogue.takeDamage(damageTaken);
+                                        character.takeDamage(damageTaken);
                                         System.out.println("Gaurd two attacks doing " + damageTaken + "dmg.");
-                                        System.out.println("You now have " + rogue.getHP() + "Hp.");
+                                        System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
                             }
@@ -2274,7 +1813,7 @@ public class Main {
                             if(townChoice == 1)//Yes
                             {
                                 System.out.println("You are a bad person.");
-                                rogue.kill();
+                                character.kill();
                             }
                             else if(townChoice == 2)//No
                             {
@@ -2285,11 +1824,11 @@ public class Main {
                     else
                     {
                         System.out.println("You failed to make a selection.");
-                        rogue.kill();//set health to 0 to end loop
+                        character.kill();//set health to 0 to end loop
                     }
                 }
                 //Win screen
-                if(rogue.getArtifact() >= 50)//If you collect 50 treasures
+                if(character.getArtifact() >= 50)//If you collect 50 treasures
                 {
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
@@ -2327,50 +1866,6 @@ public class Main {
                 //End program
                 System.exit(2);
             }
-        }
-        else if(chosenClass == 2)//Paladin
-        {
-            //Gets players name for charecter then clears screen
-            System.out.println("What would you like to name your charecter?");
-            characterName = scanner.next();
-            System.out.print("\033[H\033[2J");
-            System.out.flush(); 
-            
-            Character paladin = new Character (100, 125, characterName, 20, 45, 0); // Sets HP, Max HP, Name, and initial attack damage can be changed, Max damage, artifacts, in order.
-            // For all but change the names currently set up for Rogue
-            //Set up the three attacks
-            Attack strong = new Attack(30, 55, 15); // Damage, Max damage, weakness
-            Attack standard = new Attack(20, 45, 5); // Damage, Max damage, weakness
-            Attack weak = new Attack(10, 35, -5); // Damage, Max damage, weakness
-            //Information for player at start of game
-            System.out.print(art.getGameExplantion());
-            //Wait until player presses a button
-            moveOn = scanner.next();
-        }
-        else if(chosenClass == 3)//Barbarian
-        {
-        //Gets players name for charecter then clears screen
-        System.out.println("What would you like to name your charecter?");
-        characterName = scanner.next();
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); 
-        
-        Character barbarian = new Character (100, 125, characterName, 20, 45, 0); // Sets HP, Max HP, Name, and initial attack damage can be changed, Max damage, artifacts, in order.
-        // For all but change the names currently set up for Rogue
-        //Set up the three attacks
-        Attack strong = new Attack(30, 55, 15); // Damage, Max damage, weakness
-        Attack standard = new Attack(20, 45, 5); // Damage, Max damage, weakness
-        Attack weak = new Attack(10, 35, -5); // Damage, Max damage, weakness
-        //Information for player at start of game
-        System.out.print(art.getGameExplantion());
-        //Wait until player presses a button
-        moveOn = scanner.next();
-        }
-        else
-        {
-            System.out.println("You failed to make a selection try again.");  
-            System.exit(0);
-        }
         System.out.println("Hi");
         System.out.println(moveOn);
         
