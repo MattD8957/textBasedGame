@@ -1,8 +1,5 @@
 package TextBasedGame;
 import java.util.*;
-import java.util.Random;
-
-import javax.lang.model.util.ElementScanner6;
 
 public class Main {
     public static void main(String args[]) {
@@ -44,8 +41,6 @@ public class Main {
         int goblinFollowerTwoDamage = 0; //This is for class creation
         int goblinFollowerThreeHealth = 0; //This is for class creation
         int goblinFollowerThreeDamage = 0; //This is for class creation
-        int goblinFollowerFourHealth = 0; //This is for class creation
-        int goblinFollowerFourDamage = 0; //This is for class creation
         int attackTarget = 0; //decides who to attack
         int questChoice = 0; //Players choice of what quest to take
         int barChoice = 0; //Players choice of what to do at the bar
@@ -54,6 +49,7 @@ public class Main {
         int fightStart = 0; //Random to decide if a fight starts in jail
         int courtSentancing = 0; //The random that gives a sentance for the players crimes
         int fine = 0; //Use to fine the player of artifacts 
+        int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
         boolean startRandom = true;//starts the random number loops
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
@@ -105,43 +101,43 @@ public class Main {
         {
             //Character Attributes
             CharacterHPCreation = 100;
-            CharacterMaxHPCreation = 100;
-            CharacterStandardAtackCreation = 15;
-            CharacterMaxAttackCreation = 30;
+            CharacterMaxHPCreation = 125;
+            CharacterStandardAtackCreation = 20;
+            CharacterMaxAttackCreation = 45;
             CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
-            characterAttackStrongDMG = 25;
-            characterAttackStrongMaxDMG = 45;
-            characterAttackStrongWeakness = 10;
+            characterAttackStrongDMG = 30;
+            characterAttackStrongMaxDMG = 50;
+            characterAttackStrongWeakness = 15;
             //Standard Attack Atributes
-            characterAttackStandardDMG = 15;
-            characterAttackStandardMaxDMG = 35;
-            characterAttackStandardWeakness = 0;
+            characterAttackStandardDMG = 20;
+            characterAttackStandardMaxDMG = 40;
+            characterAttackStandardWeakness = 5;
             //Weak Attack Atributes
-            characterAttackWeakDMG = 5;
-            characterAttackWeakMaxDMG = 25;
-            characterAttackWeakWeakness = -10;
+            characterAttackWeakDMG = 10;
+            characterAttackWeakMaxDMG = 30;
+            characterAttackWeakWeakness = -5;
         }
         else if(chosenClass == 3) //Barbarian
         {
             //Character Attributes
             CharacterHPCreation = 100;
-            CharacterMaxHPCreation = 100;
-            CharacterStandardAtackCreation = 15;
-            CharacterMaxAttackCreation = 30;
+            CharacterMaxHPCreation = 150;
+            CharacterStandardAtackCreation = 25;
+            CharacterMaxAttackCreation = 50;
             CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
-            characterAttackStrongDMG = 25;
-            characterAttackStrongMaxDMG = 45;
-            characterAttackStrongWeakness = 10;
+            characterAttackStrongDMG = 35;
+            characterAttackStrongMaxDMG = 60;
+            characterAttackStrongWeakness = 20;
             //Standard Attack Atributes
-            characterAttackStandardDMG = 15;
-            characterAttackStandardMaxDMG = 35;
-            characterAttackStandardWeakness = 0;
+            characterAttackStandardDMG = 25;
+            characterAttackStandardMaxDMG = 50;
+            characterAttackStandardWeakness = 10;
             //Weak Attack Atributes
-            characterAttackWeakDMG = 5;
-            characterAttackWeakMaxDMG = 25;
-            characterAttackWeakWeakness = -10;
+            characterAttackWeakDMG = 15;
+            characterAttackWeakMaxDMG = 40;
+            characterAttackWeakWeakness = 0;
         }
         else
         {
@@ -590,9 +586,7 @@ public class Main {
                         System.out.println("His follower has " + goblinFollowerOne.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println("Who will you attack?"); //Chooses who will be attacked
-                            System.out.println("1 for leader");
-                            System.out.println("2 for henchman");
+                            System.out.println(art.getGoblinFightTargetTextTwo()); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             System.out.print(art.getAttackTypeChoiceText());
                             attackChoice = scanner.nextInt();
@@ -754,10 +748,7 @@ public class Main {
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println("Who will you attack?"); //Chooses who will be attacked
-                            System.out.println("1 for leader");
-                            System.out.println("2 for henchman");
-                            System.out.println("3 for henchamn 2");
+                            System.out.println(art.getGoblinFightTargetTextThree()); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             System.out.print(art.getAttackTypeChoiceText());
                             attackChoice = scanner.nextInt();
@@ -978,11 +969,7 @@ public class Main {
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println("Who will you attack?"); //Chooses who will be attacked
-                            System.out.println("1 for leader");
-                            System.out.println("2 for henchman");
-                            System.out.println("3 for henchamn 2");
-                            System.out.println("4 for henchman 3");
+                            System.out.println(art.getGoblinFightTargetTextFour()); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             System.out.print(art.getAttackTypeChoiceText());
                             attackChoice = scanner.nextInt();
@@ -1066,7 +1053,7 @@ public class Main {
                                     System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
                                 }
                             }
-                            else if(attackTarget == 3) //Follower 3
+                            else if(attackTarget == 4) //Follower 3
                             {
                                 System.out.println("You attack the third henchman.");
                                 if(attackChoice == 1)//Strong attack
@@ -1089,11 +1076,6 @@ public class Main {
                                     goblinFollowerThree.takeDamage(weak.getAttackDamage());
                                     System.out.println("You do " + weak.getAttackDamage() + " damage.");
                                     System.out.println("The third henchman now has " + goblinFollowerThree.getHP() + " HP.");
-                                }
-                                else//improper selection
-                                {
-                                    System.out.println("You failed to make a selection.");
-                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else//improper selection
@@ -1186,7 +1168,7 @@ public class Main {
                                 System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
                                 System.out.println("You now have " + character.getHP() + " HP.");
                             }
-                            if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
+                            if(!goblinFollowerThree.isDead())// Goblin Follower 3's turn
                             {
                                 //To determine which attack was used and so what buff
                                 if(attackChoice == 1)//Strong attack
@@ -1225,7 +1207,7 @@ public class Main {
                             }
                         }
                     }
-                    if(goblinsAreDead)
+                    if(goblinsAreDead) //Reward
                     {
                         System.out.println("Congratulations you beat the goblin horde! You get to keep their artifacts.");
                         character.increaseArtifacts(7);
@@ -1253,6 +1235,7 @@ public class Main {
                                 damageTaken = rand.nextInt(upperbound);//generates number 0 to 7
                                 startRandom = false;
                             } 
+                            damageTaken = randomNum.randomNumber(Constants.townJailFightDMGTakenUpperBound);
                             System.out.println("In the brawl you lose " + damageTaken + " Hp.");
                             System.out.println("You now have " + character.getHP() + "Hp.");
                             System.out.println("The rest of your stay is uneventful");
@@ -1265,7 +1248,7 @@ public class Main {
                         //Random to get sentance 
                         courtSentancing = randomNum.randomNumber(Constants.townCourtSentancingUpperBound);
                         System.out.println("The trial passes and at the end you are sentenced.");
-                        //Chances out of 30
+                        //Chances out of 31 (0-30)
                         // Fine 15 in 31
                         // Jail 10 in 31
                         // Fine and Jail 5 in 31
@@ -1332,8 +1315,14 @@ public class Main {
                         System.out.flush();
                         System.out.println("You beg for mercy.");
                         System.out.println("They decide to be leniant and give you a fine of 3 artifacts instead.");
-                        character.increaseArtifacts(-3);
-                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                        if(character.getArtifact() > 3){ //Checks you have enough to pay
+                            character.increaseArtifacts(-3);
+                            System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                        }
+                        else if(character.getArtifact() < 3){
+                            System.out.println("You could not pay the fine.");
+                            character.kill();
+                        }
                     }
                     else if(townChoice == 3)//Fight back
                     {
@@ -1394,7 +1383,7 @@ public class Main {
                                     guardOne.takeDamage(weak.getAttackDamage());
                                     System.out.println("Guard one now has " + guardOne.getHP() + "Hp.");
                                 }
-                                if(!guardOne.isDead())//Guard ones turn
+                                if(!guardOne.isDead())//Guard One's turn
                                 {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
@@ -1464,7 +1453,7 @@ public class Main {
                                     guardTwo.takeDamage(weak.getAttackDamage());
                                     System.out.println("Guard two now has " + guardTwo.getHP() + "Hp.");
                                 }
-                                if(!guardTwo.isDead())//Guard ones turn
+                                if(!guardTwo.isDead())//Guard Two's turn
                                 {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
@@ -1604,7 +1593,7 @@ public class Main {
                                     guardFour.takeDamage(weak.getAttackDamage());
                                     System.out.println("Guard four now has " + guardFour.getHP() + "Hp.");
                                 }
-                                if(!guardTwo.isDead())//Guard four's turn
+                                if(!guardFour.isDead())//Guard four's turn
                                 {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
@@ -1628,7 +1617,7 @@ public class Main {
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
                                 }
-                                if(!guardFour.isDead())//Gaurd six's turn
+                                if(!guardSix.isDead())//Gaurd six's turn
                                 {
                                     if(attackChoice == 1)//Determines attack buff based on your attack Strong
                                     {
@@ -1807,9 +1796,21 @@ public class Main {
                         if(guardsAreDead)
                         {
                             System.out.println("You defeat the guards!");
-                            System.out.println("Do you want to loot the town?");
+                            System.out.print("You decided to walk over and search the guards and ");
+                            System.out.println("on the guards you find some artifacts, would you like to take them?");
+                            System.out.println("1 for Yes. \n 2 for No.");
+                            townChoice = scanner.nextInt();
+                            if(townChoice == 1){
+                                artifactsFoundOnGuards = randomNum.randomNumber(Constants.townArtifactsOnGuardsUpperBound);
+                                character.increaseArtifacts(artifactsFoundOnGuards);
+                            }
+                            else if(townChoice == 2){
+                                System.out.println("You leave the guards and contimplate, ");
+                            }
+                            System.out.println("Do I want to loot the town?");
                             System.out.println("1 = Yes.");
                             System.out.println("2 = No.");
+                            townChoice = scanner.nextInt();
                             if(townChoice == 1)//Yes
                             {
                                 System.out.println("You are a bad person.");

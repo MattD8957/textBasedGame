@@ -21,8 +21,10 @@ public final class Constants {
     public static final int goblinFollowerDMGUpperBound = 5;
     public static final int goblinFollowerHealthUpperBound = 11;
     //Fight with guards
+    public static final int townJailFightDMGTakenUpperBound = 8;
     public static final int townJailChanceFightUpperBound = 6;
     public static final int townCourtSentancingUpperBound = 31;
     public static final int townFineUpperBound = 6;
     public static final int townDMGTakenFromJailUpperBound = 11;
+    public static final int townArtifactsOnGuardsUpperBound = 5;
 }

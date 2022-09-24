@@ -11,6 +11,9 @@ public class ArtAndText {
   private static final String guardQuestText = "\nYou talk to the guards to get a quest.\nHe gives you three quests and tells you to choose one.\nThe first quest is to take down a smugiling ring.\nThe second quest is to defeat an evil queen.\nThe third quest is TODO\nWhich quest do you choose? Type 1, 2, or 3";
   private static final String attackTypeChoiceText = "\nWhat type of attack would you like to use?\n1 for Strong\n2 for Standard\n3 for Weak\n";
   private static final String guardFightText = "\nYou enter a town to rest but the gaurds stop you.\nThey belive you to be a criminal and arrest you.\nAs they take you to jail you have 3 options.\n1 to go with them willingly.\n2 to beg for mercy.\n3 to fight back and try to escape.\n";
+  private static final String goblinBattleAttackTargetTwo = "Who will you attack? \n1 for leader\n2 for henchman";
+  private static final String goblinBattleAttackTargetThree = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2";
+  private static final String goblinBattleAttackTargetFour = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2\n4 for henchman 3";
 
   //Create Art
   public ArtAndText(){   
@@ -47,5 +50,14 @@ public class ArtAndText {
   }
   public String getGuardFightText(){
     return guardFightText;
+  }
+  public String getGoblinFightTargetTextTwo(){
+    return goblinBattleAttackTargetTwo;
+  }
+  public String getGoblinFightTargetTextThree(){
+    return goblinBattleAttackTargetThree;
+  }
+  public String getGoblinFightTargetTextFour(){
+    return goblinBattleAttackTargetFour;
   }
 }
