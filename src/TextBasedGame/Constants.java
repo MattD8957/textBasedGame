@@ -3,7 +3,8 @@ package TextBasedGame;
 public final class Constants {
     public static final int eventUpperBound = 5;  
     //Dragon Constants
-    public static final int dragonEscapeChance = 5;
+    public static final int dragonEscapeChanceUpperDound = 5;
+    public static final int dragonDamageEscapeUpperBound = 11;
     public static final int dragonHPUpperBound = 65;
     public static final int dragonAttackDMGUpperBound = 16;
     //Bear Constants

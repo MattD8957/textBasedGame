@@ -188,22 +188,14 @@ public class Main {
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
                     {
-                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChance);
+                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChanceUpperDound);
                         if(escapeChance == 0)//escape succesfully
                         {
                             System.out.println("You succesfully escape and can continue your journey.");
                         }
                         else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
                         {
-                            startRandom = true;
-                        while(startRandom == true)
-                        { 
-                            //generates percent chances
-                            Random rand = new Random();//creates random class
-                            upperbound = 11; //sets upperbound = to 10, needs to be one greater than desired amount
-                            damageTaken = rand.nextInt(upperbound);//generates number 0 to 10
-                            startRandom = false;
-                        }
+                            damageTaken = randomNum.randomNumber(Constants.dragonDamageEscapeUpperBound);
                             character.takeDamage(damageTaken);
                             System.out.println("On your way out you fall and take some damage.");
                             System.out.println("You succesfully escape only taking " + damageTaken + " damge, you now have " + character.getHP() + "HP.");
