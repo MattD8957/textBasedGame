@@ -21,7 +21,6 @@ public class Main {
         //Rest of Game
         String moveOn = "Hi!"; //Player imputs when to continue
         String characterName; //gets the name the player wants for the player 
-        int upperbound = 0;//sets the upperbound of Randoms 
         int event = 3;//chooses which event will happen
         int amountHealed = 0;//amount of HP added by the doctor
         int damageTaken = 0; //random amount of damage done to player for method
@@ -1219,14 +1218,6 @@ public class Main {
                         if(fightStart == 0)//If var = 0 then start fight if not continue
                         {
                             System.out.println("During lunch the next day a fight breaks out.");
-                            startRandom = true;
-                            while(startRandom == true) //Random number to get Event
-                            {  
-                                Random rand = new Random();//creates random class
-                                upperbound = 8; //sets upperbound = to 8, needs to be one greater than desired amount
-                                damageTaken = rand.nextInt(upperbound);//generates number 0 to 7
-                                startRandom = false;
-                            } 
                             damageTaken = randomNum.randomNumber(Constants.townJailFightDMGTakenUpperBound);
                             System.out.println("In the brawl you lose " + damageTaken + " Hp.");
                             System.out.println("You now have " + character.getHP() + "Hp.");
