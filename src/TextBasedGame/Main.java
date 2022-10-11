@@ -64,7 +64,8 @@ public class Main {
             random randomNum = new random();
         //Scanner
             Scanner scanner = new Scanner(System.in);
-
+        
+        
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -165,7 +166,7 @@ public class Main {
 
             //Start game loop
             while(!character.isDead())
-            { 
+            {
                 //sleep command
                 {try
                 {
@@ -1868,9 +1869,7 @@ public class Main {
             }
         System.out.println("Hi");
         System.out.println(moveOn);
-        
-        
-
+        System.out.println(art.getEndingText());
         scanner.close();
     }
   }
