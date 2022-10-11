@@ -1797,10 +1797,7 @@ public class Main {
                         }
                         if(guardsAreDead)
                         {
-                            System.out.println("You defeat the guards!");
-                            System.out.print("You decided to walk over and search the guards and ");
-                            System.out.println("on the guards you find some artifacts, would you like to take them?");
-                            System.out.println("1 for Yes. \n 2 for No.");
+                            art.getTownGuardFightWinText();
                             townChoice = scanner.nextInt();
                             if(townChoice == 1){
                                 artifactsFoundOnGuards = randomNum.randomNumber(Constants.townArtifactsOnGuardsUpperBound);
