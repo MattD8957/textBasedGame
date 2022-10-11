@@ -14,6 +14,8 @@ public class ArtAndText {
   private static final String goblinBattleAttackTargetTwo = "Who will you attack? \n1 for leader\n2 for henchman";
   private static final String goblinBattleAttackTargetThree = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2";
   private static final String goblinBattleAttackTargetFour = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2\n4 for henchman 3";
+  private static final String townGuardFightWinText = "You defeat the guards! \n You decided to walk over and search the guards and \n on the guards you find some artifacts, would you like to take them? \n 1 for Yes. \n 2 for No.";
+	private static final String doctorInitialText = "You go to a doctor, he can heal you 10 to 40HP for free \n Or you can pay 2 artifacts to be healed a gaurenteed 70HP. \n 1 for Random \n 2 for 70HP";
 
   //Create Art
   public ArtAndText(){   
@@ -60,4 +62,10 @@ public class ArtAndText {
   public String getGoblinFightTargetTextFour(){
     return goblinBattleAttackTargetFour;
   }
+  public String getTownGuardFightWinText(){
+		return townGuardFightWinText;
+	}
+	public String getDoctorInitialText(){
+		return doctorInitialText;
+	}
 }

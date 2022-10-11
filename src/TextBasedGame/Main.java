@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String args[]) {
-        //Character creation
+      //Character creation
         int CharacterHPCreation = 0;
         int CharacterMaxHPCreation = 0;
         int CharacterStandardAtackCreation = 0;
@@ -18,28 +18,32 @@ public class Main {
         int characterAttackStrongWeakness = 10;
         int characterAttackStandardWeakness = 0;
         int characterAttackWeakWeakness = -10;
-        //Rest of Game
+    //Enemy creation
+        //Dragon
+            int dragonHP = 1; //This is for class creation
+            int dragonAttack = 1; //This is for class creation
+        //Bear
+            int bearHP = 0; //This is for class creation
+            int bearAttackDMG = 0; //This is for class creation
+        //Goblin
+            int goblinLeaderDamage = 0; //This is for class creation
+            int goblinLeaderHealth = 0; //This is for class creation
+            int goblinFollowerCount = 0; //This is for if that creates goblins
+            int goblinFollowerOneHealth = 0; //This is for class creation
+            int goblinFollowerOneDamage = 0; //This is for class creation
+            int goblinFollowerTwoHealth = 0; //This is for class creation
+            int goblinFollowerTwoDamage = 0; //This is for class creation
+            int goblinFollowerThreeHealth = 0; //This is for class creation
+            int goblinFollowerThreeDamage = 0; //This is for class creation
+    //Rest of Game
         String moveOn = "Hi!"; //Player imputs when to continue
         String characterName; //gets the name the player wants for the player 
-        int event = 3;//chooses which event will happen
+        int event;//chooses which event will happen
         int amountHealed = 0;//amount of HP added by the doctor
         int damageTaken = 0; //random amount of damage done to player for method
         int atk = 0; // This is the amount of damage added to attack damage
         int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
-        int dragonHP = 1; //This is for class creation
-        int dragonAttack = 1; //This is for class creation
         int attackChoice = 0; // This is to choose your attack
-        int bearHP = 0; //This is for class creation
-        int bearAttackDMG = 0; //This is for class creation
-        int goblinLeaderDamage = 0; //This is for class creation
-        int goblinLeaderHealth = 0; //This is for class creation
-        int goblinFollowerCount = 0; //This is for if that creates goblins
-        int goblinFollowerOneHealth = 0; //This is for class creation
-        int goblinFollowerOneDamage = 0; //This is for class creation
-        int goblinFollowerTwoHealth = 0; //This is for class creation
-        int goblinFollowerTwoDamage = 0; //This is for class creation
-        int goblinFollowerThreeHealth = 0; //This is for class creation
-        int goblinFollowerThreeDamage = 0; //This is for class creation
         int attackTarget = 0; //decides who to attack
         int questChoice = 0; //Players choice of what quest to take
         int barChoice = 0; //Players choice of what to do at the bar
@@ -49,17 +53,18 @@ public class Main {
         int courtSentancing = 0; //The random that gives a sentance for the players crimes
         int fine = 0; //Use to fine the player of artifacts 
         int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
-        boolean startRandom = true;//starts the random number loops
+        int doctorChoice; //Choice for what type of heal
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
-        boolean foughtOnce = false; //Checks if player has fought to give combat explanation
+        boolean foughtOnce = false; //Checks if player has fought to give combat explanation      
+    //Create Classes
         //create Class Art
-        ArtAndText art = new ArtAndText();
+            ArtAndText art = new ArtAndText();
         //Create class Random number
-        random randomNum = new random();
-
+            random randomNum = new random();
         //Scanner
-        Scanner scanner = new Scanner(System.in);
+            Scanner scanner = new Scanner(System.in);
+
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -187,14 +192,14 @@ public class Main {
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
                     {
-                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChanceUpperDound);
+                        escapeChance = randomNum.randomNumber(Constants.dragonEscapeChanceUpperBound);
                         if(escapeChance == 0)//escape succesfully
                         {
                             System.out.println("You succesfully escape and can continue your journey.");
                         }
                         else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
                         {
-                            damageTaken = randomNum.randomNumber(Constants.dragonDamageEscapeUpperBound);
+                            damageTaken = randomNum.randomNumber(Constants.dragonEscapeDMGUpperBound);
                             character.takeDamage(damageTaken);
                             System.out.println("On your way out you fall and take some damage.");
                             System.out.println("You succesfully escape only taking " + damageTaken + " damge, you now have " + character.getHP() + "HP.");
@@ -520,28 +525,42 @@ public class Main {
                 }
                 else if(event == 3)//Go to a doctor
                 {
-                    System.out.println(event + " Doctor");
-                    System.out.println("You go to a doctor, he can heal you 10 to 50HP.");
+                    art.getDoctorInitialText();
+                    doctorChoice = scanner.nextInt();
                     //sleep command
-                    try
-                    {
-                        Thread.sleep(3000);
-                    }
-                    catch(InterruptedException ex)
-                    {
-                        Thread.currentThread().interrupt();
-                    }
-                    //decide on amount healed 10-50
-                    randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
-                    amountHealed += 10;
-                    if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
-                    {
-                        System.out.println("Your new health is " + character.getHP());
-                    }
-                    else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
-                    {
-                        character.setMaxHP();
-                        System.out.println("Your new health is " + character.getHP());    
+                        try
+                        {
+                            Thread.sleep(3000);
+                        }
+                            catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                    if(doctorChoice == 1){
+                        //decide on amount healed 10-40
+                        randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
+                        amountHealed += 10;
+                        if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
+                        {
+                            System.out.println("Your new health is " + character.getHP());
+                        }
+                        else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
+                        {
+                            character.setMaxHP();
+                            System.out.println("Your new health is " + character.getHP());    
+                        }
+                        }
+                    else if(doctorChoice == 2){
+                        amountHealed = Constants.doctorAmountHealedPayed;
+                        if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
+                        {
+                            System.out.println("Your new health is " + character.getHP());
+                        }
+                        else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
+                        {
+                            character.setMaxHP();
+                            System.out.println("Your new health is " + character.getHP());    
+                        }
                     }
                 }
                 else if(event == 4)//Goblin horde
