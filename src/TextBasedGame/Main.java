@@ -182,8 +182,7 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 //EVENTS
-                if(event == 0) //Fight dragon
-                {
+                if(event == 0){ //Fight dragon
                     //Start text and picture
                     System.out.print(art.getDragonArt());
                     int dragonChoice = scanner.nextInt();
@@ -379,8 +378,7 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                     }
                 }
-                else if(event == 1)//Fight Bear
-                {
+                else if(event == 1){//Fight Bear
                     System.out.println("You are travaling in the forest when you run into an agressive bear.");
                     if(!foughtOnce){
                         System.out.print(art.getCombatExplanation());
@@ -455,23 +453,21 @@ public class Main {
                         foughtOnce = true;
                     }
                 }
-                else if(event == 2)//Go into a bar
-                {
-                    System.out.print(art.getBarText());
+                else if(event == 2){//Go into a bar
+                    System.out.println(art.getBarText());
                     barChoice = scanner.nextInt();
-                    
                     if(barChoice == 1)//Start a brawl
                     {
                         System.out.println("You decide to start a brawl");
                         //Determine amount of damage taken.
                         damageTaken = randomNum.randomNumber(Constants.barFightDMGTakenUpperBound);
-                        System .out.println("In the fight you take " + damageTaken + " damage.");
+                        System.out.println("In the fight you take " + damageTaken + " damage.");
                         character.takeDamage(damageTaken);
                         System.out.println("You now have " + character.getHP() + " HP.");
                     }
                     else if(barChoice == 2)//Buy a weapon
                     {
-                        System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15.");
+                        System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts. Your currently have: " + character.getArtifact() + " artifacts. \n 1 for random \n 2 to pay");//TODO
                         //Determine the additional damage for the futre.
                         System.out.println("Attack before addition: " + character.getAttack()); 
                             atk = randomNum.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
@@ -524,9 +520,8 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                     }
                 }
-                else if(event == 3)//Go to a doctor
-                {
-                    art.getDoctorInitialText();
+                else if(event == 3){//Go to a doctor
+                    System.out.println(art.getDoctorInitialText() + character.getHP() + "HP.");
                     doctorChoice = scanner.nextInt();
                     //sleep command
                         try
@@ -564,8 +559,7 @@ public class Main {
                         }
                     }
                 }
-                else if(event == 4)//Goblin horde
-                {
+                else if(event == 4){ //Goblin horde
                     System.out.println("You are travaling and a group of goblins is trying to rob you.");
                     //Create the goblins
                     //Create leader Goblin
@@ -1225,8 +1219,7 @@ public class Main {
                         System.out.println("You now have " + character.getArtifact() + " artifacts.");
                     }
                 }
-                else if(event == 5)//Fight guards
-                {
+                else if(event == 5){//Fight guards
                     System.out.print(art.getGuardFightText());
                     townChoice = scanner.nextInt();
                     if(townChoice == 1)//Go willingly
