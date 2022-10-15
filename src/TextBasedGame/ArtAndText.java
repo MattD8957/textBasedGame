@@ -5,7 +5,9 @@ public class ArtAndText {
   private static final String welcome = " ____      ____      __                                     \n|_  _|    |_  _|    [  |                                    \n  \\ \\  /\\  / /.---.  | |  .---.   .--.   _ .--..--.  .---.  \n   \\ \\/  \\/ // /__\\\\ | | / /'`\\]/ .'`\\ \\[ `.-. .-. |/ /__\\\\ \n    \\  /\\  / | \\__., | | | \\__. | \\__. | | | | | | || \\__., \n     \\/  \\/   '.__.'[___]'.___.' '.__.' [___||__||__]'.__.' \nChoose a class:\n1 for Rogue\n2 for Palidin\n3 for Barbarian\n";
   private static final String youDied = "          _______             ______  _________ _______  ______   _  \n|\\     /|(  ___  )|\\     /|  (  __  \\ \\__   __/(  ____ \\(  __  \\ ( ) \n( \\   / )| (   ) || )   ( |  | (  \\  )   ) (   | (    \\/| (  \\  )| | \n \\ (_) / | |   | || |   | |  | |   ) |   | |   | (__    | |   ) || | \n  \\   /  | |   | || |   | |  | |   | |   | |   |  __)   | |   | || | \n   ) (   | |   | || |   | |  | |   ) |   | |   | (      | |   ) |(_) \n   | |   | (___) || (___) |  | (__/  )___) (___| (____/\\| (__/  ) _  \n   \\_/   (_______)(_______)  (______/ \\_______/(_______/(______/ (_) \n";
   private static final String youWin = "__      __    ____     __    __      ___       ___    _____      __      _  _______ \n) \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / \n \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  \n  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   \n   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   \n    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    \n   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   \n";
-  private static final String gameExplanation = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 100Hp and doing 15dmg for standard attacks.\nType anything to continue: \n";
+  private static final String gameExplanationRogue = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 100Hp and doing 15dmg for standard attacks.\nType anything to continue: \n";
+  private static final String gameExplanationPaladin = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 125Hp and doing 20dmg for standard attacks.\nType anything to continue: \n";
+  private static final String gameExplanationBarbarian = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 150Hp and doing 25dmg for standard attacks.\nType anything to continue: \n";
   private static final String combatExplanation = "\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vulnerable to damage.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\n";
   private static final String barText = "\nYou walk into a bar.\nYou have three choices;\nType 1 to start a brawl.\nType 2 to buy a weapon from a local salesman.\nType 3 to talk to the guards and get a quest.\n";
   private static final String guardQuestText = "\nYou talk to the guards to get a quest.\nHe gives you three quests and tells you to choose one.\nThe first quest is to take down a smugiling ring.\nThe second quest is to defeat an evil queen.\nThe third quest is TODO\nWhich quest do you choose? Type 1, 2, or 3";
@@ -17,6 +19,8 @@ public class ArtAndText {
   private static final String townGuardFightWinText = "You defeat the guards! \n You decided to walk over and search the guards and \n on the guards you find some artifacts, would you like to take them? \n 1 for Yes. \n 2 for No.";
 	private static final String doctorInitialText = "You go to a doctor, he can heal you 10 to 40HP for free \n Or you can pay 2 artifacts to be healed a gaurenteed 70HP. \n 1 for Random \n 2 for 70HP \n You currently have: ";
   private static final String endingText = "Created by Matthew Dowling. \n Special thanks to: \n ";
+  private static final String blackSmithText = "You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts.\n 1 for random \n 2 to pay";
+
   //Create Art
   public ArtAndText(){   
 
@@ -35,8 +39,14 @@ public class ArtAndText {
   public String getYouWin(){
     return youWin;
   }
-  public String getGameExplantion(){
-    return gameExplanation;
+  public String getGameExplantionRogue(){
+    return gameExplanationRogue;
+  }
+  public String getGameExplantionPaladin(){
+    return gameExplanationPaladin;
+  }
+  public String getGameExplantionBarbarian(){
+    return gameExplanationBarbarian;
   }
   public String getCombatExplanation(){
     return combatExplanation;
@@ -70,5 +80,8 @@ public class ArtAndText {
 	}
   public String getEndingText(){
     return endingText;
+  }
+  public String getBlackSmithText(){
+    return blackSmithText;
   }
 }

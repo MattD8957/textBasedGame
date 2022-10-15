@@ -54,6 +54,7 @@ public class Main {
         int fine = 0; //Use to fine the player of artifacts 
         int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
         int doctorChoice; //Choice for what type of heal
+        int blackSmithChoice; //Choice for what type of weapon upgrade
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
         boolean foughtOnce = false; //Checks if player has fought to give combat explanation      
@@ -101,11 +102,12 @@ public class Main {
             characterAttackWeakDMG = 5;
             characterAttackWeakMaxDMG = 25;
             characterAttackWeakWeakness = -10;
+            System.out.print(art.getGameExplantionRogue());
         }
         else if(chosenClass == 2) //Paladin
         {
             //Character Attributes
-            CharacterHPCreation = 100;
+            CharacterHPCreation = 125;
             CharacterMaxHPCreation = 125;
             CharacterStandardAtackCreation = 20;
             CharacterMaxAttackCreation = 45;
@@ -122,11 +124,12 @@ public class Main {
             characterAttackWeakDMG = 10;
             characterAttackWeakMaxDMG = 30;
             characterAttackWeakWeakness = -5;
+            System.out.print(art.getGameExplantionPaladin());
         }
         else if(chosenClass == 3) //Barbarian
         {
             //Character Attributes
-            CharacterHPCreation = 100;
+            CharacterHPCreation = 150;
             CharacterMaxHPCreation = 150;
             CharacterStandardAtackCreation = 25;
             CharacterMaxAttackCreation = 50;
@@ -143,6 +146,7 @@ public class Main {
             characterAttackWeakDMG = 15;
             characterAttackWeakMaxDMG = 40;
             characterAttackWeakWeakness = 0;
+            System.out.print(art.getGameExplantionBarbarian());
         }
         else
         {
@@ -156,8 +160,8 @@ public class Main {
             Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
         
 
-        //Information for player at start of game TODO Decide on amount of artifacts
-        System.out.print(art.getGameExplantion());
+        //Information for player at start of game TODO Decide on amount of artifacts Now in each class if statement
+        
         //Wait until player presses a button
         moveOn = scanner.next();
         //Clears screen
@@ -167,8 +171,8 @@ public class Main {
             //Start game loop
             while(!character.isDead())
             {
-                //sleep command
-                {try
+                {//sleep command
+                try
                 {
                     Thread.sleep(5000);
                 }
@@ -467,9 +471,11 @@ public class Main {
                     }
                     else if(barChoice == 2)//Buy a weapon
                     {
-                        System.out.println("You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts. Your currently have: " + character.getArtifact() + " artifacts. \n 1 for random \n 2 to pay");//TODO
-                        //Determine the additional damage for the futre.
-                        System.out.println("Attack before addition: " + character.getAttack()); 
+                        System.out.println(art.getBlackSmithText());
+                        System.out.println("Your currently have: " + character.getArtifact() + " artifacts.");
+                        blackSmithChoice = scanner.nextInt();
+                        if(blackSmithChoice == 1){
+                            System.out.println("Attack before addition: " + character.getAttack()); 
                             atk = randomNum.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
                             atk ++;
                             //incerase attack damage
@@ -477,18 +483,39 @@ public class Main {
                             strong.increaseAttackDamage(atk);
                             standard.increaseAttackDamage(atk);
                             weak.increaseAttackDamage(atk);
-                        if(character.getAttack() <= character.getMaxAttack())//If not over max attack damage state attack damage
-                        {
-                            System.out.println("New attack damage: " + character.getAttack());
+                            if(character.getAttack() <= character.getMaxAttack()){ //If not over max attack damage state attack damage
+                                System.out.println("New attack damage: " + character.getAttack());
+                            }
+                            else if(character.getAttack() > character.getMaxAttack()){ //If over max attack damage set to max attack damage and then state attack damage 
+                                character.setMaxAttack();
+                                strong.setMaxAttackDamage();
+                                standard.setMaxAttackDamage();
+                                weak.setMaxAttackDamage();
+                                System.out.println("New attack damage " + character.getAttack());
+                            }
                         }
-                        else if(character.getAttack() > character.getMaxAttack())//If over max attack damage set to max attack damage and then state attack damage 
-                        {
-                            character.setMaxAttack();
-                            strong.setMaxAttackDamage();
-                            standard.setMaxAttackDamage();
-                            weak.setMaxAttackDamage();
-                            System.out.println("New attack damage " + character.getAttack());
-                            
+                        else if(blackSmithChoice == 2){
+                            System.out.println("Attack before addition: " + character.getAttack()); 
+                            atk = Constants.barAttackDMGIncreasePayed;
+                            //incerase attack damage
+                            character.increaseAttack(atk);
+                            strong.increaseAttackDamage(atk);
+                            standard.increaseAttackDamage(atk);
+                            weak.increaseAttackDamage(atk);
+                            if(character.getAttack() <= character.getMaxAttack()){ //If not over max attack damage state attack damage
+                                System.out.println("New attack damage: " + character.getAttack());
+                            }
+                            else if(character.getAttack() > character.getMaxAttack()){ //If over max attack damage set to max attack damage and then state attack damage 
+                                character.setMaxAttack();
+                                strong.setMaxAttackDamage();
+                                standard.setMaxAttackDamage();
+                                weak.setMaxAttackDamage();
+                                System.out.println("New attack damage " + character.getAttack());
+                            }
+                        }
+                        else{
+                            System.out.println("You failed to make a selection try again.");  
+                            System.exit(5);
                         }
                     }
                     else if(barChoice == 3)// Get quest from guards
@@ -523,7 +550,7 @@ public class Main {
                 else if(event == 3){//Go to a doctor
                     System.out.println(art.getDoctorInitialText() + character.getHP() + "HP.");
                     doctorChoice = scanner.nextInt();
-                    //sleep command
+                    {//sleep command
                         try
                         {
                             Thread.sleep(3000);
@@ -532,6 +559,7 @@ public class Main {
                         {
                             Thread.currentThread().interrupt();
                         }
+                    }
                     if(doctorChoice == 1){
                         //decide on amount healed 10-40
                         randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
@@ -1329,8 +1357,8 @@ public class Main {
                         Enemy guardFour = new Enemy (25, 15);
                         Enemy guardFive = new Enemy (25, 15);
                         Enemy guardSix = new Enemy (25, 15);
-                        //sleep command
-                        {try
+                        {//sleep command
+                        try
                         {
                             Thread.sleep(1000);
                         }
@@ -1793,14 +1821,15 @@ public class Main {
                         {
                             art.getTownGuardFightWinText();
                             townChoice = scanner.nextInt();
-                            if(townChoice == 1){
+                            if(townChoice == 1){//Take from guards
                                 artifactsFoundOnGuards = randomNum.randomNumber(Constants.townArtifactsOnGuardsUpperBound);
                                 character.increaseArtifacts(artifactsFoundOnGuards);
+                                System.out.println("You found " + artifactsFoundOnGuards + " artifacts, you now have " + character.getArtifact() + " artifacts.");
                             }
-                            else if(townChoice == 2){
+                            else if(townChoice == 2){//Dont take from guards
                                 System.out.println("You leave the guards and contimplate, ");
                             }
-                            System.out.println("Do I want to loot the town?");
+                            System.out.print("Do I want to loot the town?");
                             System.out.println("1 = Yes.");
                             System.out.println("2 = No.");
                             townChoice = scanner.nextInt();

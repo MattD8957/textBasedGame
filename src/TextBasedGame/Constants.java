@@ -13,6 +13,7 @@ public final class Constants {
     //Bar Constants
         public static final int barFightDMGTakenUpperBound = 21;
         public static final int barAttackDMGIncreaseUpperBound = 15;
+        public static final int barAttackDMGIncreasePayed = 15;
     //Doctor Constants
         public static final int doctorAmountHealedUpperBound = 31;
 	    public static final int doctorAmountHealedPayed = 70;
