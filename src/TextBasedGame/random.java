@@ -11,7 +11,7 @@ public class random {
     }
     public int randomNumber(int upperbound){
         startRandom = true;
-        while(startRandom == true) {                
+        while(startRandom == true) {
         Random rand = new Random();//creates random class
         upperBound = upperbound; //sets upperbound = to 5, needs to be one greater than desired amount
         randomOutPutInt = rand.nextInt(upperBound);//generates number 0 to upperBound

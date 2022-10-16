@@ -64,23 +64,19 @@ public class Character {
         return health;
     }
     //Set character to Max hp
-    public int setMaxHP() {
+    public void setMaxHP() {
         health = maxHP;
-        return health;
     }
     //Add to players attack damage
-    public int increaseAttack(int increase){
+    public void increaseAttack(int increase){
         attack += increase;
-        return attack;
     }
     //Set players attack damage to max
-    public int setMaxAttack() {
+    public void setMaxAttack() {
         attack = maxAttack; 
-        return attack;
     }
     //Sets players health to 0 and to end loop
-    public int kill(){
+    public void kill(){
         health = 0;
-        return health;
     }
 }

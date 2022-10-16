@@ -66,12 +66,11 @@ public class Main {
         //Scanner
             Scanner scanner = new Scanner(System.in);
         
-        
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
         //entrance screen
-        System.out.print(art.getWelcomeArt());
+        art.getWelcomeArt();
         chosenClass = scanner.nextInt();
         //Clears screen
         System.out.print("\033[H\033[2J");
@@ -102,7 +101,7 @@ public class Main {
             characterAttackWeakDMG = 5;
             characterAttackWeakMaxDMG = 25;
             characterAttackWeakWeakness = -10;
-            System.out.print(art.getGameExplantionRogue());
+            art.getGameExplantionRogue();
         }
         else if(chosenClass == 2) //Paladin
         {
@@ -124,7 +123,7 @@ public class Main {
             characterAttackWeakDMG = 10;
             characterAttackWeakMaxDMG = 30;
             characterAttackWeakWeakness = -5;
-            System.out.print(art.getGameExplantionPaladin());
+            art.getGameExplantionPaladin();
         }
         else if(chosenClass == 3) //Barbarian
         {
@@ -146,7 +145,7 @@ public class Main {
             characterAttackWeakDMG = 15;
             characterAttackWeakMaxDMG = 40;
             characterAttackWeakWeakness = 0;
-            System.out.print(art.getGameExplantionBarbarian());
+            art.getGameExplantionBarbarian();
         }
         else
         {
@@ -188,7 +187,7 @@ public class Main {
                 //EVENTS
                 if(event == 0){ //Fight dragon
                     //Start text and picture
-                    System.out.print(art.getDragonArt());
+                    art.getDragonArt();
                     int dragonChoice = scanner.nextInt();
                     
                     if(dragonChoice == 1)//1 For escape
@@ -214,7 +213,7 @@ public class Main {
                             //Message after failing to escape
                             System.out.println("You fail to ecapse and awake the dragon. You will have to fight him.");
                             if(!foughtOnce){
-                                System.out.print(art.getCombatExplanation());
+                                art.getCombatExplanation();
                             }
                             //Wait
                             {try
@@ -236,11 +235,11 @@ public class Main {
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             //Explanation for player at start of battle
-                            System.out.print(art.getCombatExplanation());
+                            art.getCombatExplanation();
                             while(!character.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                                System.out.print(art.getAttackTypeChoiceText());
+                                art.getAttackTypeChoiceText();
                                 attackChoice = scanner.nextInt();
                                 if(attackChoice == 1)
                                 {
@@ -311,12 +310,12 @@ public class Main {
                             //Create Dragon 
                             Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
                             if(!foughtOnce){
-                                System.out.print(art.getCombatExplanation());
+                                art.getCombatExplanation();
                             }
                             while(!character.isDead() && !dragon.isDead())
                             {
                                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                                System.out.print(art.getAttackTypeChoiceText());
+                                art.getAttackTypeChoiceText();
                                 attackChoice = scanner.nextInt();
                                 if(attackChoice == 1)
                                 {
@@ -385,7 +384,7 @@ public class Main {
                 else if(event == 1){//Fight Bear
                     System.out.println("You are travaling in the forest when you run into an agressive bear.");
                     if(!foughtOnce){
-                        System.out.print(art.getCombatExplanation());
+                        art.getCombatExplanation();
                     }
                     //Create bear
                     bearHP = randomNum.randomNumber(Constants.bearHPUpperBound);
@@ -397,7 +396,7 @@ public class Main {
                     while(!character.isDead() && !bear.isDead())
                         {
                                 System.out.println("The bear has " + bear.getHP() + " HP.");
-                                System.out.print(art.getAttackTypeChoiceText());
+                                art.getAttackTypeChoiceText();
                                 attackChoice = scanner.nextInt();
                                 if(attackChoice == 1)
                                 {
@@ -458,7 +457,7 @@ public class Main {
                     }
                 }
                 else if(event == 2){//Go into a bar
-                    System.out.println(art.getBarText());
+                    art.getBarText();
                     barChoice = scanner.nextInt();
                     if(barChoice == 1)//Start a brawl
                     {
@@ -471,7 +470,7 @@ public class Main {
                     }
                     else if(barChoice == 2)//Buy a weapon
                     {
-                        System.out.println(art.getBlackSmithText());
+                        art.getBlackSmithText();
                         System.out.println("Your currently have: " + character.getArtifact() + " artifacts.");
                         blackSmithChoice = scanner.nextInt();
                         if(blackSmithChoice == 1){
@@ -521,7 +520,7 @@ public class Main {
                     else if(barChoice == 3)// Get quest from guards
                     {
                         //TODO Finish this
-                        System.out.print(art.getguardQuestText());
+                        art.getguardQuestText();
                         questChoice = scanner.nextInt();
                         if(questChoice == 1)//Defeat smugiling group
                         {
@@ -531,7 +530,7 @@ public class Main {
                         {
                             
                         }
-                        else if(questChoice == 3)
+                        else if(questChoice == 3) //TODO figure out what goes here
                         {
                             
                         }
@@ -548,7 +547,8 @@ public class Main {
                     }
                 }
                 else if(event == 3){//Go to a doctor
-                    System.out.println(art.getDoctorInitialText() + character.getHP() + "HP.");
+                    art.getDoctorInitialText();
+                    System.out.print(character.getHP() + "HP.");
                     doctorChoice = scanner.nextInt();
                     {//sleep command
                         try
@@ -611,7 +611,7 @@ public class Main {
                         //Start fight Same in every if statment for amount of followers
                         //Fighting Explanation
                         if(!foughtOnce){
-                            System.out.print(art.getCombatExplanation());
+                            art.getCombatExplanation();
                         }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
@@ -619,9 +619,9 @@ public class Main {
                         System.out.println("His follower has " + goblinFollowerOne.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println(art.getGoblinFightTargetTextTwo()); //Chooses who will be attacked
+                            art.getGoblinFightTargetTextTwo(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
-                            System.out.print(art.getAttackTypeChoiceText());
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -773,7 +773,7 @@ public class Main {
                         
                         //Fighting Explanation
                         if(!foughtOnce){
-                            System.out.print(art.getCombatExplanation());
+                            art.getCombatExplanation();
                         }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
@@ -781,9 +781,9 @@ public class Main {
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println(art.getGoblinFightTargetTextThree()); //Chooses who will be attacked
+                            art.getGoblinFightTargetTextThree(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
-                            System.out.print(art.getAttackTypeChoiceText());
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -994,7 +994,7 @@ public class Main {
 
                         //Fighting Explanation
                         if(!foughtOnce){
-                            System.out.print(art.getCombatExplanation());
+                            art.getCombatExplanation();
                         }
                         //Initial statement
                         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
@@ -1002,9 +1002,9 @@ public class Main {
                         System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
                         while(!character.isDead() && !goblinsAreDead)
                         {
-                            System.out.println(art.getGoblinFightTargetTextFour()); //Chooses who will be attacked
+                            art.getGoblinFightTargetTextFour(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
-                            System.out.print(art.getAttackTypeChoiceText());
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
@@ -1248,7 +1248,7 @@ public class Main {
                     }
                 }
                 else if(event == 5){//Fight guards
-                    System.out.print(art.getGuardFightText());
+                    art.getGuardFightText();
                     townChoice = scanner.nextInt();
                     if(townChoice == 1)//Go willingly
                     {
@@ -1372,11 +1372,11 @@ public class Main {
                         System.out.print("\033[H\033[2J");
                         System.out.flush();
                         if(!foughtOnce){
-                            System.out.print(art.getCombatExplanation());
+                            art.getCombatExplanation();
                         }
                         while(!character.isDead() && !guardsAreDead )  
                         {
-                            System.out.print(art.getAttackTypeChoiceText());
+                            art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
                             System.out.println("Which gaurd will you attack?");
                             System.out.println("Gaurd one " + guardOne.getHP() + "Hp.");
@@ -1866,7 +1866,7 @@ public class Main {
                         Thread.currentThread().interrupt();
                     }
                     //Win screen
-                    System.out.print(art.getYouWin());
+                    art.getYouWin();
                     //End program
                     System.exit(1);
                 }
@@ -1885,13 +1885,13 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 //Death screen
-                System.out.print(art.getYouDied());
+                art.getYouDied();
                 //End program
                 System.exit(2);
             }
         System.out.println("Hi");
         System.out.println(moveOn);
-        System.out.println(art.getEndingText());
+        art.getEndingText();
         scanner.close();
     }
   }

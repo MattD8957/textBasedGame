@@ -19,13 +19,11 @@ public class Attack {
         return weakness;
     }
     //increase attack damage
-    public int increaseAttackDamage(int additionalDamage){
+    public void increaseAttackDamage(int additionalDamage){
         damage += additionalDamage;
-        return damage;
     }
     //Sets attack damage to max
-    public int setMaxAttackDamage(){
+    public void setMaxAttackDamage(){
         damage = maxDamage; 
-        return damage;
     }
 }

@@ -19,9 +19,8 @@ public class Enemy {
         return attack;
     }
     //Take damage
-    public int takeDamage(int damage){
+    public void takeDamage(int damage){
         health -= damage;
-        return health;
     }
     //Check if the Enemy is alive
     public boolean isDead(){
