@@ -45,23 +45,20 @@ public class Character {
         return artifacts;
     }    
     //Add to amount of artifacts
-    public double increaseArtifacts(double increase){
+    public void increaseArtifacts(double increase){
         artifacts += increase;
-        return artifacts;
     }
     //Take damage
-    public int takeDamage(int damageTaken) {
+    public void takeDamage(int damageTaken) {
         health -= damageTaken;
-        return health;
     }
     //Check if character is dead
     public boolean isDead(){
         return health <= 0;
     }
     //Heal the player when they go to the doctor
-    public int heal(int amountHealed){
+    public void heal(int amountHealed){
         health +=amountHealed;
-        return health;
     }
     //Set character to Max hp
     public void setMaxHP() {

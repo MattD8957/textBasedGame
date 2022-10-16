@@ -65,7 +65,9 @@ public class Main {
             random randomNum = new random();
         //Scanner
             Scanner scanner = new Scanner(System.in);
-        
+        //Doctor
+            Doctor doctor = new Doctor(100);
+
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -101,6 +103,7 @@ public class Main {
             characterAttackWeakDMG = 5;
             characterAttackWeakMaxDMG = 25;
             characterAttackWeakWeakness = -10;
+            doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionRogue();
         }
         else if(chosenClass == 2) //Paladin
@@ -123,6 +126,7 @@ public class Main {
             characterAttackWeakDMG = 10;
             characterAttackWeakMaxDMG = 30;
             characterAttackWeakWeakness = -5;
+            doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionPaladin();
         }
         else if(chosenClass == 3) //Barbarian
@@ -145,6 +149,7 @@ public class Main {
             characterAttackWeakDMG = 15;
             characterAttackWeakMaxDMG = 40;
             characterAttackWeakWeakness = 0;
+            doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionBarbarian();
         }
         else
@@ -157,10 +162,7 @@ public class Main {
             Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongWeakness); // Damage, Max damage, weakness
             Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardWeakness); // Damage, Max damage, weakness
             Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
-        
-
         //Information for player at start of game TODO Decide on amount of artifacts Now in each class if statement
-        
         //Wait until player presses a button
         moveOn = scanner.next();
         //Clears screen
@@ -566,30 +568,14 @@ public class Main {
                     }
                     if(doctorChoice == 1){
                         //decide on amount healed 10-40
-                        randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
+                        amountHealed = randomNum.randomNumber(Constants.doctorAmountHealedUpperBound);
                         amountHealed += 10;
-                        if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
-                        {
-                            System.out.println("Your new health is " + character.getHP());
-                        }
-                        else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
-                        {
-                            character.setMaxHP();
-                            System.out.println("Your new health is " + character.getHP());    
-                        }
-                        }
+                    }
                     else if(doctorChoice == 2){
                         amountHealed = Constants.doctorAmountHealedPayed;
-                        if (character.heal(amountHealed) < character.getMaxHP())//If not over max health state new health.
-                        {
-                            System.out.println("Your new health is " + character.getHP());
-                        }
-                        else if (character.heal(amountHealed) > character.getMaxHP())//When over max health says so and set to max
-                        {
-                            character.setMaxHP();
-                            System.out.println("Your new health is " + character.getHP());    
-                        }
                     }
+                    character.heal(doctor.heal(character.getHP(), amountHealed));
+                    System.out.println("Your new health is " + character.getHP());
                 }
                 else if(event == 4){ //Goblin horde
                     System.out.println("You are travaling and a group of goblins is trying to rob you.");

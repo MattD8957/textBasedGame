@@ -2,9 +2,9 @@ package TextBasedGame;
 import java.util.Random;
 
 public class random {
-    private static int upperBound;
-    private static int randomOutPutInt;
-    private static boolean startRandom = false;
+    private int upperBound;
+    private int randomOutPutInt;
+    private boolean startRandom = false;
     //Create Random
     public random(){
 
