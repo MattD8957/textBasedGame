@@ -81,7 +81,7 @@ public class Main {
         characterName = scanner.next();
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        if(chosenClass == 1)//Rogue
+        if(chosenClass == 1) //Rogue
         {
             //Character Attributes
             CharacterHPCreation = 100;
@@ -531,6 +531,10 @@ public class Main {
                             
                         }
                         else if(questChoice == 3) //TODO figure out what goes here
+                        {
+                            
+                        }
+                        else if(questChoice == 4)//Don't want any of the quests
                         {
                             
                         }
