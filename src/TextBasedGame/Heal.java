@@ -1,11 +1,11 @@
 package TextBasedGame;
 
-public class Doctor {
+public class Heal {
     private int maxHP;
     private int newHP;
     private int output;
 
-    public Doctor(int charHealthMax){
+    public Heal(int charHealthMax){
         maxHP = charHealthMax;
     }
     public void setMaxHP(int newMaxHP){

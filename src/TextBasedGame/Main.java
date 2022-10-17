@@ -1840,6 +1840,9 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                     }
                 }
+                else if(event == 6){//Rest
+                    
+                }
                 //Win screen
                 if(character.getArtifact() >= 50)//If you collect 50 treasures
                 {
