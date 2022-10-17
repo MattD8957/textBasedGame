@@ -66,8 +66,10 @@ public class Main {
         //Scanner
             Scanner scanner = new Scanner(System.in);
         //Doctor
-            Doctor doctor = new Doctor(100);
-
+            Heal doctor = new Heal(100);
+        //Dragon
+            DragonBattle dragonBattle = new DragonBattle();
+        
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -182,7 +184,8 @@ public class Main {
                     Thread.currentThread().interrupt();
                 }
                 }
-                event = randomNum.randomNumber(Constants.eventUpperBound);
+                //event = randomNum.randomNumber(Constants.eventUpperBound);\
+                event = 0;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -200,184 +203,102 @@ public class Main {
                         escapeChance = randomNum.randomNumber(Constants.dragonEscapeChanceUpperBound);
                         if(escapeChance == 0)//escape succesfully
                         {
-                            System.out.println("You succesfully escape and can continue your journey.");
+                            dragonBattle.escaped();
                         }
                         else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
                         {
                             damageTaken = randomNum.randomNumber(Constants.dragonEscapeDMGUpperBound);
                             character.takeDamage(damageTaken);
-                            System.out.println("On your way out you fall and take some damage.");
-                            System.out.println("You succesfully escape only taking " + damageTaken + " damge, you now have " + character.getHP() + "HP.");
-                            System.out.println("You leave and continue your journey.");
+                            dragonBattle.tripThenEscape(damageTaken, character.getHP());
                         }
                         else if((escapeChance == 3) || (escapeChance == 4))//You fail to escape and have to fight the dragon
                         {
                             //Message after failing to escape
-                            System.out.println("You fail to ecapse and awake the dragon. You will have to fight him.");
-                            if(!foughtOnce){
-                                art.getCombatExplanation();
-                            }
-                            //Wait
-                            {try
-                            {
-                                Thread.sleep(1000);
-                            }
-                                catch(InterruptedException ex)
-                            {
-                                Thread.currentThread().interrupt();
-                            }
-                            }
-                            System.out.print("\033[H\033[2J");
-                            System.out.flush();
-                            //Fight dragon same code as below
-                            dragonHP = randomNum.randomNumber(Constants.dragonHPUpperBound);
-                            dragonHP += 10;//Dragon health 10 - 75
-                            dragonAttack = randomNum.randomNumber(Constants.dragonAttackDMGUpperBound);
-                            dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
-                            //Create Dragon 
-                            Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
-                            //Explanation for player at start of battle
-                            art.getCombatExplanation();
-                            while(!character.isDead() && !dragon.isDead())
-                            {
-                                System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                                art.getAttackTypeChoiceText();
-                                attackChoice = scanner.nextInt();
-                                if(attackChoice == 1)
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    dragon.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    dragon.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)
-                                {
-                                    System.out.println("You choose a weak attack!");
-                                    dragon.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                if(!dragon.isDead())//If still alive dragon's turn
-                                {
-                                    //To determine which attack was used and so what buff
-                                    if(attackChoice == 1)//Strong attack
-                                    {
-                                        damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
-                                        character.takeDamage(damageTaken);
-                                    }
-                                    else if(attackChoice == 2)//Standard attack
-                                    {
-                                        damageTaken = dragon.getAttack() + standard.getAttackPenalty();
-                                        character.takeDamage(damageTaken);
-                                    }
-                                    else if(attackChoice == 3)//Weak attack
-                                    {
-                                        damageTaken = dragon.getAttack() + weak.getAttackPenalty();
-                                        if(damageTaken >= 0)//Positive attack
-                                        {
-                                           character.takeDamage(damageTaken); 
-                                        }
-                                        else if(damageTaken < 0)//negative attack
-                                        {
-                                            damageTaken = 0;
-                                        }
-                                    }
-                                    System.out.println("The dragon attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + character.getHP() + " HP.");
-                                }
-                            }
-                            if(dragon.isDead())//After loop ends if Dragon died
-                            {
-                               System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
-                               character.increaseArtifacts(1); 
-                               System.out.println("You now have " + character.getArtifact() + " artifacts.");
-                               foughtOnce = true;
-                            }
+                            art.getFailedToEscapeText();
+                            //Goes to the battle
                         }
                     }
-                    else if(dragonChoice == 2)//To rob the dragon
+                    if((dragonChoice == 2) || (escapeChance == 3) || (escapeChance == 4))//To rob the dragon
                     {
-                        //Fight dragon same code as above
+                        if(!foughtOnce){
+                            art.getCombatExplanation();
+                        }
+                        {//Wait
+                        try
+                        {
+                            Thread.sleep(1000);
+                        }
+                            catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
+                        }
+                        //Fight dragon same code as below
                         dragonHP = randomNum.randomNumber(Constants.dragonHPUpperBound);
                         dragonHP += 10;//Dragon health 10 - 75
                         dragonAttack = randomNum.randomNumber(Constants.dragonAttackDMGUpperBound);
                         dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
-                            //Create Dragon 
-                            Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
-                            if(!foughtOnce){
-                                art.getCombatExplanation();
-                            }
-                            while(!character.isDead() && !dragon.isDead())
+                        //Create Dragon 
+                        Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
+
+                        while(!character.isDead() && !dragon.isDead())
+                        {
+                            System.out.println("The Dragon has " + dragon.getHP() + " HP.");
+                            art.getAttackTypeChoiceText();
+                            attackChoice = scanner.nextInt();
+                            if(attackChoice == 1)
                             {
-                                System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                                art.getAttackTypeChoiceText();
-                                attackChoice = scanner.nextInt();
-                                if(attackChoice == 1)
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    dragon.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    dragon.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)
-                                {
-                                    System.out.println("You choose a weak attack!");
-                                    dragon.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Dragon now has " + dragon.getHP() + " HP.");
-                                }
-                                if(!dragon.isDead())//If still alive dragon's turn
-                                {
-                                    //To determine which attack was used and so what buff
-                                    if(attackChoice == 1)//Strong attack
-                                    {
-                                        damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
-                                        character.takeDamage(damageTaken);
-                                    }
-                                    else if(attackChoice == 2)//Standard attack
-                                    {
-                                        damageTaken = dragon.getAttack() + standard.getAttackPenalty();
-                                        character.takeDamage(damageTaken);
-                                    }
-                                    else if(attackChoice == 3)//Weak attack
-                                    {
-                                        damageTaken = dragon.getAttack() + weak.getAttackPenalty();
-                                        if(damageTaken >= 0)//Positive attack
-                                        {
-                                           character.takeDamage(damageTaken); 
-                                        }
-                                        else if(damageTaken < 0)//negative attack
-                                        {
-                                            damageTaken = 0;
-                                        }
-                                    }
-                                    System.out.println("The dragon attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + character.getHP() + " HP.");
-                                }
+                                dragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
+                                dragon.takeDamage(strong.getAttackDamage());
                             }
-                            if(dragon.isDead())//After loop ends if Dragon died
+                            else if(attackChoice == 2)
                             {
-                               System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
-                               character.increaseArtifacts(1); 
-                               System.out.println("You now have " + character.getArtifact() + " artifacts.");
-                               foughtOnce = true;
+                                dragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
+                                dragon.takeDamage(standard.getAttackDamage());
+                            }
+                            else if(attackChoice == 3)
+                            {
+                                dragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
+                                dragon.takeDamage(weak.getAttackDamage());
+                            }
+                            if(!dragon.isDead())//If still alive dragon's turn
+                            {
+                                //To determine which attack was used and so what buff
+                                if(attackChoice == 1)//Strong attack
+                                {
+                                    damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
+                                    character.takeDamage(damageTaken);
+                                }
+                                else if(attackChoice == 2)//Standard attack
+                                {
+                                    damageTaken = dragon.getAttack() + standard.getAttackPenalty();
+                                    character.takeDamage(damageTaken);
+                                }
+                                else if(attackChoice == 3)//Weak attack
+                                {
+                                    damageTaken = dragon.getAttack() + weak.getAttackPenalty();
+                                    if(damageTaken >= 0)//Positive attack
+                                    {
+                                       character.takeDamage(damageTaken); 
+                                    }
+                                    else if(damageTaken < 0)//negative attack
+                                    {
+                                        damageTaken = 0;
+                                    }
+                                }
+                                System.out.println("The dragon attacks doing " + damageTaken + " damage.");
+                                System.out.println("You now have " + character.getHP() + " HP.");
                             }
                         }
-                    else //type a number or letter that is not an option 
+                        if(dragon.isDead())//After loop ends if Dragon died
+                        {
+                           System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
+                           character.increaseArtifacts(1); 
+                           System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                           foughtOnce = true;
+                        }
+                        }
+                    else if(!(dragonChoice == 1)) //type a number or letter that is not an option 
                     {
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
@@ -1840,8 +1761,8 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                     }
                 }
-                else if(event == 6){//Rest
-                    
+                else if(event == 6){//Rest TODO
+
                 }
                 //Win screen
                 if(character.getArtifact() >= 50)//If you collect 50 treasures
