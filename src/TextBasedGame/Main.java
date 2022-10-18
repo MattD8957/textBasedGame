@@ -55,6 +55,7 @@ public class Main {
         int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
         int doctorChoice; //Choice for what type of heal
         int blackSmithChoice; //Choice for what type of weapon upgrade
+        int questChoiceRandomStuff;
         boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         boolean guardsAreDead = false; //Checks if gaurds are dead
         boolean foughtOnce = false; //Checks if player has fought to give combat explanation      
@@ -63,12 +64,14 @@ public class Main {
             ArtAndText art = new ArtAndText();
         //Create class Random number
             random randomNum = new random();
-        //Scanner
+        //Scan ner
             Scanner scanner = new Scanner(System.in);
         //Doctor
             Heal doctor = new Heal(100);
         //Dragon
             DragonBattle dragonBattle = new DragonBattle();
+        //Bar
+            Bar bar = new Bar();
         
         //Clears screen
         System.out.print("\033[H\033[2J");
@@ -184,8 +187,8 @@ public class Main {
                     Thread.currentThread().interrupt();
                 }
                 }
-                //event = randomNum.randomNumber(Constants.eventUpperBound);\
-                event = 0;
+                event = randomNum.randomNumber(Constants.eventUpperBound);
+                //event = 0;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -384,12 +387,9 @@ public class Main {
                     barChoice = scanner.nextInt();
                     if(barChoice == 1)//Start a brawl
                     {
-                        System.out.println("You decide to start a brawl");
-                        //Determine amount of damage taken.
                         damageTaken = randomNum.randomNumber(Constants.barFightDMGTakenUpperBound);
-                        System.out.println("In the fight you take " + damageTaken + " damage.");
+                        bar.barBrawl(damageTaken, character.getHP());
                         character.takeDamage(damageTaken);
-                        System.out.println("You now have " + character.getHP() + " HP.");
                     }
                     else if(barChoice == 2)//Buy a weapon
                     {
@@ -397,7 +397,7 @@ public class Main {
                         System.out.println("Your currently have: " + character.getArtifact() + " artifacts.");
                         blackSmithChoice = scanner.nextInt();
                         if(blackSmithChoice == 1){
-                            System.out.println("Attack before addition: " + character.getAttack()); 
+                            System.out.println("Attack before addition: " + character.getAttack());
                             atk = randomNum.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
                             atk ++;
                             //incerase attack damage
@@ -437,7 +437,7 @@ public class Main {
                         }
                         else{
                             System.out.println("You failed to make a selection try again.");  
-                            System.exit(5);
+                            character.kill();
                         }
                     }
                     else if(barChoice == 3)// Get quest from guards
@@ -451,7 +451,22 @@ public class Main {
                         }
                         else if(questChoice == 2)//Defeat Evil king
                         {
+                            art.getBarQuestTwoText();
                             
+                            questChoiceRandomStuff = scanner.nextInt();
+                            if(questChoiceRandomStuff == 1){
+                                
+                            }
+                            else if(questChoiceRandomStuff == 2){
+
+                            }
+                            else if(questChoiceRandomStuff == 3){
+
+                            }
+                            else{
+                                System.out.println("You failed to make a selection.");
+                                character.kill();//set health to 0 to end loop
+                            }
                         }
                         else if(questChoice == 3) //TODO figure out what goes here
                         {
@@ -459,7 +474,7 @@ public class Main {
                         }
                         else if(questChoice == 4)//Don't want any of the quests
                         {
-                            
+                            art.getBarNoQuestText();
                         }
                         else
                         {
@@ -1781,6 +1796,7 @@ public class Main {
                     }
                     //Win screen
                     art.getYouWin();
+                    art.getEndingText();
                     //End program
                     System.exit(1);
                 }
@@ -1800,6 +1816,7 @@ public class Main {
                 System.out.flush();
                 //Death screen
                 art.getYouDied();
+                art.getEndingText();
                 //End program
                 System.exit(2);
             }
