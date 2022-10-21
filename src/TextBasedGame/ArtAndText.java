@@ -10,7 +10,8 @@ public class ArtAndText {
   public static final String attackTypeChoiceText = "\nWhat type of attack would you like to use?\n1 for Strong\n2 for Standard\n3 for Weak\n";
   //Events Text
   public static final String dragon = "You meet a dragon.\n              __\n          _.-'.-'-.__\n       .-'.       '-.'-._ __.--._\n-..'\\,-,/..-  _         .'   \\   '----._\n ). /_ _\\' ( ' '.         '-  '/'-----._'-.__\n '..'     '-r   _      .-.       '-._ \\\n '.\\. Y .).'       ( .'  .      .\\          '\\'.\n .-')'|'/'-.        \\)    )      '',_      _.c_.\\\n   .<, ,>.          |   _/\\        . ',   :   : \\\\\n  .' \\_/ '.        /  .'   |          '.     .'  \\)\n                  / .-'    '-.        : \\   _;   ||\n                 / /    _     \\_      '.'\\ ' /   ||\n                /.'   .'        \\_      .|   \\   \\|\n               / /   /      __.---'      '._  ;  ||\n              /.'  _:-.____< ,_           '.\\ \\  ||\n             // .-'     '-.__  '-'-\\_      '.\\/_ \\|\n            ( };====.===-==='        '.    .  \\\\: \\\n             \\\\ '._        /          :   ,'   )\\_ \\\n              \\\\   '------/            \\ .    /   )/\n              \\|        _|             )Y    |   /\n                \\\\      \\             .','   /  ,/\n                 \\\\    _/            /     _/\n                  \\\\   \\           .'    .'\n                   '| '1          /    .'\n                     '. \\        |:    /\n                       \\ |       /', .'\n                        \\(      ( ;z'\n                         \\:      \\ '(_\n                          \\_,     '._ '-.___\n                                      '-' -.\\\nYou can either rob it or try to escape\n1 to escape.\n2 to atempt to rob the dragon.";
-  public static final String failedToEscapeText = "You fail to ecapse and awake the dragon. You will have to fight him.";
+  public static final String dragonFailedToEscapeText = "You fail to ecapse and awake the dragon. You will have to fight him.";
+  public static final String bearInitailText = "You are travaling in the forest when you run into an agressive bear.";
   public static final String barText = "\nYou walk into a bar.\nYou have three choices;\nType 1 to start a brawl.\nType 2 to buy a weapon from a local salesman.\nType 3 to talk to the guard and get a quest.\n";
   public static final String blackSmithText = "You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts.\n 1 for random \n 2 to pay";
   public static final String barGuardQuestText = "\nYou talk to the guard to get a quest.\nHe gives you three quests and tells you to choose one.\nThe first quest is to take down a smugiling ring.\nThe second quest is to defeat an evil queen.\nThe third quest is TODO. \nOr you can take no quest. \nWhich quest do you choose? Type 1, 2, 3, or 4";
@@ -66,10 +67,12 @@ public class ArtAndText {
     System.out.println(dragon);
   }
   public void getFailedToEscapeText(){
-    System.out.println(failedToEscapeText);
+    System.out.println(dragonFailedToEscapeText);
   }
   //Bear
-
+  public void getBearInitialText(){
+    System.out.println(bearInitailText);
+  }
   //Bar
   public void getBarText(){
     System.out.println(barText);
@@ -123,11 +126,4 @@ public class ArtAndText {
   public void getAttackTypeChoiceText(){
     System.out.println(attackTypeChoiceText);
   }
-  
-  
-  
-	
-  
-  
-  
 }

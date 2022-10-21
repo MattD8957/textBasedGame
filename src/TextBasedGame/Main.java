@@ -72,6 +72,8 @@ public class Main {
             DragonBattle dragonBattle = new DragonBattle();
         //Bar
             Bar bar = new Bar();
+        //Bear
+            BearBattle bearBattle = new BearBattle();
         
         //Clears screen
         System.out.print("\033[H\033[2J");
@@ -308,7 +310,7 @@ public class Main {
                     }
                 }
                 else if(event == 1){//Fight Bear
-                    System.out.println("You are travaling in the forest when you run into an agressive bear.");
+                    art.getBearInitialText();
                     if(!foughtOnce){
                         art.getCombatExplanation();
                     }
@@ -326,10 +328,8 @@ public class Main {
                                 attackChoice = scanner.nextInt();
                                 if(attackChoice == 1)
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    
                                     bear.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The bear now has " + bear.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)
                                 {
