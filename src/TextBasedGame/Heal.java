@@ -2,7 +2,6 @@ package TextBasedGame;
 
 public class Heal {
     private int maxHP;
-    private int newHP;
     private int output;
 
     public Heal(int charHealthMax){
@@ -12,11 +11,11 @@ public class Heal {
         maxHP = newMaxHP;
     }
     public int heal(int HP, int amountHealed){
-        newHP = HP + amountHealed;
-        if(newHP < maxHP){
-            output = newHP;
+        HP += amountHealed;
+        if(HP < maxHP){
+            output = HP;
         }
-        else if(newHP >= maxHP){
+        else if(HP >= maxHP){
             output = maxHP;
         }
         return output;

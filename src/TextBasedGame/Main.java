@@ -190,7 +190,7 @@ public class Main {
                 }
                 }
                 event = randomNum.randomNumber(Constants.eventUpperBound);
-                //event = 0;
+                event = 1;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -328,22 +328,18 @@ public class Main {
                                 attackChoice = scanner.nextInt();
                                 if(attackChoice == 1)
                                 {
-                                    
+                                    bearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
                                     bear.takeDamage(strong.getAttackDamage());
                                 }
                                 else if(attackChoice == 2)
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    bearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
                                     bear.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The bear now has " + bear.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)
                                 {
-                                    System.out.println("You choose a weak attack!");
+                                    bearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
                                     bear.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The bear now has " + bear.getHP() + " HP.");
                                 }
                                 if(!bear.isDead())//If still alive bear's turn
                                 {
@@ -370,15 +366,13 @@ public class Main {
                                             damageTaken = 0;
                                         }
                                     }
-                                    System.out.println("The bear attacks doing " + damageTaken + " damage.");
-                                    System.out.println("You now have " + character.getHP() + " HP.");
+                                    bearBattle.bearTurnText(damageTaken, character.getHP());
                                 }
                             }
                     if(bear.isDead())//After loop ends if Bear died
                     {
-                        System.out.println("Congratulations you beat the bear! You get to keep its artifact.");
-                        character.increaseArtifacts(.5); 
-                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                        character.increaseArtifacts(.5);
+                        art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
                     }
                 }
