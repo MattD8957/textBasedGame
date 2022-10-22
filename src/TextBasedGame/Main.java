@@ -74,7 +74,9 @@ public class Main {
             Bar bar = new Bar();
         //Bear
             BearBattle bearBattle = new BearBattle();
-        
+        //Goblins
+            GoblinBattle goblinBattle = new GoblinBattle();
+
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -190,7 +192,7 @@ public class Main {
                 }
                 }
                 event = randomNum.randomNumber(Constants.eventUpperBound);
-                event = 1;
+                //event = 1;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -213,8 +215,8 @@ public class Main {
                         else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
                         {
                             damageTaken = randomNum.randomNumber(Constants.dragonEscapeDMGUpperBound);
-                            character.takeDamage(damageTaken);
                             dragonBattle.tripThenEscape(damageTaken, character.getHP());
+                            character.takeDamage(damageTaken);
                         }
                         else if((escapeChance == 3) || (escapeChance == 4))//You fail to escape and have to fight the dragon
                         {
@@ -534,9 +536,7 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
-                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
-                        System.out.println("His follower has " + goblinFollowerOne.getHP() + " Hp.");//Add per the amount of hench henchmen
+                        goblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(), goblinFollowerOne.getHP());
                         while(!character.isDead() && !goblinsAreDead)
                         {
                             art.getGoblinFightTargetTextTwo(); //Chooses who will be attacked
@@ -676,7 +676,7 @@ public class Main {
                             }
                         }
                     }
-                    else if(goblinFollowerCount == 2)//If 2 followers Copy but add one more loop
+                    else if(goblinFollowerCount == 2)//If 2 followers 
                     {
                         //Creates follower goblin one
                         goblinFollowerOneDamage = randomNum.randomNumber(Constants.goblinFollowerDMGUpperBound);
@@ -696,9 +696,7 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
-                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
-                        System.out.println("His followers have " + goblinFollowerOne.getHP() + " and " + goblinFollowerTwo.getHP() + " Hp.");//Add per the amount of hench henchmen
+                        goblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(), goblinFollowerOne.getHP(), goblinFollowerTwo.getHP());
                         while(!character.isDead() && !goblinsAreDead)
                         {
                             art.getGoblinFightTargetTextThree(); //Chooses who will be attacked
@@ -917,9 +915,7 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         //Initial statement
-                        System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.");
-                        System.out.println("The leader has " + goblinLeader.getHP() + " Hp.");
-                        System.out.println("His followers have " + goblinFollowerOne.getHP() + ", " + goblinFollowerTwo.getHP() + ", and " + goblinFollowerThree.getHP() + " Hp.");//Add per the amount of hench henchmen
+                        goblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(), goblinFollowerOne.getHP(), goblinFollowerTwo.getHP(), goblinFollowerThree.getHP());
                         while(!character.isDead() && !goblinsAreDead)
                         {
                             art.getGoblinFightTargetTextFour(); //Chooses who will be attacked
@@ -1162,9 +1158,8 @@ public class Main {
                     }
                     if(goblinsAreDead) //Reward
                     {
-                        System.out.println("Congratulations you beat the goblin horde! You get to keep their artifacts.");
-                        character.increaseArtifacts(7);
-                        System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                        character.increaseArtifacts(Constants.goblinWinArtifactReward);
+                        goblinBattle.winText(character.getArtifact());
                     }
                 }
                 else if(event == 5){//Fight guards

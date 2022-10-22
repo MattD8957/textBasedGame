@@ -23,6 +23,7 @@ public final class Constants {
         public static final int goblinFollowerCountUpperBound = 3;
         public static final int goblinFollowerDMGUpperBound = 5;
         public static final int goblinFollowerHealthUpperBound = 11;
+        public static final int goblinWinArtifactReward = 7;
     //Captured in town
 	    public static final int townBegFine = 3; //Is a constant
         public static final int townJailFightDMGTakenUpperBound = 8;
