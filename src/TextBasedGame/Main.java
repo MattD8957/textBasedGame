@@ -193,6 +193,9 @@ public class Main {
                 }
                 event = randomNum.randomNumber(Constants.eventUpperBound);
                 //event = 1;
+                if(character.getHP() <= 30){ //To make game more fun
+                    event = 3;
+                }
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
