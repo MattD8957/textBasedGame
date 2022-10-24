@@ -195,6 +195,7 @@ public class Main {
                 //event = 1;
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
+                    //TODO
                 }
                 //Clears screen
                 System.out.print("\033[H\033[2J");
