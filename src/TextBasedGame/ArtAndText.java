@@ -21,6 +21,11 @@ public class ArtAndText {
   public static final String barTakeQuestThreeText = " ";
   public static final String barTakeNoQuestText = "He says, \"I understand they are not easy tasks, it will be a challenge for the millitary.\" You say goodbye and head out of the tavern looking for a place to sleep.";
   public static final String doctorInitialText = "You go to a doctor, he can heal you 10 to 40HP for free \n Or you can pay 2 artifacts to be healed a gaurenteed 70HP. \n 1 for Random \n 2 for 70HP \n You currently have: ";
+  public static final String goblinInitialText = "You are travaling and a group of goblins is trying to rob you.";
+  public static final String goblinLeaderTargetText = "You attack the Leader.";
+  public static final String goblinFollowerOneTargetText = "You attack the first Henchman.";
+  public static final String goblinFollowerTwoTargetText = "You attack the second Henchman.";
+  public static final String goblinFollowerThreeTargetText = "You attack the third Henchman.";
   public static final String goblinBattleAttackTargetTwo = "Who will you attack? \n1 for leader\n2 for henchman";
   public static final String goblinBattleAttackTargetThree = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2";
   public static final String goblinBattleAttackTargetFour = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2\n4 for henchman 3";
@@ -110,6 +115,9 @@ public class ArtAndText {
 	}
 
   //Goblin
+  public void getGoblinInitialText(){
+    System.out.println(goblinInitialText);
+  }
   public void getGoblinFightTargetTextTwo(){
     System.out.println(goblinBattleAttackTargetTwo);
   }

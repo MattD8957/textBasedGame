@@ -509,8 +509,8 @@ public class Main {
                     character.heal(doctor.heal(character.getHP(), amountHealed));
                     System.out.println("Your new health is " + character.getHP());
                 }
-                else if(event == 4){ //Goblin horde
-                    System.out.println("You are travaling and a group of goblins is trying to rob you.");
+                else if(event == 4){//Goblin horde
+                    art.getGoblinInitialText();
                     //Create the goblins
                     //Create leader Goblin
                     goblinLeaderDamage = randomNum.randomNumber(Constants.goblinLeaderDMGUpperBound);
@@ -545,27 +545,21 @@ public class Main {
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
-                                System.out.println("You attack the Leader.");
+                                System.out.println(ArtAndText.goblinLeaderTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else//improper selection
                                 {
@@ -575,27 +569,21 @@ public class Main {
                             }
                             else if(attackTarget == 2) //Follower 1
                             {
-                                System.out.println("You attack the Henchman.");
+                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Follower now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Follower now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Follower now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else//improper selection
                                 {
@@ -634,8 +622,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinLeadersTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -662,8 +649,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerOneTurnOutPut(damageTaken, character.getHP());
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead())//If any goblin is alive
@@ -705,27 +691,21 @@ public class Main {
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
-                                System.out.println("You attack the Leader.");
+                                System.out.println(ArtAndText.goblinLeaderTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else//improper selection
                                 {
@@ -735,57 +715,45 @@ public class Main {
                             }
                             else if(attackTarget == 2) //Follower 1
                             {
-                                System.out.println("You attack the Henchman.");
+                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
-                                }
-                            }
-                            else if(attackTarget == 3) //Follower 2
-                            {
-                                System.out.println("You attack the second henchman.");
-                                if(attackChoice == 1)//Strong attack
-                                {
-                                    System.out.println("You choose a strong attack");
-                                    goblinFollowerTwo.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 2)//standard attack 
-                                {
-                                    System.out.println("You choose a standard attack");
-                                    goblinFollowerTwo.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchan now has " + goblinFollowerTwo.getHP() + " HP.");
-                                }
-                                else if(attackChoice == 3)//Weak attack
-                                {
-                                    System.out.println("You choose a weak attack");
-                                    goblinFollowerTwo.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
                                 }
                                 else//improper selection
                                 {
                                     System.out.println("You failed to make a selection.");
                                     character.kill();//set health to 0 to end loop
+                                }
+                            }
+                            else if(attackTarget == 3) //Follower 2
+                            {
+                                System.out.println(ArtAndText.goblinFollowerTwoTargetText);
+                                if(attackChoice == 1)//Strong attack
+                                {
+                                    goblinBattle.goblinFollowerTwoAttackStrong(strong.getAttackDamage(), goblinFollowerTwo.getHP());
+                                    goblinFollowerTwo.takeDamage(strong.getAttackDamage());
+                                }
+                                else if(attackChoice == 2)//standard attack 
+                                {
+                                    goblinBattle.goblinFollowerTwoAttackStandard(standard.getAttackDamage(), goblinFollowerTwo.getHP());
+                                    goblinFollowerTwo.takeDamage(standard.getAttackDamage());
+                                }
+                                else if(attackChoice == 3)//Weak attack
+                                {
+                                    goblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(), goblinFollowerTwo.getHP());
+                                    goblinFollowerTwo.takeDamage(weak.getAttackDamage());
                                 }
                             }
                             else//improper selection
@@ -819,8 +787,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinLeadersTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -847,8 +814,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerOneTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
@@ -875,8 +841,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerTwoTurnOutPut(damageTaken, character.getHP());
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead())//If any goblin is alive
@@ -924,27 +889,21 @@ public class Main {
                             attackChoice = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
-                                System.out.println("You attack the Leader.");
+                                System.out.println(ArtAndText.goblinLeaderTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The Leader now has " + goblinLeader.getHP() + " HP.");
                                 }
                                 else//improper selection
                                 {
@@ -954,77 +913,64 @@ public class Main {
                             }
                             else if(attackTarget == 2) //Follower 1
                             {
-                                System.out.println("You attack the Henchman.");
+                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The henchman now has " + goblinFollowerOne.getHP() + " HP.");
+                                }
+                                else//improper selection
+                                {
+                                    System.out.println("You failed to make a selection.");
+                                    character.kill();//set health to 0 to end loop
                                 }
                             }
                             else if(attackTarget == 3) //Follower 2
                             {
-                                System.out.println("You attack the second henchman.");
+                                System.out.println(ArtAndText.goblinFollowerTwoTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinFollowerTwoAttackStrong(strong.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinFollowerTwoAttackStandard(standard.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchan now has " + goblinFollowerTwo.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The second henchman now has " + goblinFollowerTwo.getHP() + " HP.");
                                 }
                             }
                             else if(attackTarget == 4) //Follower 3
                             {
-                                System.out.println("You attack the third henchman.");
+                                System.out.println(ArtAndText.goblinFollowerThreeTargetText);
                                 if(attackChoice == 1)//Strong attack
                                 {
-                                    System.out.println("You choose a strong attack");
+                                    goblinBattle.goblinFollowerThreeAttackStrong(strong.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(strong.getAttackDamage());
-                                    System.out.println("You do " + strong.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchman now has " + goblinFollowerThree.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 2)//standard attack 
                                 {
-                                    System.out.println("You choose a standard attack");
+                                    goblinBattle.goblinFollowerThreeAttackStandard(standard.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(standard.getAttackDamage());
-                                    System.out.println("You do " + standard.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchan now has " + goblinFollowerThree.getHP() + " HP.");
                                 }
                                 else if(attackChoice == 3)//Weak attack
                                 {
-                                    System.out.println("You choose a weak attack");
+                                    goblinBattle.goblinFollowerThreeAttackWeak(weak.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(weak.getAttackDamage());
-                                    System.out.println("You do " + weak.getAttackDamage() + " damage.");
-                                    System.out.println("The third henchman now has " + goblinFollowerThree.getHP() + " HP.");
                                 }
                             }
                             else//improper selection
@@ -1058,8 +1004,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The leader attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinLeadersTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
@@ -1086,8 +1031,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerOneTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
@@ -1114,8 +1058,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The second henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerTwoTurnOutPut(damageTaken, character.getHP());
                             }
                             if(!goblinFollowerThree.isDead())// Goblin Follower 3's turn
                             {
@@ -1142,8 +1085,7 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The third henchman attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                goblinBattle.goblinFollowerThreeTurnOutPut(damageTaken, character.getHP());
                             }
                             //add extras
                             if(!goblinLeader.isDead() || !goblinFollowerOne.isDead() || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())//If any goblin is alive
