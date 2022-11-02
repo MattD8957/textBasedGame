@@ -57,8 +57,8 @@ public class Character {
         return health <= 0;
     }
     //Heal the player when they go to the doctor
-    public void heal(int amountHealed){
-        health +=amountHealed;
+    public void heal(int newHP){
+        health = newHP;
     }
     //Set character to Max hp
     public void setMaxHP() {

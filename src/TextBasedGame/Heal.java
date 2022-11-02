@@ -1,5 +1,5 @@
 package TextBasedGame;
-
+import java.math.*;
 public class Heal {
     private int maxHP;
     private int output;
@@ -14,9 +14,10 @@ public class Heal {
         HP += amountHealed;
         if(HP < maxHP){
             output = HP;
-        }
+        }// 5 3 5
         else if(HP >= maxHP){
-            output = maxHP;
+            amountHealed = HP - maxHP;
+            output = (HP - amountHealed);
         }
         return output;
     }

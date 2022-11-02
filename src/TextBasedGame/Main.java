@@ -95,7 +95,7 @@ public class Main {
         if(chosenClass == 1) //Rogue
         {
             //Character Attributes
-            CharacterHPCreation = 100;
+            CharacterHPCreation = 10;
             CharacterMaxHPCreation = 100;
             CharacterStandardAtackCreation = 15;
             CharacterMaxAttackCreation = 30;
@@ -192,7 +192,7 @@ public class Main {
                 }
                 }
                 event = randomNum.randomNumber(Constants.eventUpperBound);
-                //event = 1;
+                event = 3;
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                     //TODO
@@ -490,7 +490,7 @@ public class Main {
                 }
                 else if(event == 3){//Go to a doctor
                     art.getDoctorInitialText();
-                    System.out.print(character.getHP() + "HP.");
+                    System.out.print(character.getHP() + " HP.\n");
                     doctorChoice = scanner.nextInt();
                     {//sleep command
                         try
@@ -510,7 +510,10 @@ public class Main {
                     else if(doctorChoice == 2){
                         amountHealed = Constants.doctorAmountHealedPayed;
                     }
-                    character.heal(doctor.heal(character.getHP(), amountHealed));
+                    System.out.println("Amount to heal before: " + amountHealed);
+                    amountHealed = doctor.heal(character.getHP(), amountHealed);
+                    System.out.println("Amount to heal after: " + amountHealed);
+                    character.heal(amountHealed);
                     System.out.println("Your new health is " + character.getHP());
                 }
                 else if(event == 4){//Goblin horde
