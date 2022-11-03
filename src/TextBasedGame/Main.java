@@ -86,7 +86,6 @@ public class Main {
         //Clears screen
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        
         //Gets players name for Character then clears screen
         System.out.println("What would you like to name your Character?");
         characterName = scanner.next();
