@@ -36,10 +36,11 @@ public class Main {
             int goblinFollowerThreeHealth = 0; //This is for class creation
             int goblinFollowerThreeDamage = 0; //This is for class creation
     //Rest of Game
-        String moveOn = "Hi!"; //Player imputs when to continue
         String characterName; //gets the name the player wants for the player 
+        String moveOn = "Hi!"; //Player imputs when to continue
         int event;//chooses which event will happen
         int amountHealed = 0;//amount of HP added by the doctor
+        int amountHealedOld = 0;
         int damageTaken = 0; //random amount of damage done to player for method
         int atk = 0; // This is the amount of damage added to attack damage
         int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
@@ -94,7 +95,7 @@ public class Main {
         if(chosenClass == 1) //Rogue
         {
             //Character Attributes
-            CharacterHPCreation = 10;
+            CharacterHPCreation = 100;
             CharacterMaxHPCreation = 100;
             CharacterStandardAtackCreation = 15;
             CharacterMaxAttackCreation = 30;
@@ -191,7 +192,6 @@ public class Main {
                 }
                 }
                 event = randomNum.randomNumber(Constants.eventUpperBound);
-                event = 3;
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                     //TODO
@@ -509,11 +509,10 @@ public class Main {
                     else if(doctorChoice == 2){
                         amountHealed = Constants.doctorAmountHealedPayed;
                     }
-                    System.out.println("Amount to heal before: " + amountHealed);
+                    amountHealedOld = amountHealed;
                     amountHealed = doctor.heal(character.getHP(), amountHealed);
-                    System.out.println("Amount to heal after: " + amountHealed);
                     character.heal(amountHealed);
-                    System.out.println("Your new health is " + character.getHP());
+                    System.out.println("You were healed: " + amountHealedOld + "Hp. Your new health is " + character.getHP() + "HP.");
                 }
                 else if(event == 4){//Goblin horde
                     art.getGoblinInitialText();
