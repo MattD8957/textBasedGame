@@ -36,36 +36,47 @@ public class Main {
             int goblinFollowerThreeHealth = 0; //This is for class creation
             int goblinFollowerThreeDamage = 0; //This is for class creation
     //Rest of Game
-        String characterName; //gets the name the player wants for the player 
-        String moveOn = "Hi!"; //Player imputs when to continue
-        int event;//chooses which event will happen
-        int amountHealed = 0;//amount of HP added by the doctor
-        int amountHealedOld = 0;
-        int damageTaken = 0; //random amount of damage done to player for method
-        int atk = 0; // This is the amount of damage added to attack damage
-        int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
-        int attackChoice = 0; // This is to choose your attack
-        int attackTarget = 0; //decides who to attack
-        int questChoice = 0; //Players choice of what quest to take
-        int barChoice = 0; //Players choice of what to do at the bar
-        int townChoice = 0; //Players choice when arrested in town
-        int chosenClass = 0; //Players choice of Character 
-        int fightStart = 0; //Random to decide if a fight starts in jail
-        int courtSentancing = 0; //The random that gives a sentance for the players crimes
-        int fine = 0; //Use to fine the player of artifacts 
-        int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
-        int doctorChoice; //Choice for what type of heal
-        int blackSmithChoice; //Choice for what type of weapon upgrade
-        int questChoiceRandomStuff;
-        boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
-        boolean guardsAreDead = false; //Checks if gaurds are dead
-        boolean foughtOnce = false; //Checks if player has fought to give combat explanation      
+        //Random
+            String characterName; //gets the name the player wants for the player 
+            String moveOn = "Hi!"; //Player imputs when to continue
+            int attackChoice = 0; // This is to choose your attack
+            int attackTarget = 0; //decides who to attack
+            int atk = 0; // This is the amount of damage added to attack damage
+            int chosenClass = 0; //Players choice of Character 
+            int damageTaken = 0; //random amount of damage done to player for method
+            int event;//chooses which event will happen
+            boolean foughtOnce = false; //Checks if player has fought to give combat explanation
+        //Dragon
+            int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
+        //Bear
+
+        //Bar
+            int blackSmithChoice; //Choice for what type of weapon upgrade
+            int barChoice = 0; //Players choice of what to do at the bar
+            int questChoice = 0; //Players choice of what quest to take
+            int questChoiceRandomStuff;
+        //Doctor
+            int doctorChoice; //Choice for what type of heal
+            int amountHealed = 0;//amount of HP added by the doctor
+            int amountHealedOld = 0;
+        //Goblins
+            boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
+        //Town
+            int townChoice = 0; //Players choice when arrested in town
+            int fine = 0; //Use to fine the player of artifacts 
+            int fightStart = 0; //Random to decide if a fight starts in jail
+            int courtSentancing = 0; //The random that gives a sentance for the players crimes
+            int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
+            boolean guardsAreDead = false; //Checks if gaurds are dead
+        //Night
+            int sleepPlaceChoice = 0; //Players choice of where to sleep
+
     //Create Classes
         //create Class Art
             ArtAndText art = new ArtAndText();
         //Create class Random number
             random randomNum = new random();
-        //Scan ner
+        //Scanner
             Scanner scanner = new Scanner(System.in);
         //Doctor
             Heal doctor = new Heal(100);
@@ -1712,8 +1723,15 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                     }
                 }
-                else if(event == 6){//Rest TODO
-
+                else if(event == 6){//Night TODO
+                    art.getNightInitialText(character.getArtifact());
+                    if(sleepPlaceChoice == 1){//Town Extra damage
+                        art.getNightChoiceOneText();
+                    }
+                    else if(sleepPlaceChoice == 2){//Tree Dangerous
+                        art.getNightChoiceTwoText();
+                        
+                    }
                 }
                 //Win screen
                 if(character.getArtifact() >= 50)//If you collect 50 treasures

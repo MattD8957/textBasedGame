@@ -31,6 +31,9 @@ public class ArtAndText {
   public static final String goblinBattleAttackTargetFour = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2\n4 for henchman 3";
   public static final String guardFightText = "\nYou enter a town to rest but the gaurds stop you.\nThey belive you to be a criminal and arrest you.\nAs they take you to jail you have 3 options.\n1 to go with them willingly.\n2 to beg for mercy.\n3 to fight back and try to escape.\n";
   public static final String townGuardFightWinText = "You defeat the guards! \n You decided to walk over and search the guards and \n on the guards you find some artifacts, would you like to take them? \n 1 for Yes. \n 2 for No.";
+  public static final String nightInitialText = "Night falls, you can pay for a room in the town nearby or you can try to sleep under a nearby tree. \nIt costs 1 artifact to sleep in town, it is free to sleep under the tree but there might be dangers. \n1 for the town. \n 2 for the tree. \nYou have ";
+  public static final String nightChoiceOneText = "You pay for your room and head to bed.";
+  public static final String nightChoiceTwoText = "You lay out a sleeping bag under the tree and hope nothing bothers you overnight.";
   //Ending Text
   public static final String youDied = "          _______             ______  _________ _______  ______   _  \n|\\     /|(  ___  )|\\     /|  (  __  \\ \\__   __/(  ____ \\(  __  \\ ( ) \n( \\   / )| (   ) || )   ( |  | (  \\  )   ) (   | (    \\/| (  \\  )| | \n \\ (_) / | |   | || |   | |  | |   ) |   | |   | (__    | |   ) || | \n  \\   /  | |   | || |   | |  | |   | |   | |   |  __)   | |   | || | \n   ) (   | |   | || |   | |  | |   ) |   | |   | (      | |   ) |(_) \n   | |   | (___) || (___) |  | (__/  )___) (___| (____/\\| (__/  ) _  \n   \\_/   (_______)(_______)  (______/ \\_______/(_______/(______/ (_) \n";
   public static final String youWin = "__      __    ____     __    __      ___       ___    _____      __      _  _______ \n) \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / \n \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  \n  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   \n   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   \n    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    \n   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   \n";
@@ -135,6 +138,17 @@ public class ArtAndText {
   public void getTownGuardFightWinText(){
 		System.out.println(townGuardFightWinText);
 	}
+
+  //Night
+  public void getNightInitialText(double artifacts){
+    System.out.println(nightInitialText + artifacts + " artifacts.");
+  }
+  public void getNightChoiceOneText(){
+    System.out.println(nightChoiceOneText);
+  }
+  public void getNightChoiceTwoText(){
+    System.out.println(nightChoiceTwoText);
+  }
 
   //All Combat
   public void getAttackTypeChoiceText(){
