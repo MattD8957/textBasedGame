@@ -70,6 +70,7 @@ public class Main {
             boolean guardsAreDead = false; //Checks if gaurds are dead
         //Night
             int sleepPlaceChoice = 0; //Players choice of where to sleep
+            int nightChance = 0;//FOr random Decisions
 
     //Create Classes
         //create Class Art
@@ -1724,14 +1725,16 @@ public class Main {
                     }
                 }
                 else if(event == 6){//Night TODO
-                    art.getNightInitialText(character.getArtifact());
+                    /*art.getNightInitialText(character.getArtifact());
                     if(sleepPlaceChoice == 1){//Town Extra damage
                         art.getNightChoiceOneText();
+                        nightChance = randomNum.randomNumber(Constants.)
+                        if(nightChance == )
                     }
                     else if(sleepPlaceChoice == 2){//Tree Dangerous
                         art.getNightChoiceTwoText();
                         
-                    }
+                    }*/
                 }
                 //Win screen
                 if(character.getArtifact() >= 50)//If you collect 50 treasures
