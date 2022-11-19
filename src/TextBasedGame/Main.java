@@ -46,7 +46,9 @@ public class Main {
             int damageTaken = 0; //random amount of damage done to player for method
             int event;//chooses which event will happen
             boolean foughtOnce = false; //Checks if player has fought to give combat explanation
+            boolean properAns = false; //Checks if user input works
         //Dragon
+            int dragonChoice = 0; //Choice from user
             int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
         //Bear
 
@@ -215,8 +217,12 @@ public class Main {
                 if(event == 0){ //Fight dragon
                     //Start text and picture
                     art.getDragonArt();
-                    int dragonChoice = scanner.nextInt();
-                    
+                    do{
+                        dragonChoice = scanner.nextInt();
+                        if((dragonChoice == 1) || (dragonChoice == 2)){
+                            properAns = true;
+                        }
+                    } while(!properAns);
                     if(dragonChoice == 1)//1 For escape
                     // 1 in 5 chance of freedom 
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
@@ -340,51 +346,57 @@ public class Main {
 
                     while(!character.isDead() && !bear.isDead())
                         {
+                                properAns = false;
                                 System.out.println("The bear has " + bear.getHP() + " HP.");
                                 art.getAttackTypeChoiceText();
-                                attackChoice = scanner.nextInt();
-                                if(attackChoice == 1)
-                                {
-                                    bearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
-                                    bear.takeDamage(strong.getAttackDamage());
-                                }
-                                else if(attackChoice == 2)
-                                {
-                                    bearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
-                                    bear.takeDamage(standard.getAttackDamage());
-                                }
-                                else if(attackChoice == 3)
-                                {
-                                    bearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
-                                    bear.takeDamage(weak.getAttackDamage());
-                                }
-                                if(!bear.isDead())//If still alive bear's turn
-                                {
-                                    //To determine which attack was used and so what buff
-                                    if(attackChoice == 1)//Strong attack
+                                do{
+                                    attackChoice = scanner.nextInt();
+                                    if(attackChoice == 1)
                                     {
-                                        damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
-                                        character.takeDamage(damageTaken);
+                                        bearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
+                                        bear.takeDamage(strong.getAttackDamage());
+                                        properAns = true;
                                     }
-                                    else if(attackChoice == 2)//Standard attack
+                                    else if(attackChoice == 2)
                                     {
-                                        damageTaken = bear.getAttack() + standard.getAttackPenalty();
-                                        character.takeDamage(damageTaken);
+                                        bearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
+                                        bear.takeDamage(standard.getAttackDamage());
+                                        properAns = true;
                                     }
-                                    else if(attackChoice == 3)//Weak attack
+                                    else if(attackChoice == 3)
                                     {
-                                        damageTaken = bear.getAttack() + weak.getAttackPenalty();
-                                        if(damageTaken >= 0)//Positive attack
+                                        bearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
+                                        bear.takeDamage(weak.getAttackDamage());
+                                        properAns = true;
+                                    }
+                                    if(!bear.isDead())//If still alive bear's turn
+                                    {
+                                        //To determine which attack was used and so what buff
+                                        if(attackChoice == 1)//Strong attack
                                         {
-                                           character.takeDamage(damageTaken); 
+                                            damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
+                                            character.takeDamage(damageTaken);
                                         }
-                                        else if(damageTaken < 0)//negative attack
+                                        else if(attackChoice == 2)//Standard attack
                                         {
-                                            damageTaken = 0;
+                                            damageTaken = bear.getAttack() + standard.getAttackPenalty();
+                                            character.takeDamage(damageTaken);
                                         }
+                                        else if(attackChoice == 3)//Weak attack
+                                        {
+                                            damageTaken = bear.getAttack() + weak.getAttackPenalty();
+                                            if(damageTaken >= 0)//Positive attack
+                                            {
+                                               character.takeDamage(damageTaken); 
+                                            }
+                                            else if(damageTaken < 0)//negative attack
+                                            {
+                                                damageTaken = 0;
+                                            }
+                                        }   
+                                        bearBattle.bearTurnText(damageTaken, character.getHP());
                                     }
-                                    bearBattle.bearTurnText(damageTaken, character.getHP());
-                                }
+                                } while(!properAns);
                             }
                     if(bear.isDead())//After loop ends if Bear died
                     {
