@@ -2,14 +2,11 @@ package TextBasedGame;
 import java.util.Random;
 
 public class random {
-    private int upperBound;
-    private int randomOutPutInt;
-    private boolean startRandom = false;
-    //Create Random
-    public random(){
-
-    }
-    public int randomNumber(int upperbound){
+    private static int upperBound;
+    private static int randomOutPutInt;
+    private static boolean startRandom = false;
+    
+    public static int randomNumber(int upperbound){
         startRandom = true;
         while(startRandom == true) {
         Random rand = new Random();//creates random class

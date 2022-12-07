@@ -20,6 +20,8 @@ public class Heal {
         }
         return output;
     }
-    
+    public void doctorOutputText(int characterHP, int amountHealed){
+        System.out.println("You were healed: " + amountHealed + "Hp. Your new health is " + characterHP + "HP.");
+    }
 }
 

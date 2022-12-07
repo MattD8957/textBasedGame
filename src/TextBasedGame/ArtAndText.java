@@ -8,6 +8,7 @@ public class ArtAndText {
   public static final String gameExplanationBarbarianText = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 150Hp and doing 25dmg for standard attacks.\nType anything to continue: ";
   public static final String combatExplanation = "\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vulnerable to damage.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\n";
   public static final String attackTypeChoiceText = "\nWhat type of attack would you like to use?\n1 for Strong\n2 for Standard\n3 for Weak";
+  public static final String selectionFail = "You failed to make a selection try again.";
   //Events Text
   public static final String dragon = "You meet a dragon.\n              __\n          _.-'.-'-.__\n       .-'.       '-.'-._ __.--._\n-..'\\,-,/..-  _         .'   \\   '----._\n ). /_ _\\' ( ' '.         '-  '/'-----._'-.__\n '..'     '-r   _      .-.       '-._ \\\n '.\\. Y .).'       ( .'  .      .\\          '\\'.\n .-')'|'/'-.        \\)    )      '',_      _.c_.\\\n   .<, ,>.          |   _/\\        . ',   :   : \\\\\n  .' \\_/ '.        /  .'   |          '.     .'  \\)\n                  / .-'    '-.        : \\   _;   ||\n                 / /    _     \\_      '.'\\ ' /   ||\n                /.'   .'        \\_      .|   \\   \\|\n               / /   /      __.---'      '._  ;  ||\n              /.'  _:-.____< ,_           '.\\ \\  ||\n             // .-'     '-.__  '-'-\\_      '.\\/_ \\|\n            ( };====.===-==='        '.    .  \\\\: \\\n             \\\\ '._        /          :   ,'   )\\_ \\\n              \\\\   '------/            \\ .    /   )/\n              \\|        _|             )Y    |   /\n                \\\\      \\             .','   /  ,/\n                 \\\\    _/            /     _/\n                  \\\\   \\           .'    .'\n                   '| '1          /    .'\n                     '. \\        |:    /\n                       \\ |       /', .'\n                        \\(      ( ;z'\n                         \\:      \\ '(_\n                          \\_,     '._ '-.___\n                                      '-' -.\\\nYou can either rob it or try to escape\n1 to escape.\n2 to atempt to rob the dragon.";
   public static final String dragonFailedToEscapeText = "You fail to ecapse and awake the dragon. You will have to fight him.";
@@ -29,8 +30,7 @@ public class ArtAndText {
   public static final String goblinBattleAttackTargetTwo = "Who will you attack? \n1 for leader\n2 for henchman";
   public static final String goblinBattleAttackTargetThree = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2";
   public static final String goblinBattleAttackTargetFour = "Who will you attack? \n1 for leader\n2 for henchman\n3 for henchamn 2\n4 for henchman 3";
-  public static final String guardFightText = "\nYou enter a town to rest but the gaurds stop you.\nThey belive you to be a criminal and arrest you.\nAs they take you to jail you have 3 options.\n1 to go with them willingly.\n2 to beg for mercy.\n3 to fight back and try to escape.\n";
-  public static final String townGuardFightWinText = "You defeat the guards! \n You decided to walk over and search the guards and \n on the guards you find some artifacts, would you like to take them? \n 1 for Yes. \n 2 for No.";
+
   public static final String nightInitialText = "Night falls, you can pay for a room in the town nearby or you can try to sleep under a nearby tree. \nIt costs 1 artifact to sleep in town, it is free to sleep under the tree but there might be dangers. \n1 for the town. \n 2 for the tree. \nYou have ";
   public static final String nightChoiceOneText = "You pay for your room and head to bed.";
   public static final String nightChoiceTwoText = "You lay out a sleeping bag under the tree and hope nothing bothers you overnight.";
@@ -130,15 +130,6 @@ public class ArtAndText {
   public void getGoblinFightTargetTextFour(){
     System.out.println(goblinBattleAttackTargetFour);
   }
-
-  //Town
-  public void getGuardFightText(){
-    System.out.println(guardFightText);
-  }
-  public void getTownGuardFightWinText(){
-		System.out.println(townGuardFightWinText);
-	}
-
   //Night
   public void getNightInitialText(double artifacts){
     System.out.println(nightInitialText + artifacts + " artifacts.");
