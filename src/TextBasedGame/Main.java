@@ -8,7 +8,6 @@ public class Main {
         int CharacterMaxHPCreation = 0;
         int CharacterStandardAtackCreation = 0;
         int CharacterMaxAttackCreation = 0;
-        int CharacterStartingTreasureCreation = 0;
         int characterAttackStrongDMG = 0;
         int characterAttackStandardDMG = 0;
         int characterAttackWeakDMG = 0;
@@ -83,8 +82,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
         //Doctor
             Heal doctor = new Heal(100);
-        //Dragon
-            DragonBattle dragonBattle = new DragonBattle();
         //Bar
             Bar bar = new Bar();
         //Bear
@@ -106,14 +103,13 @@ public class Main {
         characterName = scanner.next();
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        if(chosenClass == 1) //Rogue
-        {
+        switch(chosenClass){
+        case 1: //Rogue
             //Character Attributes
             CharacterHPCreation = 100;
             CharacterMaxHPCreation = 100;
             CharacterStandardAtackCreation = 15;
             CharacterMaxAttackCreation = 30;
-            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 25;
             characterAttackStrongMaxDMG = 45;
@@ -128,15 +124,13 @@ public class Main {
             characterAttackWeakWeakness = -10;
             doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionRogue();
-        }
-        else if(chosenClass == 2) //Paladin
-        {
+        break;
+        case 2: //Paladin
             //Character Attributes
             CharacterHPCreation = 125;
             CharacterMaxHPCreation = 125;
             CharacterStandardAtackCreation = 20;
             CharacterMaxAttackCreation = 45;
-            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 30;
             characterAttackStrongMaxDMG = 50;
@@ -151,15 +145,13 @@ public class Main {
             characterAttackWeakWeakness = -5;
             doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionPaladin();
-        }
-        else if(chosenClass == 3) //Barbarian
-        {
+        break;
+        case 3: //Barbarian
             //Character Attributes
             CharacterHPCreation = 150;
             CharacterMaxHPCreation = 150;
             CharacterStandardAtackCreation = 25;
             CharacterMaxAttackCreation = 50;
-            CharacterStartingTreasureCreation = 0;
             //Strong Attack Atributes
             characterAttackStrongDMG = 35;
             characterAttackStrongMaxDMG = 60;
@@ -174,14 +166,14 @@ public class Main {
             characterAttackWeakWeakness = 0;
             doctor.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionBarbarian();
-        }
-        else
-        {
+        break;
+        default:
             System.out.println("You failed to make a selection try again.");  
             System.exit(0);
+        break;
         }
         //CREATE the Character
-            Character character = new Character(CharacterHPCreation, CharacterMaxHPCreation, characterName, CharacterStandardAtackCreation, CharacterMaxAttackCreation, CharacterStartingTreasureCreation);
+            Character character = new Character(CharacterHPCreation, CharacterMaxHPCreation, characterName, CharacterStandardAtackCreation, CharacterMaxAttackCreation);
             Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongWeakness); // Damage, Max damage, weakness
             Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardWeakness); // Damage, Max damage, weakness
             Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
@@ -198,7 +190,7 @@ public class Main {
                 {//sleep command
                 try
                 {
-                    Thread.sleep(5000);
+                    Thread.sleep(3000);
                 }
                 catch(InterruptedException ex)
                 {
@@ -208,35 +200,30 @@ public class Main {
                 event = randomNum.randomNumber(Constants.eventUpperBound);
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
-                    //TODO
                 }
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 //EVENTS
-                if(event == 0){ //Fight dragon
+                switch(event){
+                case 0: //Fight dragon
                     //Start text and picture
                     art.getDragonArt();
-                    do{
-                        dragonChoice = scanner.nextInt();
-                        if((dragonChoice == 1) || (dragonChoice == 2)){
-                            properAns = true;
-                        }
-                    } while(!properAns);
+                    dragonChoice = scanner.nextInt();
                     if(dragonChoice == 1)//1 For escape
+                    {
                     // 1 in 5 chance of freedom 
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
-                    {
                         escapeChance = randomNum.randomNumber(Constants.dragonEscapeChanceUpperBound);
                         if(escapeChance == 0)//escape succesfully
                         {
-                            dragonBattle.escaped();
+                            DragonBattle.escaped();
                         }
                         else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
                         {
                             damageTaken = randomNum.randomNumber(Constants.dragonEscapeDMGUpperBound);
-                            dragonBattle.tripThenEscape(damageTaken, character.getHP());
+                            DragonBattle.tripThenEscape(damageTaken, character.getHP());
                             character.takeDamage(damageTaken);
                         }
                         else if((escapeChance == 3) || (escapeChance == 4))//You fail to escape and have to fight the dragon
@@ -276,17 +263,17 @@ public class Main {
                             attackChoice = scanner.nextInt();
                             if(attackChoice == 1)
                             {
-                                dragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(strong.getAttackDamage());
                             }
                             else if(attackChoice == 2)
                             {
-                                dragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(standard.getAttackDamage());
                             }
                             else if(attackChoice == 3)
                             {
-                                dragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(weak.getAttackDamage());
                             }
                             if(!dragon.isDead())//If still alive dragon's turn
@@ -314,25 +301,24 @@ public class Main {
                                         damageTaken = 0;
                                     }
                                 }
-                                System.out.println("The dragon attacks doing " + damageTaken + " damage.");
-                                System.out.println("You now have " + character.getHP() + " HP.");
+                                DragonBattle.endRoundtext(damageTaken, character.getHP());
                             }
                         }
                         if(dragon.isDead())//After loop ends if Dragon died
                         {
-                           System.out.println("Congratulations you beat the dragon! You get to keep its artifact.");
-                           character.increaseArtifacts(1); 
-                           System.out.println("You now have " + character.getArtifact() + " artifacts.");
+                           character.increaseArtifacts(1);
                            foughtOnce = true;
+                           DragonBattle.finalText(character.getArtifact());
+                           
                         }
-                        }
+                    }
                     else if(!(dragonChoice == 1)) //type a number or letter that is not an option 
                     {
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
                     }
-                }
-                else if(event == 1){//Fight Bear
+                break;
+                case 1: //Fight Bear
                     art.getBearInitialText();
                     if(!foughtOnce){
                         art.getCombatExplanation();
@@ -404,8 +390,8 @@ public class Main {
                         art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
                     }
-                }
-                else if(event == 2){//Go into a bar
+                break;
+                case 2: //Go into a bar
                     art.getBarText();
                     barChoice = scanner.nextInt();
                     if(barChoice == 1)//Start a brawl
@@ -510,8 +496,8 @@ public class Main {
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
                     }
-                }
-                else if(event == 3){//Go to a doctor
+                break;
+                case 3: //Go to a doctor
                     art.getDoctorInitialText();
                     System.out.print(character.getHP() + " HP.\n");
                     doctorChoice = scanner.nextInt();
@@ -537,8 +523,8 @@ public class Main {
                     amountHealed = doctor.heal(character.getHP(), amountHealed);
                     character.heal(amountHealed);
                     System.out.println("You were healed: " + amountHealedOld + "Hp. Your new health is " + character.getHP() + "HP.");
-                }
-                else if(event == 4){//Goblin horde
+                break;
+                case 4: //Goblin horde
                     art.getGoblinInitialText();
                     //Create the goblins
                     //Create leader Goblin
@@ -1132,8 +1118,8 @@ public class Main {
                         character.increaseArtifacts(Constants.goblinWinArtifactReward);
                         goblinBattle.winText(character.getArtifact());
                     }
-                }
-                else if(event == 5){//Fight guards
+                break;
+                case 5: //Fight guards
                     art.getGuardFightText();
                     townChoice = scanner.nextInt();
                     if(townChoice == 1)//Go willingly
@@ -1735,8 +1721,8 @@ public class Main {
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
                     }
-                }
-                else if(event == 6){//Night TODO
+                break;
+                case 6: //Night TODO
                     /*art.getNightInitialText(character.getArtifact());
                     if(sleepPlaceChoice == 1){//Town Extra damage
                         art.getNightChoiceOneText();
@@ -1747,7 +1733,12 @@ public class Main {
                         art.getNightChoiceTwoText();
                         
                     }*/
-                }
+                break;
+                default:
+                System.out.println("ERROR not a valid event");
+                System.exit(3);
+            }
+                
                 //Win screen
                 if(character.getArtifact() >= 50)//If you collect 50 treasures
                 {

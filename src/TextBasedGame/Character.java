@@ -12,13 +12,13 @@ public class Character {
     private double artifacts; //Come from robing and deafing the dragon.
     
     //Create Character
-    public Character(int hp, int maxhp, String nm, int atk, int maxatk, int treasure){
+    public Character(int hp, int maxhp, String nm, int atk, int maxatk){
         health = hp;
         maxHP = maxhp;
         name = nm;
         attack = atk;
         maxAttack = maxatk;
-        artifacts = treasure;
+        artifacts = 0;
     }
     //Get name
     public String getName(){
