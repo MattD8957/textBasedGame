@@ -84,8 +84,6 @@ public class Main {
             Heal doctor = new Heal(100);
         //Bar
             Bar bar = new Bar();
-        //Bear
-            BearBattle bearBattle = new BearBattle();
         //Goblins
             GoblinBattle goblinBattle = new GoblinBattle();
 
@@ -339,19 +337,19 @@ public class Main {
                                     attackChoice = scanner.nextInt();
                                     if(attackChoice == 1)
                                     {
-                                        bearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
+                                        BearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
                                         bear.takeDamage(strong.getAttackDamage());
                                         properAns = true;
                                     }
                                     else if(attackChoice == 2)
                                     {
-                                        bearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
+                                        BearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
                                         bear.takeDamage(standard.getAttackDamage());
                                         properAns = true;
                                     }
                                     else if(attackChoice == 3)
                                     {
-                                        bearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
+                                        BearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
                                         bear.takeDamage(weak.getAttackDamage());
                                         properAns = true;
                                     }
@@ -380,7 +378,7 @@ public class Main {
                                                 damageTaken = 0;
                                             }
                                         }   
-                                        bearBattle.bearTurnText(damageTaken, character.getHP());
+                                        BearBattle.bearTurnText(damageTaken, character.getHP());
                                     }
                                 } while(!properAns);
                             }
