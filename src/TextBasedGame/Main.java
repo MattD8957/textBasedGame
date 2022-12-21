@@ -199,7 +199,6 @@ public class Main {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 //EVENTS
-                event = 5;
                 switch(event){
                 case 0: //Fight dragon
                     //Start text and picture
