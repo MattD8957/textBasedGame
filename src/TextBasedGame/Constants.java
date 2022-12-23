@@ -33,5 +33,5 @@ public final class Constants {
         public static final int townDMGTakenFromJailUpperBound = 11;
         public static final int townArtifactsOnGuardsUpperBound = 5;
     //Night sleep
-        //public static final int nightCoiceOneChance
+        public static final int nightCoiceOneChance = 0;
 }

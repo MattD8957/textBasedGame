@@ -1193,7 +1193,7 @@ public class Main {
                             character.kill();
                         }
                         break;
-                         case 3: //Fight back
+                        case 3: //Fight back
                             System.out.println("You decide to fight back.");
                             Enemy guardOne = new Enemy (25, 15);//Hp, attack
                             Enemy guardTwo = new Enemy (25, 15);
@@ -1694,16 +1694,14 @@ public class Main {
                         break;
                        }break;
                 case 6: //Night TODO
-                    /*art.getNightInitialText(character.getArtifact());
-                    if(sleepPlaceChoice == 1){//Town Extra damage
+                    art.getNightInitialText(character.getArtifact());
+                    sleepPlaceChoice = scanner.nextInt();//Town Extra damage
+                    if(sleepPlaceChoice == 1){ //Town Extra damage
                         art.getNightChoiceOneText();
-                        nightChance = randomNum.randomNumber(Constants.)
-                        if(nightChance == )
                     }
                     else if(sleepPlaceChoice == 2){//Tree Dangerous
                         art.getNightChoiceTwoText();
-                        
-                    }*/
+                    }
                 break;
                 default:
                 System.out.println("ERROR not a valid event");
