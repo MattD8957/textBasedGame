@@ -76,8 +76,6 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
         //Doctor
             Heal heal = new Heal(100);
-        //Bar
-            Bar bar = new Bar();
 
         //Clears screen
         System.out.print("\033[H\033[2J");
@@ -383,7 +381,7 @@ public class Main {
                     switch(barChoice){
                     case 1: //Start a brawl
                         damageTaken = random.randomNumber(Constants.barFightDMGTakenUpperBound);
-                        bar.barBrawl(damageTaken, character.getHP());
+                        Bar.barBrawl(damageTaken, character.getHP());
                         character.takeDamage(damageTaken);
                     break;
                     case 2: //Buy a weapon
@@ -511,10 +509,8 @@ public class Main {
                     art.getGoblinInitialText();
                     //Create the goblins
                     //Create leader Goblin
-                    goblinLeaderDamage = random.randomNumber(Constants.goblinLeaderDMGUpperBound);
-                    goblinLeaderDamage += 10;
-                    goblinLeaderHealth = random.randomNumber(Constants.goblinLeaderHealthUpperBound);
-                    goblinLeaderHealth += 20; //20 - 45 HP
+                    goblinLeaderDamage = random.randomNumber(Constants.goblinLeaderDMGUpperBound) + 10;
+                    goblinLeaderHealth = random.randomNumber(Constants.goblinLeaderHealthUpperBound) + 20; //20 - 45 HP
                     Enemy goblinLeader = new Enemy (goblinLeaderHealth, goblinLeaderDamage);//Hp, Attack dmg
                     
                     //Random number to get amount of follower goblins
@@ -1702,7 +1698,17 @@ public class Main {
                             catch(InterruptedException ex){
                                 Thread.currentThread().interrupt();}}
                         damageTaken = random.randomNumber(Constants.nightChoiceOneDamageTakenUpperBound) + 1;
-                        art.getNightChoiceTwoMorning(damageTaken);
+                        switch(random.randomNumber(nightChance)){
+                            case 0: //Cold
+                            art.getNightChoiceTwoMorningColdText(damageTaken);
+                            break;
+                            case 1: //Animal
+                            art.getNightChoiceTwoMorningAnimalText(damageTaken, characterName);
+                            break;
+                            case 2: //?
+                            art.getNightChoiceTwoMorningFigureOutText(damageTaken);
+                            break;
+                        }
                         character.takeDamage(damageTaken);
                     }
                 break;

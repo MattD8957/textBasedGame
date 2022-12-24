@@ -35,7 +35,9 @@ public class ArtAndText {
   public static final String nightChoiceOneNightText = "You pay for your room and head to bed.";
   public static final String nightChoiceOneMoringText = "You wake up feeling well rested and ready to go. Your attack is boosted ";
   public static final String nightChoiceTwoNightText = "You lay out a sleeping bag under the tree and hope nothing bothers you overnight.";
-  public static final String nightChoiceTwoMornigText = "It got extremly cold overnight and you lose ";
+  public static final String nightChoiceTwoMornigColdText = "It got extremly cold overnight and you lose ";
+  public static final String nightChoiceTwoMorningAnimalText = "During the night an animal attacked you! ";
+  public static final String nightChoiceTwoMoringFigureOutText = "Figure Out!";
   //Ending Text
   public static final String youDied = "          _______             ______  _________ _______  ______   _  \n|\\     /|(  ___  )|\\     /|  (  __  \\ \\__   __/(  ____ \\(  __  \\ ( ) \n( \\   / )| (   ) || )   ( |  | (  \\  )   ) (   | (    \\/| (  \\  )| | \n \\ (_) / | |   | || |   | |  | |   ) |   | |   | (__    | |   ) || | \n  \\   /  | |   | || |   | |  | |   | |   | |   |  __)   | |   | || | \n   ) (   | |   | || |   | |  | |   ) |   | |   | (      | |   ) |(_) \n   | |   | (___) || (___) |  | (__/  )___) (___| (____/\\| (__/  ) _  \n   \\_/   (_______)(_______)  (______/ \\_______/(_______/(______/ (_) \n";
   public static final String youWin = "__      __    ____     __    __      ___       ___    _____      __      _  _______ \n) \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / \n \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  \n  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   \n   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   \n    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    \n   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   \n";
@@ -145,8 +147,14 @@ public class ArtAndText {
   public void getNightChoiceTwoNightText(){
     System.out.println(nightChoiceTwoNightText);
   }
-  public void getNightChoiceTwoMorning(int damageTaken){
-    System.out.println(nightChoiceTwoMornigText + damageTaken + "HP.");
+  public void getNightChoiceTwoMorningColdText(int damageTaken){
+    System.out.println(nightChoiceTwoMornigColdText + damageTaken + "HP.");
+  }
+  public void getNightChoiceTwoMorningAnimalText(int damageTaken, String name){
+    System.out.println(nightChoiceTwoMorningAnimalText + name + " fought it off but lost " + damageTaken + "HP.");
+  }
+  public void getNightChoiceTwoMorningFigureOutText(int damageTaken){
+    System.out.println(nightChoiceTwoMoringFigureOutText + damageTaken + "HP.");
   }
 
   //All Combat

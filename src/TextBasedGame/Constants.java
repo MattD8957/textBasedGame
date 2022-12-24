@@ -35,4 +35,5 @@ public final class Constants {
     //Night sleep
         public static final int nightCoiceOneAttackIncreaseUpperBound = 5;
         public static final int nightChoiceOneDamageTakenUpperBound = 9;
+        public static final int nightChoiceTwoEventChoice = 2;
 }
