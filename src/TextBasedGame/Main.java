@@ -186,6 +186,7 @@ public class Main {
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                 }
+                event = 6;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -1672,15 +1673,37 @@ public class Main {
                         character.kill();//set health to 0 to end loop
                         break;
                     }break;
-                case 6: //Night TODO
+                case 6: //Night ADD variety
                     art.getNightInitialText(character.getArtifact());
                     sleepPlaceChoice = scanner.nextInt();//Town Extra damage
                     if(sleepPlaceChoice == 1){ //Town Extra damage
+                        if((character.getArtifact() - 1) > 0){
+                        character.increaseArtifacts(-1);
                         art.getNightChoiceOneNightText();
-                        
+                        { /*sleep command*/
+                            try{
+                                Thread.sleep(3000);}
+                            catch(InterruptedException ex){
+                                Thread.currentThread().interrupt();}}
+                        atk = random.randomNumber(Constants.nightCoiceOneAttackIncreaseUpperBound) + 1; //Increase attack by 1-5
+                        art.getNightChoiceOneMorningText(atk);
+                        character.increaseAttack(atk);
+                        }
+                        else{
+                            System.out.println("You don't have enough artifacts for that.");
+                            sleepPlaceChoice = 2;
+                        }
                     }
-                    else if(sleepPlaceChoice == 2){//Tree Dangerous
-                        art.getNightChoiceTwoText();
+                    if(sleepPlaceChoice == 2){//Tree Dangerous
+                        art.getNightChoiceTwoNightText();
+                        { /*sleep command*/
+                            try{
+                                Thread.sleep(3000);}
+                            catch(InterruptedException ex){
+                                Thread.currentThread().interrupt();}}
+                        damageTaken = random.randomNumber(Constants.nightChoiceOneDamageTakenUpperBound) + 1;
+                        art.getNightChoiceTwoMorning(damageTaken);
+                        character.takeDamage(damageTaken);
                     }
                 break;
                 default:

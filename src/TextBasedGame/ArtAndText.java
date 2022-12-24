@@ -34,7 +34,8 @@ public class ArtAndText {
   public static final String nightInitialText = "Night falls, you can pay for a room in the town nearby or you can try to sleep under a nearby tree. \nIt costs 1 artifact to sleep in town, it is free to sleep under the tree but there might be dangers. \n1 for the town. \n 2 for the tree. \nYou have ";
   public static final String nightChoiceOneNightText = "You pay for your room and head to bed.";
   public static final String nightChoiceOneMoringText = "You wake up feeling well rested and ready to go. Your attack is boosted ";
-  public static final String nightChoiceTwoText = "You lay out a sleeping bag under the tree and hope nothing bothers you overnight.";
+  public static final String nightChoiceTwoNightText = "You lay out a sleeping bag under the tree and hope nothing bothers you overnight.";
+  public static final String nightChoiceTwoMornigText = "It got extremly cold overnight and you lose ";
   //Ending Text
   public static final String youDied = "          _______             ______  _________ _______  ______   _  \n|\\     /|(  ___  )|\\     /|  (  __  \\ \\__   __/(  ____ \\(  __  \\ ( ) \n( \\   / )| (   ) || )   ( |  | (  \\  )   ) (   | (    \\/| (  \\  )| | \n \\ (_) / | |   | || |   | |  | |   ) |   | |   | (__    | |   ) || | \n  \\   /  | |   | || |   | |  | |   | |   | |   |  __)   | |   | || | \n   ) (   | |   | || |   | |  | |   ) |   | |   | (      | |   ) |(_) \n   | |   | (___) || (___) |  | (__/  )___) (___| (____/\\| (__/  ) _  \n   \\_/   (_______)(_______)  (______/ \\_______/(_______/(______/ (_) \n";
   public static final String youWin = "__      __    ____     __    __      ___       ___    _____      __      _  _______ \n) \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / \n \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  \n  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   \n   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   \n    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    \n   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   \n";
@@ -138,11 +139,14 @@ public class ArtAndText {
   public void getNightChoiceOneNightText(){
     System.out.println(nightChoiceOneNightText);
   }
-  public void getNightChoiceOneMorningText(){
-    System.out.println(nightChoiceOneMoringText);
+  public void getNightChoiceOneMorningText(int atk){
+    System.out.println(nightChoiceOneMoringText + atk + "dmg");
   }
-  public void getNightChoiceTwoText(){
-    System.out.println(nightChoiceTwoText);
+  public void getNightChoiceTwoNightText(){
+    System.out.println(nightChoiceTwoNightText);
+  }
+  public void getNightChoiceTwoMorning(int damageTaken){
+    System.out.println(nightChoiceTwoMornigText + damageTaken + "HP.");
   }
 
   //All Combat
