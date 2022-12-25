@@ -34,7 +34,7 @@ public class Main {
         //Random
             String characterName; //gets the name the player wants for the player 
             String moveOn = "Hi!"; //Player imputs when to continue
-            int attackChoice = 0; // This is to choose your attack
+            int attackStrength = 0; // This is to choose your attack
             int attackTarget = 0; //decides who to attack
             int atk = 0; // This is the amount of damage added to attack damage
             int chosenClass = 0; //Players choice of Character 
@@ -184,7 +184,6 @@ public class Main {
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                 }
-                event = 6;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -223,57 +222,49 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         {//Wait
-                        try
-                        {
-                            Thread.sleep(1000);
-                        }
-                            catch(InterruptedException ex)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
-                        }
-                        //Fight dragon same code as below
-                        dragonHP = random.randomNumber(Constants.dragonHPUpperBound);
-                        dragonHP += 10;//Dragon health 10 - 75
-                        dragonAttack = random.randomNumber(Constants.dragonAttackDMGUpperBound);
-                        dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
-                        //Create Dragon 
-                        Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
+                        try{
+                            Thread.sleep(1000);}
+                            catch(InterruptedException ex){
+                            Thread.currentThread().interrupt();}}
+                        //Fight dragon
+                        dragonHP = random.randomNumber(Constants.dragonHPUpperBound) + 10;//Dragon health 10 - 75
+                        dragonAttack = random.randomNumber(Constants.dragonAttackDMGUpperBound) + 20; //Dragon attack dmg 20 - 35
+                        Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35  Create Dragon 
 
                         while(!character.isDead() && !dragon.isDead())
                         {
                             System.out.println("The Dragon has " + dragon.getHP() + " HP.");
                             art.getAttackTypeChoiceText();
-                            attackChoice = scanner.nextInt();
-                            if(attackChoice == 1)
+                            attackStrength = scanner.nextInt();
+                            if(attackStrength == 1)
                             {
-                                DragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthOne(strong.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(strong.getAttackDamage());
                             }
-                            else if(attackChoice == 2)
+                            else if(attackStrength == 2)
                             {
-                                DragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthTwo(standard.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(standard.getAttackDamage());
                             }
-                            else if(attackChoice == 3)
+                            else if(attackStrength == 3)
                             {
-                                DragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthThree(weak.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(weak.getAttackDamage());
                             }
                             if(!dragon.isDead())//If still alive dragon's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = dragon.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = dragon.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -314,67 +305,53 @@ public class Main {
                     bearAttackDMG += 10;//bears do 10 to 20 dmg
                     Enemy bear = new Enemy(bearHP, bearAttackDMG); //HP then attack dmg
 
-                    while(!character.isDead() && !bear.isDead())
-                        {
-                                properAns = false;
-                                System.out.println("The bear has " + bear.getHP() + " HP.");
-                                art.getAttackTypeChoiceText();
-                                do{
-                                    attackChoice = scanner.nextInt();
-                                    if(attackChoice == 1)
-                                    {
-                                        BearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(strong.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    else if(attackChoice == 2)
-                                    {
-                                        BearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(standard.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    else if(attackChoice == 3)
-                                    {
-                                        BearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(weak.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    if(!bear.isDead())//If still alive bear's turn
-                                    {
-                                        //To determine which attack was used and so what buff
-                                        if(attackChoice == 1)//Strong attack
-                                        {
-                                            damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
-                                            character.takeDamage(damageTaken);
-                                        }
-                                        else if(attackChoice == 2)//Standard attack
-                                        {
-                                            damageTaken = bear.getAttack() + standard.getAttackPenalty();
-                                            character.takeDamage(damageTaken);
-                                        }
-                                        else if(attackChoice == 3)//Weak attack
-                                        {
-                                            damageTaken = bear.getAttack() + weak.getAttackPenalty();
-                                            if(damageTaken >= 0)//Positive attack
-                                            {
-                                               character.takeDamage(damageTaken); 
-                                            }
-                                            else if(damageTaken < 0)//negative attack
-                                            {
-                                                damageTaken = 0;
-                                            }
-                                        }   
-                                        BearBattle.bearTurnText(damageTaken, character.getHP());
-                                    }
-                                } while(!properAns);
+                    while(!character.isDead() && !bear.isDead()){
+                        System.out.println("The bear has " + bear.getHP() + " HP.");
+                        art.getAttackTypeChoiceText();
+                        attackStrength = scanner.nextInt();
+                        if(attackStrength == 1){
+                            BearBattle.characterAttackStrengthOne(strong.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(strong.getAttackDamage());
+                            properAns = true;
+                        }
+                        else if(attackStrength == 2){
+                            BearBattle.characterAttackStrengthTwo(standard.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(standard.getAttackDamage());
+                            properAns = true;
+                        }
+                        else if(attackStrength == 3){
+                            BearBattle.characterAttackStrengthThree(weak.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(weak.getAttackDamage());
+                            properAns = true;
+                        }
+                        if(!bear.isDead()){//If still alive bear's turn
+                            //To determine which attack was used and so what buff
+                            if(attackStrength == 1){//Strong attack
+                                damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
+                                character.takeDamage(damageTaken);
                             }
-                    if(bear.isDead())//After loop ends if Bear died
-                    {
+                            else if(attackStrength == 2){//Standard attack
+                                damageTaken = bear.getAttack() + standard.getAttackPenalty();
+                                character.takeDamage(damageTaken);
+                            }
+                            else if(attackStrength == 3){//Weak attack
+                                damageTaken = bear.getAttack() + weak.getAttackPenalty();
+                                if(damageTaken >= 0){//Positive attack
+                                    character.takeDamage(damageTaken); 
+                                }
+                                else if(damageTaken < 0){//negative attack
+                                    damageTaken = 0;
+                                }
+                            }   
+                            BearBattle.bearTurnText(damageTaken, character.getHP());
+                        }
+                    }
+                    if(bear.isDead()){//After loop ends if Bear died
                         character.increaseArtifacts(.5);
                         art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
-                    }
-                break;
+                            }
+                    break;
                 case 2: //Go into a bar
                     art.getBarText();
                     barChoice = scanner.nextInt();
@@ -477,7 +454,7 @@ public class Main {
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
                     break;
-                   }break;
+                }break;
                 case 3: //Go to a doctor
                     art.getDoctorInitialText();
                     System.out.print(character.getHP() + " HP.\n");
@@ -534,21 +511,21 @@ public class Main {
                             art.getGoblinFightTargetTextTwo(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             art.getAttackTypeChoiceText();
-                            attackChoice = scanner.nextInt();
+                            attackStrength = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
@@ -562,17 +539,17 @@ public class Main {
                             else if(attackTarget == 2) //Follower 1
                             {
                                 System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
@@ -592,17 +569,17 @@ public class Main {
                             if(!goblinLeader.isDead())
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -619,17 +596,17 @@ public class Main {
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -676,21 +653,21 @@ public class Main {
                             art.getGoblinFightTargetTextThree(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             art.getAttackTypeChoiceText();
-                            attackChoice = scanner.nextInt();
+                            attackStrength = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
@@ -704,17 +681,17 @@ public class Main {
                             else if(attackTarget == 2) //Follower 1
                             {
                                 System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
@@ -728,17 +705,17 @@ public class Main {
                             else if(attackTarget == 3) //Follower 2
                             {
                                 System.out.println(ArtAndText.goblinFollowerTwoTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackStrong(strong.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackStandard(standard.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(weak.getAttackDamage());
@@ -753,17 +730,17 @@ public class Main {
                             if(!goblinLeader.isDead())
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -780,17 +757,17 @@ public class Main {
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -807,17 +784,17 @@ public class Main {
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -868,21 +845,21 @@ public class Main {
                             art.getGoblinFightTargetTextFour(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             art.getAttackTypeChoiceText();
-                            attackChoice = scanner.nextInt();
+                            attackStrength = scanner.nextInt();
                             if(attackTarget == 1)// Leader
                             {
                                 System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
@@ -896,17 +873,17 @@ public class Main {
                             else if(attackTarget == 2) //Follower 1
                             {
                                 System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
@@ -920,17 +897,17 @@ public class Main {
                             else if(attackTarget == 3) //Follower 2
                             {
                                 System.out.println(ArtAndText.goblinFollowerTwoTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackStrong(strong.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackStandard(standard.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(), goblinFollowerTwo.getHP());
                                     goblinFollowerTwo.takeDamage(weak.getAttackDamage());
@@ -939,17 +916,17 @@ public class Main {
                             else if(attackTarget == 4) //Follower 3
                             {
                                 System.out.println(ArtAndText.goblinFollowerThreeTargetText);
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     GoblinBattle.goblinFollowerThreeAttackStrong(strong.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
+                                else if(attackStrength == 2)//standard attack 
                                 {
                                     GoblinBattle.goblinFollowerThreeAttackStandard(standard.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     GoblinBattle.goblinFollowerThreeAttackWeak(weak.getAttackDamage(), goblinFollowerThree.getHP());
                                     goblinFollowerThree.takeDamage(weak.getAttackDamage());
@@ -964,17 +941,17 @@ public class Main {
                             if(!goblinLeader.isDead())
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -991,17 +968,17 @@ public class Main {
                             if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -1018,17 +995,17 @@ public class Main {
                             if(!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -1045,17 +1022,17 @@ public class Main {
                             if(!goblinFollowerThree.isDead())// Goblin Follower 3's turn
                             {
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     damageTaken = goblinFollowerThree.getAttack() + weak.getAttackPenalty();
                                     if(damageTaken >= 0)//Positive attack
@@ -1197,7 +1174,7 @@ public class Main {
                             while(!character.isDead() && !guardsAreDead )  
                             {
                             art.getAttackTypeChoiceText();
-                            attackChoice = scanner.nextInt();
+                            attackStrength = scanner.nextInt();
                             System.out.println("Which gaurd will you attack?");
                             System.out.println("Gaurd one " + guardOne.getHP() + "Hp.");
                             System.out.println("Gaurd two " + guardTwo.getHP() + "Hp.");
@@ -1209,19 +1186,19 @@ public class Main {
                             if(attackTarget == 1)//Guard one
                             {
                                 System.out.println("You attack guard one.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardOne.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard one now has " + guardOne.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardOne.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard one now has " + guardOne.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardOne.takeDamage(weak.getAttackDamage());
@@ -1229,21 +1206,21 @@ public class Main {
                                 }
                                 if(!guardOne.isDead())//Guard One's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardOne.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardOne.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardOne.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1253,21 +1230,21 @@ public class Main {
                                 }
                                 if(!guardThree.isDead())//Gaurd three's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardThree.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardThree.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardThree.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1279,19 +1256,19 @@ public class Main {
                             if(attackTarget == 2)//Guard Two
                             {
                                 System.out.println("You attack guard two.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardTwo.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard two now has " + guardTwo.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardTwo.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard two now has " + guardTwo.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardTwo.takeDamage(weak.getAttackDamage());
@@ -1299,21 +1276,21 @@ public class Main {
                                 }
                                 if(!guardTwo.isDead())//Guard Two's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardTwo.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardTwo.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardTwo.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1323,21 +1300,21 @@ public class Main {
                                 }
                                 if(!guardFour.isDead())//Gaurd four's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFour.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardFour.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardFour.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1349,19 +1326,19 @@ public class Main {
                             else if(attackTarget == 3)//Guard Three
                             {
                                 System.out.println("You attack guard three.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardThree.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard three now has " + guardThree.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardThree.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard three now has " + guardThree.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardThree.takeDamage(weak.getAttackDamage());
@@ -1369,21 +1346,21 @@ public class Main {
                                 }
                                 if(!guardThree.isDead())//Guard Three's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardThree.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard three attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardThree.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard three attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardThree.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1393,21 +1370,21 @@ public class Main {
                                 }
                                 if(!guardFive.isDead())//Gaurd five's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFive.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardFive.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardFive.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1419,19 +1396,19 @@ public class Main {
                             else if(attackTarget== 4)//Gaurd Four 
                             {
                                 System.out.println("You attack guard four.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardFour.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard four now has " + guardFour.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardFour.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard four now has " + guardFour.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardFour.takeDamage(weak.getAttackDamage());
@@ -1439,21 +1416,21 @@ public class Main {
                                 }
                                 if(!guardFour.isDead())//Guard four's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFour.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardFour.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard four attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardFour.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1463,21 +1440,21 @@ public class Main {
                                 }
                                 if(!guardSix.isDead())//Gaurd six's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardSix.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardSix.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardSix.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1489,19 +1466,19 @@ public class Main {
                             else if(attackTarget == 5)//Gaurd Five
                             {
                                 System.out.println("You attack guard five.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardFive.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard five now has " + guardFive.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardFive.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard five now has " + guardFive.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardFive.takeDamage(weak.getAttackDamage());
@@ -1509,21 +1486,21 @@ public class Main {
                                 }
                                 if(!guardFive.isDead())//Guard five's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardFive.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardFive.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard five attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardFive.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1533,21 +1510,21 @@ public class Main {
                                 }
                                 if(!guardOne.isDead())//Gaurd one's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardOne.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardOne.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardOne.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1559,19 +1536,19 @@ public class Main {
                             else if(attackTarget== 6)//Gaurd Six
                             {
                                 System.out.println("You attack guard six.");
-                                if(attackChoice == 1)//Strong attack
+                                if(attackStrength == 1)//Strong attack
                                 {
                                     System.out.println("You do " + strong.getAttackDamage() + "dmg.");
                                     guardSix.takeDamage(strong.getAttackDamage());
                                     System.out.println("Guard six now has " + guardSix.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 2)//Standard attack
+                                else if(attackStrength == 2)//Standard attack
                                 {
                                     System.out.println("You do " + standard.getAttackDamage() + "dmg.");
                                     guardSix.takeDamage(standard.getAttackDamage());
                                     System.out.println("Guard six now has " + guardSix.getHP() + "Hp.");
                                 }
-                                else if(attackChoice == 3)//Weak attack
+                                else if(attackStrength == 3)//Weak attack
                                 {
                                     System.out.println("You do " + weak.getAttackDamage() + "dmg.");
                                     guardSix.takeDamage(weak.getAttackDamage());
@@ -1579,21 +1556,21 @@ public class Main {
                                 }
                                 if(!guardSix.isDead())//Guard sixs's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardSix.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardSix.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard six attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardSix.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1603,21 +1580,21 @@ public class Main {
                                 }
                                 if(!guardTwo.isDead())//Gaurd two's turn
                                 {
-                                    if(attackChoice == 1)//Determines attack buff based on your attack Strong
+                                    if(attackStrength == 1)//Determines attack buff based on your attack Strong
                                     {
                                         damageTaken = guardTwo.getAttack() + strong.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 2)//Standard
+                                    else if(attackStrength == 2)//Standard
                                     {
                                         damageTaken = guardTwo.getAttack() + standard.getAttackPenalty();
                                         character.takeDamage(damageTaken);
                                         System.out.println("Guard two attacks doing " + damageTaken + "dmg.");
                                         System.out.println("You now have " + character.getHP() + "Hp.");
                                     }
-                                    else if(attackChoice == 3)//Weak
+                                    else if(attackStrength == 3)//Weak
                                     {
                                         damageTaken = guardTwo.getAttack() + weak.getAttackPenalty();
                                         character.takeDamage(damageTaken);
@@ -1668,7 +1645,7 @@ public class Main {
                         System.out.println(ArtAndText.selectionFail);
                         character.kill();//set health to 0 to end loop
                         break;
-                    }break;
+                }break;
                 case 6: //Night ADD variety
                     art.getNightInitialText(character.getArtifact());
                     sleepPlaceChoice = scanner.nextInt();//Town Extra damage
@@ -1699,13 +1676,13 @@ public class Main {
                                 Thread.currentThread().interrupt();}}
                         damageTaken = random.randomNumber(Constants.nightChoiceOneDamageTakenUpperBound) + 1;
                         switch(random.randomNumber(nightChance)){
-                            case 0: //Cold
+                    case 0: //Cold
                             art.getNightChoiceTwoMorningColdText(damageTaken);
                             break;
-                            case 1: //Animal
+                    case 1: //Animal
                             art.getNightChoiceTwoMorningAnimalText(damageTaken, characterName);
                             break;
-                            case 2: //?
+                    case 2: //?
                             art.getNightChoiceTwoMorningFigureOutText(damageTaken);
                             break;
                         }
@@ -1718,8 +1695,7 @@ public class Main {
             }
                 
                 //Win screen
-                if(character.getArtifact() >= 50)//If you collect 50 treasures
-                {
+                if(character.getArtifact() >= 50){ //If you collect 50 treasures
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("Congratulations " + characterName);
@@ -1741,14 +1717,10 @@ public class Main {
             }
             //Death screen
             {
-                try
-                    {
-                        Thread.sleep(3000);
-                    }
-                    catch(InterruptedException ex)
-                    {
-                        Thread.currentThread().interrupt();
-                    }
+                try{
+                    Thread.sleep(3000);}
+                catch(InterruptedException ex){
+                    Thread.currentThread().interrupt();}
                 //Clear screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
