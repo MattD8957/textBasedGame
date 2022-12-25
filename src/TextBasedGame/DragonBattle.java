@@ -18,12 +18,18 @@ public class DragonBattle {
         System.out.println("You choose a weak attack \nYou do " + weakAttackDMG + " damage. \nThe Dragon now has " + getHP(dragonHP, weakAttackDMG) + " HP.");
     }
     public static void endRoundtext(int damageTaken, int characterHP){
-        System.out.println("The dragon attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The dragon attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void finalText(double artifacts){
         System.out.println("Congratulations you beat the dragon! You get to keep its artifact. \nYou now have " + artifacts + " artifacts.");
     }
-
+    public static int dragonAttack(int dragonDMG, int attackPenalty){
+        int damageTaken = 0;
+        if((dragonDMG + attackPenalty) >= 0){
+            damageTaken = dragonDMG + attackPenalty;
+        }
+        return damageTaken;
+    }
     private static int getHP(int HP, int AtkDMG){
         if((HP - AtkDMG) >= 0){
             return (HP - AtkDMG);

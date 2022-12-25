@@ -82,6 +82,9 @@ public class ArtAndText {
   public void getFailedToEscapeText(){
     System.out.println(dragonFailedToEscapeText);
   }
+  public void getDragonHPText(int dragonHP){
+    System.out.println("The Dragon has " + dragonHP + " HP.");
+  }
   
   //Bear
   public void getBearInitialText(){
