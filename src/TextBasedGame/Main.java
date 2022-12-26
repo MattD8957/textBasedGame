@@ -314,63 +314,46 @@ public class Main {
                     bearAttackDMG += 10;//bears do 10 to 20 dmg
                     Enemy bear = new Enemy(bearHP, bearAttackDMG); //HP then attack dmg
 
-                    while(!character.isDead() && !bear.isDead())
-                        {
-                                properAns = false;
-                                System.out.println("The bear has " + bear.getHP() + " HP.");
-                                art.getAttackTypeChoiceText();
-                                do{
-                                    attackChoice = scanner.nextInt();
-                                    if(attackChoice == 1)
-                                    {
-                                        BearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(strong.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    else if(attackChoice == 2)
-                                    {
-                                        BearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(standard.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    else if(attackChoice == 3)
-                                    {
-                                        BearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
-                                        bear.takeDamage(weak.getAttackDamage());
-                                        properAns = true;
-                                    }
-                                    if(!bear.isDead())//If still alive bear's turn
-                                    {
-                                        //To determine which attack was used and so what buff
-                                        if(attackChoice == 1)//Strong attack
-                                        {
-                                            damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
-                                            character.takeDamage(damageTaken);
-                                        }
-                                        else if(attackChoice == 2)//Standard attack
-                                        {
-                                            damageTaken = bear.getAttack() + standard.getAttackPenalty();
-                                            character.takeDamage(damageTaken);
-                                        }
-                                        else if(attackChoice == 3)//Weak attack
-                                        {
-                                            damageTaken = bear.getAttack() + weak.getAttackPenalty();
-                                            if(damageTaken >= 0)//Positive attack
-                                            {
-                                               character.takeDamage(damageTaken); 
-                                            }
-                                            else if(damageTaken < 0)//negative attack
-                                            {
-                                                damageTaken = 0;
-                                            }
-                                        }   
-                                        BearBattle.bearTurnText(damageTaken, character.getHP());
-                                    }
-                                } while(!properAns);
+                    while(!character.isDead() && !bear.isDead()){
+                        System.out.println("The bear has " + bear.getHP() + " HP.");
+                        art.getAttackTypeChoiceText();
+                        attackChoice = scanner.nextInt();
+                        if(attackChoice == 1){
+                            BearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(strong.getAttackDamage());
+                        }
+                        else if(attackChoice == 2){
+                            BearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(standard.getAttackDamage());
+                        }
+                        else if(attackChoice == 3){
+                            BearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
+                            bear.takeDamage(weak.getAttackDamage());
+                        }
+                        if(!bear.isDead()){//If still alive bear's turn
+                            //To determine which attack was used and so what buff
+                            if(attackChoice == 1){//Strong attack
+                                damageTaken = bear.getAttack() + strong.getAttackPenalty(); 
+                                character.takeDamage(damageTaken);
                             }
-                    if(bear.isDead())//After loop ends if Bear died
-                    {
-                        character.increaseArtifacts(.5);
+                            else if(attackChoice == 2){//Standard attack
+                                damageTaken = bear.getAttack() + standard.getAttackPenalty();
+                                character.takeDamage(damageTaken);
+                            }
+                            else if(attackChoice == 3){//Weak attack
+                                damageTaken = bear.getAttack() + weak.getAttackPenalty();
+                                if(damageTaken >= 0){//Positive attack
+                                    character.takeDamage(damageTaken); 
+                                }
+                                else if(damageTaken < 0){//negative attack
+                                    damageTaken = 0;
+                                }
+                            }   
+                            BearBattle.bearTurnText(damageTaken, character.getHP());
+                        }
+                    }
+                    if(bear.isDead()){//After loop ends if Bear died
+                        character.increaseArtifacts(Constants.bearArtifactsCollectionAmount);
                         art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
                     }

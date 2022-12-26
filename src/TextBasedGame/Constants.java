@@ -10,6 +10,7 @@ public final class Constants {
     //Bear Constants
         public static final int bearHPUpperBound = 26;
         public static final int bearAttackDMGUpperBound = 11;
+        public static final double bearArtifactsCollectionAmount = 0.5; 
     //Bar Constants
         public static final int barFightDMGTakenUpperBound = 21;
         public static final int barAttackDMGIncreaseUpperBound = 15;
