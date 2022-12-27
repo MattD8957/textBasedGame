@@ -184,7 +184,7 @@ public class Main {
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                 }
-                event = 6;
+                //event = 6;
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
@@ -194,110 +194,82 @@ public class Main {
                     //Start text and picture
                     art.getDragonArt();
                     dragonChoice = scanner.nextInt();
-                    if(dragonChoice == 1)//1 For escape
-                    {
+                    if(dragonChoice == 1){//1 For escape
                     // 1 in 5 chance of freedom 
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
                         escapeChance = random.randomNumber(Constants.dragonEscapeChanceUpperBound);
-                        if(escapeChance == 0)//escape succesfully
-                        {
+                        if(escapeChance == 0){//escape succesfully
                             DragonBattle.escaped();
                         }
-                        else if((escapeChance == 1) || (escapeChance == 2))//trip and take some damage 1 to 10
-                        {
+                        else if((escapeChance == 1) || (escapeChance == 2)){//trip and take some damage 1 to 10
                             damageTaken = random.randomNumber(Constants.dragonEscapeDMGUpperBound);
                             DragonBattle.tripThenEscape(damageTaken, character.getHP());
                             character.takeDamage(damageTaken);
                         }
-                        else if((escapeChance == 3) || (escapeChance == 4))//You fail to escape and have to fight the dragon
-                        {
-                            //Message after failing to escape
-                            art.getFailedToEscapeText();
+                        else if((escapeChance == 3) || (escapeChance == 4)){//You fail to escape and have to fight the dragon
+                            art.getFailedToEscapeText();//Message after failing to escape
                             //Goes to the battle
                         }
                     }
-                    if((dragonChoice == 2) || (escapeChance == 3) || (escapeChance == 4))//To rob the dragon
-                    {
+                    if((dragonChoice == 2) || (escapeChance == 3) || (escapeChance == 4)){//To rob the dragon
                         if(!foughtOnce){
                             art.getCombatExplanation();
                         }
                         {//Wait
-                        try
-                        {
-                            Thread.sleep(1000);
-                        }
-                            catch(InterruptedException ex)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
-                        }
-                        //Fight dragon same code as below
-                        dragonHP = random.randomNumber(Constants.dragonHPUpperBound);
-                        dragonHP += 10;//Dragon health 10 - 75
-                        dragonAttack = random.randomNumber(Constants.dragonAttackDMGUpperBound);
-                        dragonAttack += 20; //Geerates dragon attack dmg 20 - 35
-                        //Create Dragon 
-                        Enemy dragon = new Enemy (dragonHP, dragonAttack); // HP 10 - 75, Attack dmg 20 - 35
+                            try{ 
+                            Thread.sleep(1000);}
+                            catch(InterruptedException ex){
+                            Thread.currentThread().interrupt();}}
+                        dragonHP = random.randomNumber(Constants.dragonHPUpperBound) + 10;//Dragon health 10 - 75
+                        dragonAttack = random.randomNumber(Constants.dragonAttackDMGUpperBound) + 20; //Geerates dragon attack dmg 20 - 35
+                        Enemy dragon = new Enemy (dragonHP, dragonAttack); //Create Dragon HP 10 - 75, Attack dmg 20 - 35
 
-                        while(!character.isDead() && !dragon.isDead())
-                        {
+                        while(!character.isDead() && !dragon.isDead()){
                             System.out.println("The Dragon has " + dragon.getHP() + " HP.");
                             art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
-                            if(attackChoice == 1)
-                            {
+                            if(attackChoice == 1){
                                 DragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(strong.getAttackDamage());
                             }
-                            else if(attackChoice == 2)
-                            {
+                            else if(attackChoice == 2){
                                 DragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(standard.getAttackDamage());
                             }
-                            else if(attackChoice == 3)
-                            {
+                            else if(attackChoice == 3){
                                 DragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(weak.getAttackDamage());
                             }
-                            if(!dragon.isDead())//If still alive dragon's turn
-                            {
+                            if(!dragon.isDead()){//If still alive dragon's turn
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
+                                if(attackChoice == 1){//Strong attack
                                     damageTaken = dragon.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
-                                {
+                                else if(attackChoice == 2){//Standard attack
                                     damageTaken = dragon.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
-                                {
+                                else if(attackChoice == 3){//Weak attack
                                     damageTaken = dragon.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
+                                    if(damageTaken >= 0){//Positive attack
                                        character.takeDamage(damageTaken); 
                                     }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
+                                    else if(damageTaken < 0){//negative attack
                                         damageTaken = 0;
                                     }
                                 }
                                 DragonBattle.endRoundtext(damageTaken, character.getHP());
                             }
                         }
-                        if(dragon.isDead())//After loop ends if Dragon died
-                        {
+                        if(dragon.isDead()){//After loop ends if Dragon died
                            character.increaseArtifacts(1);
                            foughtOnce = true;
                            DragonBattle.finalText(character.getArtifact());
-                           
                         }
                     }
-                    else if(!(dragonChoice == 1)) //type a number or letter that is not an option 
-                    {
+                    else if(!(dragonChoice == 1)){//type a number or letter that is not an option 
                         System.out.println("You failed to make a selection.");
                         character.kill();//set health to 0 to end loop
                     }
