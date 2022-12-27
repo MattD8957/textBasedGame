@@ -270,7 +270,7 @@ public class Main {
                         }
                     }
                     else if(!(dragonChoice == 1)){//type a number or letter that is not an option 
-                        System.out.println("You failed to make a selection.");
+                        art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                     }
                 break;
@@ -383,7 +383,7 @@ public class Main {
                             }
                         }
                         else{
-                            System.out.println(ArtAndText.selectionFail);  
+                            art.getFailedToMakeSelection();  
                             character.kill();
                         }
                     break;
@@ -391,12 +391,10 @@ public class Main {
                         //TODO Finish this
                         art.getguardQuestText();
                         questChoice = scanner.nextInt();
-                        if(questChoice == 1)//Defeat smugiling group
-                        {
+                        if(questChoice == 1){//Defeat smugiling group
                             
                         }
-                        else if(questChoice == 2)//Defeat Evil king
-                        {
+                        else if(questChoice == 2){//Defeat Evil king
                             art.getBarQuestTwoText();
                             
                             questChoiceRandomStuff = scanner.nextInt();
@@ -410,26 +408,23 @@ public class Main {
 
                             }
                             else{
-                                System.out.println("You failed to make a selection.");
+                                art.getFailedToMakeSelection();
                                 character.kill();//set health to 0 to end loop
                             }
                         }
-                        else if(questChoice == 3) //TODO figure out what goes here
-                        {
+                        else if(questChoice == 3){//TODO figure out what goes here
                             
                         }
-                        else if(questChoice == 4)//Don't want any of the quests
-                        {
+                        else if(questChoice == 4){//Don't want any of the quests
                             art.getBarNoQuestText();
                         }
-                        else
-                        {
-                            System.out.println("You failed to make a selection.");
+                        else{
+                            art.getFailedToMakeSelection();
                             character.kill();//set health to 0 to end loop
                         }
                     break;
                     default: // type a number or letter that is not an option 
-                        System.out.println("You failed to make a selection.");
+                        art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                     break;
                    }break;
@@ -438,15 +433,10 @@ public class Main {
                     System.out.print(character.getHP() + " HP.\n");
                     doctorChoice = scanner.nextInt();
                     {//sleep command
-                        try
-                        {
-                            Thread.sleep(3000);
-                        }
-                            catch(InterruptedException ex)
-                        {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
+                        try{
+                        Thread.sleep(3000);}
+                        catch(InterruptedException ex){
+                        Thread.currentThread().interrupt();}}
                     if(doctorChoice == 1){
                         //decide on amount healed 10-40
                         amountHealed = random.randomNumber(Constants.doctorAmountHealedUpperBound);
@@ -471,8 +461,7 @@ public class Main {
                     //Random number to get amount of follower goblins
                     goblinFollowerCount = random.randomNumber(Constants.goblinFollowerCountUpperBound);
                     goblinFollowerCount ++;//Makes range 1 - 3
-                    if(goblinFollowerCount == 1)//If 1 follower
-                    {
+                    if(goblinFollowerCount == 1){//If 1 follower
                         //Creates follower goblin one
                         goblinFollowerDamage = random.randomNumber(Constants.goblinFollowerDMGUpperBound) +10; //Changes damage range to 10 - 15
                         goblinFollowerHealth = random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; //Changes health range to 10 - 20
@@ -484,127 +473,101 @@ public class Main {
                         }
                         //Initial statement
                         GoblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(), goblinFollowerOne.getHP());
-                        while(!character.isDead() && !goblinsAreDead)
-                        {
+                        while(!character.isDead() && !goblinsAreDead){
                             art.getGoblinFightTargetTextTwo(); //Chooses who will be attacked
                             attackTarget = scanner.nextInt();
                             art.getAttackTypeChoiceText();
                             attackChoice = scanner.nextInt();
-                            if(attackTarget == 1)// Leader
-                            {
-                                System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if(attackChoice == 1)//Strong attack
-                                {
+                            if(attackTarget == 1){// Leader
+                                art.getGoblinLeaderTargetText();
+                                if(attackChoice == 1){//Strong attack
                                     GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
-                                {
+                                else if(attackChoice == 2){//standard attack 
                                     GoblinBattle.goblinLeaderAttackStrong(standard.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
-                                {
+                                else if(attackChoice == 3){//Weak attack
                                     GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(), goblinLeader.getHP());
                                     goblinLeader.takeDamage(weak.getAttackDamage());
                                 }
-                                else//improper selection
-                                {
-                                    System.out.println("You failed to make a selection.");
+                                else{//improper selection
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
-                            else if(attackTarget == 2) //Follower 1
-                            {
+                            else if(attackTarget == 2){//Follower 1
                                 System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if(attackChoice == 1)//Strong attack
-                                {
+                                if(attackChoice == 1){//Strong attack
                                     GoblinBattle.goblinFollowerOneAttackStrong(strong.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(strong.getAttackDamage());
                                 }
-                                else if(attackChoice == 2)//standard attack 
-                                {
+                                else if(attackChoice == 2){//standard attack 
                                     GoblinBattle.goblinFollowerOneAttackStandard(standard.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(standard.getAttackDamage());
                                 }
-                                else if(attackChoice == 3)//Weak attack
-                                {
+                                else if(attackChoice == 3){//Weak attack
                                     GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(), goblinFollowerOne.getHP());
                                     goblinFollowerOne.takeDamage(weak.getAttackDamage());
                                 }
-                                else//improper selection
-                                {
-                                    System.out.println("You failed to make a selection.");
+                                else{//improper selection
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
-                            else//improper selection
-                            {
-                                System.out.println("You failed to make a selection.");
+                            else{//improper selection
+                                art.getFailedToMakeSelection();
                                 character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
-                            if(!goblinLeader.isDead())
-                            {
+                            if(!goblinLeader.isDead()){
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
+                                if(attackChoice == 1){//Strong attack
                                     damageTaken = goblinLeader.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
-                                {
+                                else if(attackChoice == 2){//Standard attack
                                     damageTaken = goblinLeader.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
-                                {
+                                else if(attackChoice == 3){//Weak attack
                                     damageTaken = goblinLeader.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
+                                    if(damageTaken >= 0){//Positive attack
                                        character.takeDamage(damageTaken); 
                                     }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
+                                    else if(damageTaken < 0){//negative attack
                                         damageTaken = 0;
                                     }
                                 }
                                 GoblinBattle.goblinLeadersTurnOutPut(damageTaken, character.getHP());
                             }
-                            if(!goblinFollowerOne.isDead())// Goblin Follower 1's turn
-                            {
+                            if(!goblinFollowerOne.isDead()){// Goblin Follower 1's turn
                                 //To determine which attack was used and so what buff
-                                if(attackChoice == 1)//Strong attack
-                                {
+                                if(attackChoice == 1){//Strong attack
                                     damageTaken = goblinFollowerOne.getAttack() + strong.getAttackPenalty(); 
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 2)//Standard attack
-                                {
+                                else if(attackChoice == 2){//Standard attack
                                     damageTaken = goblinFollowerOne.getAttack() + standard.getAttackPenalty();
                                     character.takeDamage(damageTaken);
                                 }
-                                else if(attackChoice == 3)//Weak attack
-                                {
+                                else if(attackChoice == 3){//Weak attack
                                     damageTaken = goblinFollowerOne.getAttack() + weak.getAttackPenalty();
-                                    if(damageTaken >= 0)//Positive attack
-                                    {
+                                    if(damageTaken >= 0){//Positive attack
                                        character.takeDamage(damageTaken); 
                                     }
-                                    else if(damageTaken < 0)//negative attack
-                                    {
+                                    else if(damageTaken < 0){//negative attack
                                         damageTaken = 0;
                                     }
                                 }
                                 GoblinBattle.goblinFollowerOneTurnOutPut(damageTaken, character.getHP());
                             }
                             //add extras
-                            if(!goblinLeader.isDead() || !goblinFollowerOne.isDead())//If any goblin is alive
-                            {
+                            if(!goblinLeader.isDead() || !goblinFollowerOne.isDead()){//If any goblin is alive
                                 goblinsAreDead = false;
                             }
-                            else if (goblinLeader.isDead() && goblinFollowerOne.isDead())//if all goblins are dead
-                            {
+                            else if (goblinLeader.isDead() && goblinFollowerOne.isDead()){//if all goblins are dead
                                 goblinsAreDead = true;    
                             }
                         }
@@ -652,7 +615,7 @@ public class Main {
                                 }
                                 else//improper selection
                                 {
-                                    System.out.println("You failed to make a selection.");
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
@@ -676,7 +639,7 @@ public class Main {
                                 }
                                 else//improper selection
                                 {
-                                    System.out.println("You failed to make a selection.");
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
@@ -701,7 +664,7 @@ public class Main {
                             }
                             else//improper selection
                             {
-                                System.out.println("You failed to make a selection.");
+                                art.getFailedToMakeSelection();
                                 character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
@@ -844,7 +807,7 @@ public class Main {
                                 }
                                 else//improper selection
                                 {
-                                    System.out.println("You failed to make a selection.");
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
@@ -868,7 +831,7 @@ public class Main {
                                 }
                                 else//improper selection
                                 {
-                                    System.out.println("You failed to make a selection.");
+                                    art.getFailedToMakeSelection();
                                     character.kill();//set health to 0 to end loop
                                 }
                             }
@@ -912,7 +875,7 @@ public class Main {
                             }
                             else//improper selection
                             {
-                                System.out.println("You failed to make a selection.");
+                                art.getFailedToMakeSelection();
                                 character.kill();//set health to 0 to end loop
                             }
                             //Goblins turn
@@ -1620,7 +1583,7 @@ public class Main {
                         }
                         break; 
                     default:
-                        System.out.println(ArtAndText.selectionFail);
+                        art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                         break;
                     }break;

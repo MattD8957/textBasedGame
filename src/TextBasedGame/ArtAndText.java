@@ -8,7 +8,7 @@ public class ArtAndText {
   public static final String gameExplanationBarbarianText = "The objective of the game is to collect 50 artifacts.\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vunerable.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\nYou start with 150Hp and doing 25dmg for standard attacks.\nType anything to continue: ";
   public static final String combatExplanation = "\nFighting will be turn based, and you have 3 types of attacks strong, standard, and weak.\nStrong attacks do more damage but leaves you vulnerable to damage.\nStandard attacks do a normal amount of damage and leaves you in a standard position of defense.\nWeak attacks do less damage but leaves you in a defensive position and so you take less damage.\n";
   public static final String attackTypeChoiceText = "\nWhat type of attack would you like to use?\n1 for Strong\n2 for Standard\n3 for Weak";
-  public static final String selectionFail = "You failed to make a selection try again.";
+  public static final String failedToMakeSelection = "You failed to make a selection.";
   //Events Text
   public static final String dragon = "You meet a dragon.\n              __\n          _.-'.-'-.__\n       .-'.       '-.'-._ __.--._\n-..'\\,-,/..-  _         .'   \\   '----._\n ). /_ _\\' ( ' '.         '-  '/'-----._'-.__\n '..'     '-r   _      .-.       '-._ \\\n '.\\. Y .).'       ( .'  .      .\\          '\\'.\n .-')'|'/'-.        \\)    )      '',_      _.c_.\\\n   .<, ,>.          |   _/\\        . ',   :   : \\\\\n  .' \\_/ '.        /  .'   |          '.     .'  \\)\n                  / .-'    '-.        : \\   _;   ||\n                 / /    _     \\_      '.'\\ ' /   ||\n                /.'   .'        \\_      .|   \\   \\|\n               / /   /      __.---'      '._  ;  ||\n              /.'  _:-.____< ,_           '.\\ \\  ||\n             // .-'     '-.__  '-'-\\_      '.\\/_ \\|\n            ( };====.===-==='        '.    .  \\\\: \\\n             \\\\ '._        /          :   ,'   )\\_ \\\n              \\\\   '------/            \\ .    /   )/\n              \\|        _|             )Y    |   /\n                \\\\      \\             .','   /  ,/\n                 \\\\    _/            /     _/\n                  \\\\   \\           .'    .'\n                   '| '1          /    .'\n                     '. \\        |:    /\n                       \\ |       /', .'\n                        \\(      ( ;z'\n                         \\:      \\ '(_\n                          \\_,     '._ '-.___\n                                      '-' -.\\\nYou can either rob it or try to escape\n1 to escape.\n2 to atempt to rob the dragon.";
   public static final String dragonFailedToEscapeText = "You fail to ecapse and awake the dragon. You will have to fight him.";
@@ -62,6 +62,9 @@ public class ArtAndText {
   }
   public void getEndingText(){
     System.out.println(endingText);
+  }
+  public void getFailedToMakeSelection(){
+    System.out.println(failedToMakeSelection);
   }
 
   //Game explanations
@@ -134,6 +137,12 @@ public class ArtAndText {
   public void getGoblinFightTargetTextFour(){
     System.out.println(goblinBattleAttackTargetFour);
   }
+  public void getGoblinLeaderTargetText(){
+    System.out.println(goblinLeaderTargetText);
+  }
+
+
+
   //Night
   public void getNightInitialText(double artifacts){
     System.out.println(nightInitialText + artifacts + " artifacts.");
