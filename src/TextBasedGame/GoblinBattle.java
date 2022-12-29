@@ -14,52 +14,43 @@ public class GoblinBattle {
     }
     //Attacking Leader
     public static void goblinLeaderAttackStrong(int strongAttackDamage, int goblinLeaderHP){
-        goblinLeaderHP -= strongAttackDamage;
         System.out.println("You choose a strong attack You do " + strongAttackDamage + " damage. \nThe Leader now has " + getHP(goblinLeaderHP, strongAttackDamage) + " HP.");
     }
     public static void goblinLeaderAttackStandard(int standardAttackDamage, int goblinLeaderHP){
-        goblinLeaderHP -= standardAttackDamage;
         System.out.println("You choose a standard attack You do " + standardAttackDamage + " damage. \nThe Leader now has " + getHP(goblinLeaderHP, standardAttackDamage) + " HP.");
     }
     public static void goblinLeaderAttackWeak(int weakAttackDamage, int goblinLeaderHP){
-        goblinLeaderHP -= weakAttackDamage;
         System.out.println("You choose a weak attack You do " + weakAttackDamage + " damage. \nThe Leader now has " + getHP(goblinLeaderHP, weakAttackDamage) + " HP.");
     }
     //Attacking Follower One
-    public static void goblinFollowerOneAttackStrong(int strongAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= strongAttackDamage;
-        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, strongAttackDamage) + " HP.");
+    public static void goblinFollowerOneAttackStrong(int strongAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, strongAttackDamage) + " HP.");
     }
-    public static void goblinFollowerOneAttackStandard(int standardAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= standardAttackDamage;
-        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, standardAttackDamage) + " HP.");
+    public static void goblinFollowerOneAttackStandard(int standardAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, standardAttackDamage) + " HP.");
     }
-    public static void goblinFollowerOneAttackWeak(int weakAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= weakAttackDamage;
-        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, weakAttackDamage) + " HP.");
+    public static void goblinFollowerOneAttackWeak(int weakAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, weakAttackDamage) + " HP.");
     }
     //Attacking Follower Two
-    public static void goblinFollowerTwoAttackStrong(int strongAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= strongAttackDamage;
-        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, strongAttackDamage) + " HP.");
+    public static void goblinFollowerTwoAttackStrong(int strongAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, strongAttackDamage) + " HP.");
     }
-    public static void goblinFollowerTwoAttackStandard(int standardAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= standardAttackDamage;
-        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, standardAttackDamage) + " HP.");
+    public static void goblinFollowerTwoAttackStandard(int standardAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, standardAttackDamage) + " HP.");
     }
-    public static void goblinFollowerTwoAttackWeak(int weakAttackDamage, int goblinFollowerOneHP){
-        goblinFollowerOneHP -= weakAttackDamage;
-        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, weakAttackDamage) + " HP.");
+    public static void goblinFollowerTwoAttackWeak(int weakAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, weakAttackDamage) + " HP.");
     }
     //Attacking Follower Three
-    public static void goblinFollowerThreeAttackStrong(int strongAttackDamage, int goblinFollowerOneHP){
-        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, strongAttackDamage) + " HP.");
+    public static void goblinFollowerThreeAttackStrong(int strongAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a strong attack. \nYou do " + strongAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, strongAttackDamage) + " HP.");
     }
-    public static void goblinFollowerThreeAttackStandard(int standardAttackDamage, int goblinFollowerOneHP){
-        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, standardAttackDamage) + " HP.");
+    public static void goblinFollowerThreeAttackStandard(int standardAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a standard attack. \nYou do " + standardAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, standardAttackDamage) + " HP.");
     }
-    public static void goblinFollowerThreeAttackWeak(int weakAttackDamage, int goblinFollowerOneHP){
-        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerOneHP, weakAttackDamage) + " HP.");
+    public static void goblinFollowerThreeAttackWeak(int weakAttackDamage, int goblinFollowerHP){
+        System.out.println("You choose a weak attack. \nYou do " + weakAttackDamage + " damage. \nThe Follower now has " + getHP(goblinFollowerHP, weakAttackDamage) + " HP.");
     }
     //Goblins Turn
     public static void goblinLeadersTurnOutPut(int damageTaken, int characterHP){

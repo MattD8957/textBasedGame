@@ -14,9 +14,9 @@ public class Main {
         int characterAttackStrongMaxDMG = 0;
         int characterAttackStandardMaxDMG = 0;
         int characterAttackWeakMaxDMG = 0;
-        int characterAttackStrongWeakness = 10;
-        int characterAttackStandardWeakness = 0;
-        int characterAttackWeakWeakness = -10;
+        int characterAttackStrongPenalty = 10;
+        int characterAttackStandardPenalty = 0;
+        int characterAttackWeakPenalty = -10;
     //Enemy creation
         //Dragon
             int dragonHP = 1; //This is for class creation
@@ -101,15 +101,15 @@ public class Main {
             //Strong Attack Atributes
             characterAttackStrongDMG = 25;
             characterAttackStrongMaxDMG = 45;
-            characterAttackStrongWeakness = 10;
+            characterAttackStrongPenalty = 10;
             //Standard Attack Atributes
             characterAttackStandardDMG = 15;
             characterAttackStandardMaxDMG = 35;
-            characterAttackStandardWeakness = 0;
+            characterAttackStandardPenalty = 0;
             //Weak Attack Atributes
             characterAttackWeakDMG = 5;
             characterAttackWeakMaxDMG = 25;
-            characterAttackWeakWeakness = -10;
+            characterAttackWeakPenalty = -10;
             heal.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionRogue();
         break;
@@ -122,15 +122,15 @@ public class Main {
             //Strong Attack Atributes
             characterAttackStrongDMG = 30;
             characterAttackStrongMaxDMG = 50;
-            characterAttackStrongWeakness = 15;
+            characterAttackStrongPenalty = 15;
             //Standard Attack Atributes
             characterAttackStandardDMG = 20;
             characterAttackStandardMaxDMG = 40;
-            characterAttackStandardWeakness = 5;
+            characterAttackStandardPenalty = 5;
             //Weak Attack Atributes
             characterAttackWeakDMG = 10;
             characterAttackWeakMaxDMG = 30;
-            characterAttackWeakWeakness = -5;
+            characterAttackWeakPenalty = -5;
             heal.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionPaladin();
         break;
@@ -143,15 +143,15 @@ public class Main {
             //Strong Attack Atributes
             characterAttackStrongDMG = 35;
             characterAttackStrongMaxDMG = 60;
-            characterAttackStrongWeakness = 20;
+            characterAttackStrongPenalty = 20;
             //Standard Attack Atributes
             characterAttackStandardDMG = 25;
             characterAttackStandardMaxDMG = 50;
-            characterAttackStandardWeakness = 10;
+            characterAttackStandardPenalty = 10;
             //Weak Attack Atributes
             characterAttackWeakDMG = 15;
             characterAttackWeakMaxDMG = 40;
-            characterAttackWeakWeakness = 0;
+            characterAttackWeakPenalty = 0;
             heal.setMaxHP(CharacterMaxHPCreation);
             art.getGameExplantionBarbarian();
         break;
@@ -162,9 +162,9 @@ public class Main {
         }
         //CREATE the Character
             Character character = new Character(CharacterHPCreation, CharacterMaxHPCreation, characterName, CharacterStandardAtackCreation, CharacterMaxAttackCreation);
-            Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongWeakness); // Damage, Max damage, weakness
-            Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardWeakness); // Damage, Max damage, weakness
-            Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakWeakness); // Damage, Max damage, weakness
+            Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG, characterAttackStrongPenalty); // Damage, Max damage, weakness
+            Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG, characterAttackStandardPenalty); // Damage, Max damage, weakness
+            Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG, characterAttackWeakPenalty); // Damage, Max damage, weakness
         //Information for player at start of game TODO Decide on amount of artifacts Now in each class if statement
         //Wait until player presses a button
         moveOn = scanner.next();
@@ -188,6 +188,7 @@ public class Main {
                 //Clears screen
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
+                event = 0;
                 //EVENTS
                 switch(event){
                 case 0: //Fight dragon
@@ -328,8 +329,8 @@ public class Main {
                         character.increaseArtifacts(Constants.bearArtifactsCollectionAmount);
                         art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
-                    }
-                break;
+                            }
+                    break;
                 case 2: //Go into a bar
                     art.getBarText();
                     barChoice = scanner.nextInt();
@@ -427,7 +428,7 @@ public class Main {
                         art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                     break;
-                   }break;
+                }break;
                 case 3: //Go to a doctor
                     art.getDoctorInitialText();
                     System.out.print(character.getHP() + " HP.\n");
@@ -1577,7 +1578,7 @@ public class Main {
                         art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                         break;
-                    }break;
+                }break;
                 case 6: //Night ADD variety
                     art.getNightInitialText(character.getArtifact());
                     sleepPlaceChoice = scanner.nextInt();//Town Extra damage
@@ -1608,13 +1609,13 @@ public class Main {
                                 Thread.currentThread().interrupt();}}
                         damageTaken = random.randomNumber(Constants.nightChoiceOneDamageTakenUpperBound) + 1;
                         switch(random.randomNumber(nightChance)){
-                            case 0: //Cold
+                    case 0: //Cold
                             art.getNightChoiceTwoMorningColdText(damageTaken);
                             break;
-                            case 1: //Animal
+                    case 1: //Animal
                             art.getNightChoiceTwoMorningAnimalText(damageTaken, characterName);
                             break;
-                            case 2: //?
+                    case 2: //?
                             art.getNightChoiceTwoMorningFigureOutText(damageTaken);
                             break;
                         }
