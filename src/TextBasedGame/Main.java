@@ -231,15 +231,15 @@ public class Main {
                             art.getAttackTypeChoiceText();
                             attackType = scanner.nextInt();
                             if(attackType == 1){
-                                DragonBattle.characterAttackChoiceOne(strong.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthOne(strong.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(strong.getAttackDamage());
                             }
                             else if(attackType == 2){
-                                DragonBattle.characterAttackChoiceTwo(standard.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthTwo(standard.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(standard.getAttackDamage());
                             }
                             else if(attackType == 3){
-                                DragonBattle.characterAttackChoiceThree(weak.getAttackDamage(), dragon.getHP());
+                                DragonBattle.characterAttackStrengthThree(weak.getAttackDamage(), dragon.getHP());
                                 dragon.takeDamage(weak.getAttackDamage());
                             }
                             if(!dragon.isDead()){//If still alive dragon's turn
@@ -292,15 +292,15 @@ public class Main {
                         art.getAttackTypeChoiceText();
                         attackType = scanner.nextInt();
                         if(attackType == 1){
-                            BearBattle.characterAttackChoiceOne(strong.getAttackDamage(), bear.getHP());
+                            BearBattle.characterAttackStrengthOne(strong.getAttackDamage(), bear.getHP());
                             bear.takeDamage(strong.getAttackDamage());
                         }
                         else if(attackType == 2){
-                            BearBattle.characterAttackChoiceTwo(standard.getAttackDamage(), bear.getHP());
+                            BearBattle.characterAttackStrengthTwo(standard.getAttackDamage(), bear.getHP());
                             bear.takeDamage(standard.getAttackDamage());
                         }
                         else if(attackType == 3){
-                            BearBattle.characterAttackChoiceThree(weak.getAttackDamage(), bear.getHP());
+                            BearBattle.characterAttackStrengthThree(weak.getAttackDamage(), bear.getHP());
                             bear.takeDamage(weak.getAttackDamage());
                         }
                         if(!bear.isDead()){//If still alive bear's turn
@@ -397,7 +397,9 @@ public class Main {
                         }
                         else if(questChoice == 2){//Defeat Evil king
                             art.getBarQuestTwoText();
+                            // Defeat the Evil king
                             
+                        
                             questChoiceRandomStuff = scanner.nextInt();
                             if(questChoiceRandomStuff == 1){
                                 
