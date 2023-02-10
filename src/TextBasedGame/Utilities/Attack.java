@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 //Manage Attack types
 public class Attack {
     private int damage;

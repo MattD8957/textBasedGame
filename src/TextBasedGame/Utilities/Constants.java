@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 
 public final class Constants {
         public static final int eventUpperBound = 5;  

@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Events;
 
 public class DragonBattle {
 

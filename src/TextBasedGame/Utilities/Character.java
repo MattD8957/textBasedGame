@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 
 //Manage Character
 public class Character {

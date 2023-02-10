@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 
 //Manage all enimies
 public class Enemy {

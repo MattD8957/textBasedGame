@@ -1,5 +1,17 @@
 package TextBasedGame;
 import java.util.*;
+import TextBasedGame.Events.Bar;
+import TextBasedGame.Events.BearBattle;
+import TextBasedGame.Events.DragonBattle;
+import TextBasedGame.Events.GoblinBattle;
+import TextBasedGame.Events.GuardFight;
+import TextBasedGame.Utilities.ArtAndText;
+import TextBasedGame.Utilities.Attack;
+import TextBasedGame.Utilities.Character;
+import TextBasedGame.Utilities.Constants;
+import TextBasedGame.Utilities.Enemy;
+import TextBasedGame.Utilities.Heal;
+import TextBasedGame.Utilities.random;
 
 public class Main {
     public static void main(String args[]) {

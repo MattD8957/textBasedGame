@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 
 public class ArtAndText {
   //Beginning and Explanation Text

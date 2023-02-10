@@ -1,4 +1,4 @@
-package TextBasedGame;
+package TextBasedGame.Utilities;
 public class Heal {
     private int maxHP;
     private int output;
