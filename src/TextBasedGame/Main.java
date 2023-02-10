@@ -10,6 +10,7 @@ import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.Character;
 import TextBasedGame.Utilities.Constants;
 import TextBasedGame.Utilities.Enemy;
+import TextBasedGame.Utilities.GeneralUtils;
 import TextBasedGame.Utilities.Heal;
 import TextBasedGame.Utilities.random;
 
@@ -52,33 +53,31 @@ public class Main {
             int chosenClass = 0; //Players choice of Character 
             int damageTaken = 0; //random amount of damage done to player for method
             int event;//chooses which event will happen
+            int lastEvent = 3; //This is to make sure the same event doesn't happen twice in a row
             boolean foughtOnce = false; //Checks if player has fought to give combat explanation
-            boolean properAns = false; //Checks if user input works
+            boolean selectionFailed = false; //Checks if user input works
+            int choice = 0; //Choice from user
+
         //Dragon
-            int dragonChoice = 0; //Choice from user
             int escapeChance = 0; //This is the chance out of 5 of events hapenning while escaping the dragon
         //Bear
 
         //Bar
             int blackSmithChoice; //Choice for what type of weapon upgrade
-            int barChoice = 0; //Players choice of what to do at the bar
             int questChoice = 0; //Players choice of what quest to take
             int questChoiceRandomStuff;
         //Doctor
-            int doctorChoice; //Choice for what type of heal
             int amountHealed = 0;//amount of HP added by the doctor
             int amountHealedOld = 0;
         //Goblins
             boolean goblinsAreDead = false; //Checks if goblin horde is dead for loop
         //Town
-            int townChoice = 0; //Players choice when arrested in town
             int fine = 0; //Use to fine the player of artifacts 
             int fightStart = 0; //Random to decide if a fight starts in jail
             int courtSentancing = 0; //The random that gives a sentance for the players crimes
             int artifactsFoundOnGuards = 0; //Use to award players for beating the guards
             boolean guardsAreDead = false; //Checks if gaurds are dead
         //Night
-            int sleepPlaceChoice = 0; //Players choice of where to sleep
             int nightChance = 0;//FOr random Decisions
 
     //Create Classes
@@ -90,19 +89,19 @@ public class Main {
             Heal heal = new Heal(100);
 
         //Clears screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        GeneralUtils.clearScreen();
+
         //entrance screen
         art.getWelcomeArt();
         chosenClass = scanner.nextInt();
+
         //Clears screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        GeneralUtils.clearScreen();
+
         //Gets players name for Character then clears screen
         System.out.println("What would you like to name your Character?");
         characterName = scanner.next();
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        GeneralUtils.clearScreen();
         switch(chosenClass){
         case 1: //Rogue
             //Character Attributes
@@ -181,8 +180,7 @@ public class Main {
         //Wait until player presses a button
         moveOn = scanner.next();
         //Clears screen
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        GeneralUtils.clearScreen();
 
             //Start game loop
             while(!character.isDead())
@@ -192,22 +190,24 @@ public class Main {
                     Thread.sleep(3000);}
                 catch(InterruptedException ex){
                     Thread.currentThread().interrupt();}}
-                event = random.randomNumber(Constants.eventUpperBound);
+                do{
+                    event = random.randomNumber(Constants.eventUpperBound);
+                } while (event == lastEvent);
+                lastEvent = event;
                 if(character.getHP() <= 30){ //To make game more fun
                     event = 3;
                 }
                 //event = 6;
                 //Clears screen
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+                GeneralUtils.clearScreen();
                 event = 0;
                 //EVENTS
                 switch(event){
                 case 0: //Fight dragon
                     //Start text and picture
                     art.getDragonArt();
-                    dragonChoice = scanner.nextInt();
-                    if(dragonChoice == 1){//1 For escape
+                    choice = scanner.nextInt();
+                    if(choice == 1){//1 For escape
                     // 1 in 5 chance of freedom 
                     // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                     // 2 in 5 chance of waking the dragon and having to fight it - if you win you still get the treasure
@@ -225,7 +225,7 @@ public class Main {
                             //Goes to the battle
                         }
                     }
-                    if((dragonChoice == 2) || (escapeChance == 3) || (escapeChance == 4)){//To rob the dragon
+                    if((choice == 2) || (escapeChance == 3) || (escapeChance == 4)){//To rob the dragon
                         if(!foughtOnce){
                             art.getCombatExplanation();
                         }
@@ -282,7 +282,7 @@ public class Main {
                            DragonBattle.finalText(character.getArtifact());
                         }
                     }
-                    else if(!(dragonChoice == 1)){//type a number or letter that is not an option 
+                    else if(!(choice == 1)){//type a number or letter that is not an option 
                         art.getFailedToMakeSelection();
                         character.kill();//set health to 0 to end loop
                     }
@@ -345,8 +345,8 @@ public class Main {
                     break;
                 case 2: //Go into a bar
                     art.getBarText();
-                    barChoice = scanner.nextInt();
-                    switch(barChoice){
+                    choice = scanner.nextInt();
+                    switch(choice){
                     case 1: //Start a brawl
                         damageTaken = random.randomNumber(Constants.barFightDMGTakenUpperBound);
                         Bar.barBrawl(damageTaken, character.getHP());
@@ -354,7 +354,7 @@ public class Main {
                     break;
                     case 2: //Buy a weapon
                         art.getBlackSmithText();
-                        System.out.println("Your currently have: " + character.getArtifact() + " artifacts.");
+                        System.out.println("You currently have: " + character.getArtifact() + " artifacts.");
                         blackSmithChoice = scanner.nextInt();
                         if(blackSmithChoice == 1){
                             System.out.println("Attack before addition: " + character.getAttack());
@@ -446,18 +446,18 @@ public class Main {
                 case 3: //Go to a doctor
                     art.getDoctorInitialText();
                     System.out.print(character.getHP() + " HP.\n");
-                    doctorChoice = scanner.nextInt();
+                    choice = scanner.nextInt();
                     {//sleep command
                         try{
                         Thread.sleep(3000);}
                         catch(InterruptedException ex){
                         Thread.currentThread().interrupt();}}
-                    if(doctorChoice == 1){
+                    if(choice == 1){
                         //decide on amount healed 10-40
                         amountHealed = random.randomNumber(Constants.doctorAmountHealedUpperBound);
                         amountHealed += 10;
                     }
-                    else if(doctorChoice == 2){
+                    else if(choice == 2){
                         amountHealed = Constants.doctorAmountHealedPayed;
                     }
                     amountHealedOld = amountHealed;
@@ -1012,8 +1012,8 @@ public class Main {
                 break;
                 case 5: //Fight guards
                     GuardFight.initialFightText();
-                    townChoice = scanner.nextInt();
-                    switch(townChoice){
+                    choice = scanner.nextInt();
+                    switch(choice){
                     case 1: //Go willingly
                         GuardFight.goPeacefulText();
                         //Random to decide if fight starts 1 in 6 it does
@@ -1080,8 +1080,7 @@ public class Main {
                         } 
                         break;
                     case 2: //Beg for mercy
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
+                        GeneralUtils.clearScreen();
                         System.out.println("You beg for mercy.");
                         System.out.println("They decide to be leniant and give you a fine of 3 artifacts instead.");
                         if(character.getArtifact() > 3){ //Checks you have enough to pay
@@ -1113,8 +1112,7 @@ public class Main {
                         }
                             //Explanation for player at start of battle
                             //Clear screen
-                            System.out.print("\033[H\033[2J");
-                            System.out.flush();
+                            GeneralUtils.clearScreen();
                             if(!foughtOnce){
                             art.getCombatExplanation();
                         }
@@ -1564,25 +1562,25 @@ public class Main {
                             if(guardsAreDead)
                             {
                             GuardFight.fightWinText();
-                            townChoice = scanner.nextInt();
-                            if(townChoice == 1){//Take from guards
+                            choice = scanner.nextInt();
+                            if(choice == 1){//Take from guards
                                 artifactsFoundOnGuards = random.randomNumber(Constants.townArtifactsOnGuardsUpperBound);
                                 character.increaseArtifacts(artifactsFoundOnGuards);
                                 System.out.println("You found " + artifactsFoundOnGuards + " artifacts, you now have " + character.getArtifact() + " artifacts.");
                             }
-                            else if(townChoice == 2){//Dont take from guards
+                            else if(choice == 2){//Dont take from guards
                                 System.out.println("You leave the guards and contimplate, ");
                             }
                             System.out.print("Do I want to loot the town?");
                             System.out.println("1 = Yes.");
                             System.out.println("2 = No.");
-                            townChoice = scanner.nextInt();
-                            if(townChoice == 1)//Yes
+                            choice = scanner.nextInt();
+                            if(choice == 1)//Yes
                             {
                                 System.out.println("You are a bad person.");
                                 character.kill();
                             }
-                            else if(townChoice == 2)//No
+                            else if(choice == 2)//No
                             {
                                 System.out.println("You resist temptation and leave the town and move on to your next adventure.");
                             }
@@ -1595,8 +1593,8 @@ public class Main {
                 }break;
                 case 6: //Night ADD variety
                     art.getNightInitialText(character.getArtifact());
-                    sleepPlaceChoice = scanner.nextInt();//Town Extra damage
-                    if(sleepPlaceChoice == 1){ //Town Extra damage
+                    choice = scanner.nextInt();//Town Extra damage
+                    if(choice == 1){ //Town Extra damage
                         if((character.getArtifact() - 1) > 0){
                         character.increaseArtifacts(-1);
                         art.getNightChoiceOneNightText();
@@ -1611,10 +1609,10 @@ public class Main {
                         }
                         else{
                             System.out.println("You don't have enough artifacts for that.");
-                            sleepPlaceChoice = 2;
+                            choice = 2;
                         }
                     }
-                    if(sleepPlaceChoice == 2){//Tree Dangerous
+                    if(choice == 2){//Tree Dangerous
                         art.getNightChoiceTwoNightText();
                         { /*sleep command*/
                             try{
@@ -1643,8 +1641,7 @@ public class Main {
                 
                 //Win screen
                 if(character.getArtifact() >= 50){//If you collect 50 treasures
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
+                    GeneralUtils.clearScreen();
                     System.out.println("Congratulations " + characterName);
                     {//sleep command
                     try{
@@ -1666,8 +1663,7 @@ public class Main {
                     catch(InterruptedException ex){
                         Thread.currentThread().interrupt();}}
                 //Clear screen
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+                GeneralUtils.clearScreen();
                 //Death screen
                 art.getYouDied();
                 art.getEndingText();
