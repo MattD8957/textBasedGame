@@ -11,16 +11,16 @@ public class GeneralUtils {
       }
 
       /**
-       * Pauses the program for a specified amount of time
-       * @param time
+       * Pauses the program for a specified amount of time 
+       * @param time in seconds
        */
       public static void pause(int time){
+        time *= 1000;
         try {
             Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch(InterruptedException ex){
+            Thread.currentThread().interrupt();}
         }
-      }
 
       
 
