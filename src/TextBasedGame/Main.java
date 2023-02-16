@@ -14,6 +14,14 @@ import TextBasedGame.Utilities.Enemy;
 import TextBasedGame.Utilities.GeneralUtils;
 import TextBasedGame.Utilities.Heal;
 import TextBasedGame.Utilities.random;
+import TextBasedGame.Utilities.Constants.BarConstants;
+import TextBasedGame.Utilities.Constants.BearConstants;
+import TextBasedGame.Utilities.Constants.DoctorConstants;
+import TextBasedGame.Utilities.Constants.DragonConstants;
+import TextBasedGame.Utilities.Constants.GeneralConstants;
+import TextBasedGame.Utilities.Constants.GoblinConstants;
+import TextBasedGame.Utilities.Constants.NightConstants;
+import TextBasedGame.Utilities.Constants.TownConstants;
 
 public class Main {
     public static void main(String args[]) {
@@ -194,7 +202,7 @@ public class Main {
             GeneralUtils.pause(3);
 
             do {
-                event = random.randomNumber(Constants.eventUpperBound);
+                event = random.randomNumber(GeneralConstants.EVENT_UPPER_BOUND);
             } while (event == lastEvent);
             lastEvent = event;
             if (character.getHP() <= 30) { // To make game more fun
@@ -215,13 +223,15 @@ public class Main {
                         // 2 in 5 chance of falling and taking damage 1 to 10 dmg
                         // 2 in 5 chance of waking the dragon and having to fight it - if you win
                         // you still get the treasure
-                        escapeChance = random.randomNumber(Constants.dragonEscapeChanceUpperBound);
+                        escapeChance =
+                                random.randomNumber(DragonConstants.ESCAPE_CHANCE_UPPER_BOUND);
                         if (escapeChance == 0) {// escape succesfully
                             DragonBattle.escaped();
                         } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take
                                                                                 // some damage 1 to
                                                                                 // 10
-                            damageTaken = random.randomNumber(Constants.dragonEscapeDMGUpperBound);
+                            damageTaken =
+                                    random.randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
                             DragonBattle.tripThenEscape(damageTaken, character.getHP());
                             character.takeDamage(damageTaken);
                         } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to
@@ -238,17 +248,17 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         GeneralUtils.pause(1);
-                        dragonHP = random.randomNumber(Constants.dragonHPUpperBound) + 10;// Dragon
-                                                                                          // health
-                                                                                          // 10 - 75
+                        dragonHP = random.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon
+                        // health
+                        // 10 - 75
                         dragonAttack =
-                                random.randomNumber(Constants.dragonAttackDMGUpperBound) + 20; // Geerates
-                                                                                               // dragon
-                                                                                               // attack
-                                                                                               // dmg
-                                                                                               // 20
-                                                                                               // -
-                                                                                               // 35
+                                random.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Geerates
+                        // dragon
+                        // attack
+                        // dmg
+                        // 20
+                        // -
+                        // 35
                         Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 -
                                                                           // 75, Attack dmg 20 - 35
 
@@ -304,9 +314,9 @@ public class Main {
                         art.getCombatExplanation();
                     }
                     // Create bear
-                    bearHP = random.randomNumber(Constants.bearHPUpperBound);
+                    bearHP = random.randomNumber(BearConstants.HP_UPPER_BOUND);
                     bearHP += 20;// bear health 20 - 45
-                    bearAttackDMG = random.randomNumber(Constants.bearAttackDMGUpperBound);
+                    bearAttackDMG = random.randomNumber(BearConstants.ATTACK_DMG_UPPER_BOUND);
                     bearAttackDMG += 10;// bears do 10 to 20 dmg
                     Enemy bear = new Enemy(bearHP, bearAttackDMG); // HP then attack dmg
 
@@ -347,7 +357,7 @@ public class Main {
                         }
                     }
                     if (bear.isDead()) {// After loop ends if Bear died
-                        character.increaseArtifacts(Constants.bearArtifactsCollectionAmount);
+                        character.increaseArtifacts(BearConstants.ARTIFACTS_COLLECTION_AMOUNT);
                         art.getBeatBearText(character.getArtifact());
                         foughtOnce = true;
                     }
@@ -357,7 +367,8 @@ public class Main {
                     choice = scanner.nextInt();
                     switch (choice) {
                         case 1: // Start a brawl
-                            damageTaken = random.randomNumber(Constants.barFightDMGTakenUpperBound);
+                            damageTaken =
+                                    random.randomNumber(BarConstants.FIGHT_DMG_TAKEN_UPPER_BOUND);
                             Bar.barBrawl(damageTaken, character.getHP());
                             character.takeDamage(damageTaken);
                             break;
@@ -369,7 +380,8 @@ public class Main {
                             if (blackSmithChoice == 1) {
                                 System.out.println(
                                         "Attack before addition: " + character.getAttack());
-                                atk = random.randomNumber(Constants.barAttackDMGIncreaseUpperBound);
+                                atk = random
+                                        .randomNumber(BarConstants.ATTACK_DMG_INCREASE_UPPER_BOUND);
                                 atk++;
                                 // incerase attack damage
                                 character.increaseAttack(atk);
@@ -410,7 +422,7 @@ public class Main {
                             } else if (blackSmithChoice == 2) {
                                 System.out.println(
                                         "Attack before addition: " + character.getAttack());
-                                atk = Constants.barAttackDMGIncreasePayed;
+                                atk = BarConstants.ATTACK_DMG_INCREASE_PAYED;
                                 // incerase attack damage
                                 character.increaseAttack(atk);
                                 strong.increaseAttackDamage(atk);
@@ -496,10 +508,11 @@ public class Main {
                     GeneralUtils.pause(3);
                     if (choice == 1) {
                         // decide on amount healed 10-40
-                        amountHealed = random.randomNumber(Constants.doctorAmountHealedUpperBound);
+                        amountHealed =
+                                random.randomNumber(DoctorConstants.AMOUNT_HEALED_UPPER_BOUND);
                         amountHealed += 10;
                     } else if (choice == 2) {
-                        amountHealed = Constants.doctorAmountHealedPayed;
+                        amountHealed = DoctorConstants.AMOUNT_HEALED_PAYED;
                     }
                     amountHealedOld = amountHealed;
                     amountHealed = heal.heal(character.getHP(), amountHealed);
@@ -511,38 +524,40 @@ public class Main {
                     // Create the goblins
                     // Create leader Goblin
                     goblinLeaderDamage =
-                            random.randomNumber(Constants.goblinLeaderDMGUpperBound) + 10;
+                            random.randomNumber(GoblinConstants.goblinLeaderDMGUpperBound) + 10;
                     goblinLeaderHealth =
-                            random.randomNumber(Constants.goblinLeaderHealthUpperBound) + 20; // 20
-                                                                                              // -
-                                                                                              // 45
-                                                                                              // HP
+                            random.randomNumber(GoblinConstants.goblinLeaderHealthUpperBound) + 20; // 20
+                    // -
+                    // 45
+                    // HP
                     Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp,
                                                                                            // Attack
                                                                                            // dmg
 
                     // Random number to get amount of follower goblins
                     goblinFollowerCount =
-                            random.randomNumber(Constants.goblinFollowerCountUpperBound);
+                            random.randomNumber(GoblinConstants.goblinFollowerCountUpperBound);
                     goblinFollowerCount++;// Makes range 1 - 3
                     if (goblinFollowerCount == 1) {// If 1 follower
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; // Changes
-                                                                                                    // health
-                                                                                                    // range
-                                                                                                    // to
-                                                                                                    // 10
-                                                                                                    // -
-                                                                                                    // 20
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 10; // Changes
+                        // health
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 20
                         Enemy goblinFollowerOne =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
@@ -661,42 +676,46 @@ public class Main {
                     } else if (goblinFollowerCount == 2) {// If 2 followers
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; // Changes
-                                                                                                    // health
-                                                                                                    // range
-                                                                                                    // to
-                                                                                                    // 10
-                                                                                                    // -
-                                                                                                    // 20
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 10; // Changes
+                        // health
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 20
                         Enemy goblinFollowerOne =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
                                                                                        // follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; // Changes
-                                                                                                    // health
-                                                                                                    // range
-                                                                                                    // to
-                                                                                                    // 10
-                                                                                                    // -
-                                                                                                    // 20
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 10; // Changes
+                        // health
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 20
                         Enemy goblinFollowerTwo =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
@@ -876,63 +895,69 @@ public class Main {
                     } else if (goblinFollowerCount == 3) {// If 3 followers
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; // Changes
-                                                                                                    // health
-                                                                                                    // range
-                                                                                                    // to
-                                                                                                    // 10
-                                                                                                    // -
-                                                                                                    // 20
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 10; // Changes
+                        // health
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 20
                         Enemy goblinFollowerOne =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
                                                                                        // follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 10; // Changes
-                                                                                                    // health
-                                                                                                    // range
-                                                                                                    // to
-                                                                                                    // 10
-                                                                                                    // -
-                                                                                                    // 20
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 10; // Changes
+                        // health
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 20
                         Enemy goblinFollowerTwo =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
                                                                                        // follower 2
                         // Creates follower goblin three
                         goblinFollowerDamage =
-                                random.randomNumber(Constants.goblinFollowerDMGUpperBound) + 10; // Changes
-                                                                                                 // damage
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 15
+                                random.randomNumber(GoblinConstants.goblinFollowerDMGUpperBound)
+                                        + 10; // Changes
+                        // damage
+                        // range
+                        // to
+                        // 10
+                        // -
+                        // 15
                         goblinFollowerHealth =
-                                random.randomNumber(Constants.goblinFollowerHealthUpperBound) + 7; // Changes
-                                                                                                   // health
-                                                                                                   // range
-                                                                                                   // to
-                                                                                                   // 7
-                                                                                                   // -
-                                                                                                   // 17
+                                random.randomNumber(GoblinConstants.goblinFollowerHealthUpperBound)
+                                        + 7; // Changes
+                        // health
+                        // range
+                        // to
+                        // 7
+                        // -
+                        // 17
                         Enemy goblinFollowerThree =
                                 new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
                                                                                        // Goblin
@@ -1174,7 +1199,7 @@ public class Main {
                         }
                     }
                     if (goblinsAreDead) {// Reward
-                        character.increaseArtifacts(Constants.goblinWinArtifactReward);
+                        character.increaseArtifacts(GoblinConstants.goblinWinArtifactReward);
                         GoblinBattle.winText(character.getArtifact());
                     }
                     break;
@@ -1186,11 +1211,11 @@ public class Main {
                             GuardFight.goPeacefulText();
                             // Random to decide if fight starts 1 in 6 it does
                             fightStart =
-                                    random.randomNumber(Constants.townJailChanceFightUpperBound);
+                                    random.randomNumber(TownConstants.JailChanceFightUpperBound);
                             if (fightStart == 0)// If var = 0 then start fight if not continue
                             {
                                 damageTaken = random
-                                        .randomNumber(Constants.townJailFightDMGTakenUpperBound);
+                                        .randomNumber(TownConstants.JailFightDMGTakenUpperBound);
                                 character.takeDamage(damageTaken);
                                 GuardFight.jailFight(damageTaken, character.getHP());
                             } else if ((fightStart >= 1) && (fightStart <= 5)) {
@@ -1198,19 +1223,19 @@ public class Main {
                             }
                             // Random to get sentance
                             courtSentancing =
-                                    random.randomNumber(Constants.townCourtSentancingUpperBound);
+                                    random.randomNumber(TownConstants.CourtSentancingUpperBound);
                             GuardFight.afterJailText();
 
                             if ((courtSentancing >= 0) && (courtSentancing <= 14))// Fine
                             {
-                                fine = -1 * random.randomNumber(Constants.townFineUpperBound);
+                                fine = -1 * random.randomNumber(TownConstants.FineUpperBound);
                                 character.increaseArtifacts(fine);
                                 GuardFight.fine(fine, character.getArtifact());
                             } else if ((courtSentancing >= 15) && (courtSentancing <= 24))// Jail 0
                                                                                           // - 10
                             {
                                 damageTaken = random
-                                        .randomNumber(Constants.townDMGTakenFromJailUpperBound);
+                                        .randomNumber(TownConstants.DMGTakenFromJailUpperBound);
                                 GuardFight.jail(damageTaken, character.getHP());
                                 character.takeDamage(damageTaken);
                                 GeneralUtils.pause(5);
@@ -1219,12 +1244,12 @@ public class Main {
                                                                                           // Jail
                             {
                                 // Fine
-                                fine = -1 * random.randomNumber(Constants.townFineUpperBound);
+                                fine = -1 * random.randomNumber(TownConstants.FineUpperBound);
                                 character.increaseArtifacts(fine);
                                 GuardFight.fine(fine, character.getArtifact());
                                 // Jail
                                 damageTaken = random
-                                        .randomNumber(Constants.townDMGTakenFromJailUpperBound);
+                                        .randomNumber(TownConstants.DMGTakenFromJailUpperBound);
                                 GuardFight.jail(damageTaken, character.getHP());
                                 character.takeDamage(damageTaken);
                                 GeneralUtils.pause(3);
@@ -1831,7 +1856,7 @@ public class Main {
                                 choice = scanner.nextInt();
                                 if (choice == 1) {// Take from guards
                                     artifactsFoundOnGuards = random.randomNumber(
-                                            Constants.townArtifactsOnGuardsUpperBound);
+                                            TownConstants.ArtifactsOnGuardsUpperBound);
                                     character.increaseArtifacts(artifactsFoundOnGuards);
                                     System.out.println("You found " + artifactsFoundOnGuards
                                             + " artifacts, you now have " + character.getArtifact()
@@ -1869,9 +1894,9 @@ public class Main {
                             art.getNightChoiceOneNightText();
                             GeneralUtils.pause(3);
                             atk = random.randomNumber(
-                                    Constants.nightCoiceOneAttackIncreaseUpperBound) + 1; // Increase
-                                                                                          // attack
-                                                                                          // by 1-5
+                                    NightConstants.CHOICE_ONE_ATTACK_INCREASE_UPPER_BOUND) + 1; // Increase
+                            // attack
+                            // by 1-5
                             art.getNightChoiceOneMorningText(atk);
                             character.increaseAttack(atk);
                         } else {
@@ -1883,7 +1908,7 @@ public class Main {
                         art.getNightChoiceTwoNightText();
                         GeneralUtils.pause(3);
                         damageTaken =
-                                random.randomNumber(Constants.nightChoiceOneDamageTakenUpperBound)
+                                random.randomNumber(NightConstants.ChoiceOneDamageTakenUpperBound)
                                         + 1;
                         switch (random.randomNumber(nightChance)) {
                             case 0: // Cold
@@ -1905,7 +1930,8 @@ public class Main {
             }
 
             // Win screen
-            if (character.getArtifact() >= 50) {// If you collect 50 treasures
+            if (character.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50
+                                                                              // treasures
                 GeneralUtils.clearScreen();
                 System.out.println("Congratulations " + characterName);
                 GeneralUtils.pause(3);
