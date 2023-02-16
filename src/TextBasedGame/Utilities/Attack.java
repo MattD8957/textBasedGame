@@ -3,12 +3,12 @@ package TextBasedGame.Utilities;
 public class Attack {
     private int damage;
     private int weakness;
-    private int maxDamage;
+    private int maxDMG;
     
-    public Attack (int dmg, int maxdmg, int weak){ //Attack damage, weakness, Max attack damage
-        damage = dmg;
-        maxDamage = maxdmg;
-        weakness = weak;
+    public Attack (int damage, int maxdmg, int weakness){ //Attack damage, weakness, Max attack damage
+        this.damage = damage;
+        this.maxDMG = maxdmg;
+        this.weakness = weakness;
     }
     //Get attack damage
     public int getAttackDamage(){
@@ -24,6 +24,6 @@ public class Attack {
     }
     //Sets attack damage to max
     public void setMaxAttackDamage(){
-        damage = maxDamage; 
+        damage = maxDMG; 
     }
 }

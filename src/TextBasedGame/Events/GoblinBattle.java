@@ -1,7 +1,9 @@
 package TextBasedGame.Events;
 
 public class GoblinBattle {
-    
+    public GoblinBattle(){
+        super();
+    }
     //Initial text
     public static void initialText(int goblinFollowerCount, int goblinLeaderHP, int goblinFollowerOneHP){
         System.out.println("There is a leader and he has " + goblinFollowerCount + " henchmen.\nThe leader has " + goblinLeaderHP + " Hp. \nHis follower has " + goblinFollowerOneHP + " Hp.");

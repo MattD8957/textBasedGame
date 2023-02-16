@@ -1,6 +1,6 @@
 package TextBasedGame.Events;
 
-public class DragonBattle {
+public class DragonBattle{
 
     public static void escaped(){
         System.out.println("You succesfully escape and can continue your journey.");

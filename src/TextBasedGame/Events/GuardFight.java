@@ -1,6 +1,6 @@
 package TextBasedGame.Events;
 
-public class GuardFight {
+public class GuardFight  {
 
     //Text Returns
     public static void initialFightText(){
