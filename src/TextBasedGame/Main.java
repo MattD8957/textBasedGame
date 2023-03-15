@@ -39,17 +39,17 @@ public class Main {
         int characterAttackWeakPenalty = -10;
         // Enemy creation
         // Dragon
-        int dragonHP = 1; // This is for class creation
-        int dragonAttack = 1; // This is for class creation
+        int dragonHP = 1;
+        int dragonAttack = 1;
         // Bear
-        int bearHP = 0; // This is for class creation
-        int bearAttackDMG = 0; // This is for class creation
+        int bearHP = 0;
+        int bearAttackDMG = 0; 
         // Goblin
-        int goblinLeaderDamage = 0; // This is for class creation
-        int goblinLeaderHealth = 0; // This is for class creation
-        int goblinFollowerCount = 0; // This is for if that creates goblins
-        int goblinFollowerHealth = 0; // This is for class creation
-        int goblinFollowerDamage = 0; // This is for class creation
+        int goblinLeaderDamage = 0;
+        int goblinLeaderHealth = 0;
+        int goblinFollowerCount = 0;
+        int goblinFollowerHealth = 0;
+        int goblinFollowerDamage = 0;
         // Rest of Game
         // Random
         String characterName; // gets the name the player wants for the player
@@ -66,8 +66,7 @@ public class Main {
         int choice = 0; // Choice from user
 
         // Dragon
-        int escapeChance = 0; // This is the chance out of 5 of events hapenning while escaping the
-                              // dragon
+        int escapeChance = 0; // This is the chance out of 5 of events hapenning while escaping the dragon
         // Bear
 
         // Bar
@@ -94,7 +93,7 @@ public class Main {
         // Scanner
         Scanner scanner = new Scanner(System.in);
         // Doctor
-        Heal heal = new Heal(100);
+        Heal doc = new Heal(100);
 
         // Clears screen
         GeneralUtils.clearScreen();
@@ -129,7 +128,7 @@ public class Main {
                 characterAttackWeakDMG = 5;
                 characterAttackWeakMaxDMG = 25;
                 characterAttackWeakPenalty = -10;
-                heal.setMaxHP(CharacterMaxHPCreation);
+                doc.setMaxHP(CharacterMaxHPCreation);
                 art.getGameExplantionRogue();
                 break;
             case 2: // Paladin
@@ -150,7 +149,7 @@ public class Main {
                 characterAttackWeakDMG = 10;
                 characterAttackWeakMaxDMG = 30;
                 characterAttackWeakPenalty = -5;
-                heal.setMaxHP(CharacterMaxHPCreation);
+                doc.setMaxHP(CharacterMaxHPCreation);
                 art.getGameExplantionPaladin();
                 break;
             case 3: // Barbarian
@@ -171,7 +170,7 @@ public class Main {
                 characterAttackWeakDMG = 15;
                 characterAttackWeakMaxDMG = 40;
                 characterAttackWeakPenalty = 0;
-                heal.setMaxHP(CharacterMaxHPCreation);
+                doc.setMaxHP(CharacterMaxHPCreation);
                 art.getGameExplantionBarbarian();
                 break;
             default:
@@ -188,6 +187,8 @@ public class Main {
                 characterAttackStandardPenalty); // Damage, Max damage, weakness
         Attack weak = new Attack(characterAttackWeakDMG, characterAttackWeakMaxDMG,
                 characterAttackWeakPenalty); // Damage, Max damage, weakness
+        doc.setMaxHP(player.getMaxHP());
+
         // Information for player at start of game TODO Decide on amount of artifacts Now in each
         // class if statement
         // Wait until player presses a button
@@ -200,11 +201,10 @@ public class Main {
             GeneralUtils.pause(3);
 
             do {
-                System.out.println("Event: " + event);
                 event = GeneralUtils.randomNumber(GeneralConstants.EVENT_UPPER_BOUND);
             } while (event == lastEvent);
             lastEvent = event;
-            System.out.println(" Last Event: " + lastEvent);
+
             if (player.getHP() <= 30) { // To make game more fun
                 event = 3;
             }
@@ -224,40 +224,25 @@ public class Main {
                                 GeneralUtils.randomNumber(DragonConstants.ESCAPE_CHANCE_UPPER_BOUND);
                         if (escapeChance == 0) {// escape succesfully
                             DragonBattle.escaped();
-                        } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take
-                                                                                // some damage 1 to
-                                                                                // 10
+                        } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take some damage 1 to 10
                             damageTaken =
                                     GeneralUtils.randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
                             DragonBattle.tripThenEscape(damageTaken, player.getHP());
                             player.takeDamage(damageTaken);
-                        } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to
-                                                                                // escape and have
-                                                                                // to fight the
-                                                                                // dragon
+                        } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to escape and have to fight the dragon
                             art.getFailedToEscapeText();// Message after failing to escape
                             // Goes to the battle
                         }
                     }
-                    if ((choice == 2) || (escapeChance == 3) || (escapeChance == 4)) {// To rob the
-                                                                                      // dragon
+                    if ((choice == 2) || (escapeChance == 3) || (escapeChance == 4)) {// To rob the dragon
                         if (!foughtOnce) {
                             art.getCombatExplanation();
                         }
                         GeneralUtils.pause(1);
-                        dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon
-                        // health
-                        // 10 - 75
+                        dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon health 10 - 75
                         dragonAttack =
-                                GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Geerates
-                        // dragon
-                        // attack
-                        // dmg
-                        // 20
-                        // -
-                        // 35
-                        Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 -
-                                                                          // 75, Attack dmg 20 - 35
+                                GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Generates dragon attack dmg 20 - 35
+                        Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack dmg 20 - 35
 
                         while (!player.isDead() && !dragon.isDead()) {
                             System.out.println("The Dragon has " + dragon.getHP() + " HP.");
@@ -384,30 +369,10 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not
-                                                                                         // over max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // state
-                                                                                         // attack
-                                                                                         // damage
+                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
                                     System.out
                                             .println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If
-                                                                                               // over
-                                                                                               // max
-                                                                                               // attack
-                                                                                               // damage
-                                                                                               // set
-                                                                                               // to
-                                                                                               // max
-                                                                                               // attack
-                                                                                               // damage
-                                                                                               // and
-                                                                                               // then
-                                                                                               // state
-                                                                                               // attack
-                                                                                               // damage
+                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
                                     player.setMaxAttack();
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
@@ -424,30 +389,10 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not
-                                                                                         // over max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // state
-                                                                                         // attack
-                                                                                         // damage
+                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
                                     System.out
                                             .println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If
-                                                                                               // over
-                                                                                               // max
-                                                                                               // attack
-                                                                                               // damage
-                                                                                               // set
-                                                                                               // to
-                                                                                               // max
-                                                                                               // attack
-                                                                                               // damage
-                                                                                               // and
-                                                                                               // then
-                                                                                               // state
-                                                                                               // attack
-                                                                                               // damage
+                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
                                     player.setMaxAttack();
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
@@ -498,22 +443,18 @@ public class Main {
                     }
                     break;
                 case 3: // Go to a doctor
-                    art.getDoctorInitialText();
-                    System.out.print(player.getHP() + " HP.\n");
+                    art.getDoctorInitialText(player.getHP());
                     choice = scanner.nextInt();
                     GeneralUtils.pause(3);
                     if (choice == 1) {
-                        // decide on amount healed 10-40
-                        amountHealed =
-                                GeneralUtils.randomNumber(DoctorConstants.AMOUNT_HEALED_UPPER_BOUND);
-                        amountHealed += 10;
+                        // decide on amount healed 10 - 40
+                        amountHealed = GeneralUtils.randomNumber(DoctorConstants.AMOUNT_HEALED_UPPER_BOUND) + 10;
                     } else if (choice == 2) {
                         amountHealed = DoctorConstants.AMOUNT_HEALED_PAYED;
                     }
-                    amountHealedOld = amountHealed;
-                    amountHealed = heal.heal(player.getHP(), amountHealed);
-                    player.heal(amountHealed);
-                    heal.doctorOutputText(player.getHP(), amountHealedOld);
+                    amountHealed = doc.heal(player.getHP(), amountHealed);
+                    player.heal(amountHealed);  
+                    doc.doctorOutputText(player.getHP(), amountHealed);
                     break;
                 case 4: // Goblin horde
                     art.getGoblinInitialText();
@@ -522,13 +463,8 @@ public class Main {
                     goblinLeaderDamage =
                             GeneralUtils.randomNumber(GoblinConstants.LEADER_DMG_UPPER_BOUND) + 10;
                     goblinLeaderHealth =
-                            GeneralUtils.randomNumber(GoblinConstants.LEADER_HEALTH_UPPER_BOUND) + 20; // 20
-                    // -
-                    // 45
-                    // HP
-                    Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp,
-                                                                                           // Attack
-                                                                                           // dmg
+                            GeneralUtils.randomNumber(GoblinConstants.LEADER_HEALTH_UPPER_BOUND) + 20; // 20 - 45 HP
+                    Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp, Attack, dmg
 
                     // Random number to get amount of follower goblins
                     goblinFollowerCount =
@@ -537,26 +473,12 @@ public class Main {
                     if (goblinFollowerCount == 1) {// If 1 follower
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 10; // Changes
-                        // health
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 20
+                                        + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
                         // Start fight Same in every if statment for amount of followers
                         // Fighting Explanation
                         if (!foughtOnce) {
@@ -656,63 +578,29 @@ public class Main {
                                         player.getHP());
                             }
                             // add extras
-                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()) {// If any
-                                                                                        // goblin is
-                                                                                        // alive
+                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()) {// If any goblin is alive
                                 goblinsAreDead = false;
-                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()) {// if
-                                                                                             // all
-                                                                                             // goblins
-                                                                                             // are
-                                                                                             // dead
+                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()) {// if all goblins are dead
                                 goblinsAreDead = true;
                             }
                         }
                     } else if (goblinFollowerCount == 2) {// If 2 followers
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 10; // Changes
-                        // health
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 20
+                                        + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 10; // Changes
-                        // health
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 20
+                                        + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 2
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
 
                         // Fighting Explanation
                         if (!foughtOnce) {
@@ -888,70 +776,28 @@ public class Main {
                     } else if (goblinFollowerCount == 3) {// If 3 followers
                         // Creates follower goblin one
                         goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                             GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 10; // Changes
-                        // health
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 20
+                                        + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
-                        GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                        GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                         GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 10; // Changes
-                        // health
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 20
+                                        + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 2
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
                         // Creates follower goblin three
                         goblinFollowerDamage =
-                        GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes
-                        // damage
-                        // range
-                        // to
-                        // 10
-                        // -
-                        // 15
+                        GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth =
                         GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND)
-                                        + 7; // Changes
-                        // health
-                        // range
-                        // to
-                        // 7
-                        // -
-                        // 17
+                                        + 7; // Changes health range to 7 - 17
                         Enemy goblinFollowerThree =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 3
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 3
 
                         // Fighting Explanation
                         if (!foughtOnce) {
@@ -1170,19 +1016,11 @@ public class Main {
                             }
                             // add extras
                             if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()
-                                    || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())// If
-                                                                                                    // any
-                                                                                                    // goblin
-                                                                                                    // is
-                                                                                                    // alive
+                                    || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())// If  any  goblin  is  alive
                             {
                                 goblinsAreDead = false;
                             } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()
-                                    && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead())// if
-                                                                                                  // all
-                                                                                                  // goblins
-                                                                                                  // are
-                                                                                                  // dead
+                                    && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead())// if all goblins are dead
                             {
                                 goblinsAreDead = true;
                             }
@@ -1221,17 +1059,14 @@ public class Main {
                                 fine = -1 * GeneralUtils.randomNumber(TownConstants.FINE_UPPER_BOUND);
                                 player.increaseArtifacts(fine);
                                 GuardFight.fine(fine, player.getArtifact());
-                            } else if ((courtSentancing >= 15) && (courtSentancing <= 24))// Jail 0
-                                                                                          // - 10
+                            } else if ((courtSentancing >= 15) && (courtSentancing <= 24))// Jail 0 - 10
                             {
                                 damageTaken = GeneralUtils.randomNumber(
                                         TownConstants.DMG_TAKEN_FROM_JAIL_UPPER_BOUND);
                                 GuardFight.jail(damageTaken, player.getHP());
                                 player.takeDamage(damageTaken);
                                 GeneralUtils.pause(5);
-                            } else if ((courtSentancing >= 25) && (courtSentancing <= 29))// Fine
-                                                                                          // and
-                                                                                          // Jail
+                            } else if ((courtSentancing >= 25) && (courtSentancing <= 29))// Fine and Jail
                             {
                                 // Fine
                                 fine = -1 * GeneralUtils.randomNumber(TownConstants.FINE_UPPER_BOUND);
@@ -1317,8 +1152,7 @@ public class Main {
                                     }
                                     if (!guardOne.isDead())// Guard One's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardOne.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1349,8 +1183,7 @@ public class Main {
                                     }
                                     if (!guardThree.isDead())// Gaurd three's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardThree.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1439,8 +1272,7 @@ public class Main {
                                     }
                                     if (!guardFour.isDead())// Gaurd four's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardFour.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1585,8 +1417,7 @@ public class Main {
                                     }
                                     if (!guardFour.isDead())// Guard four's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardFour.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1617,8 +1448,7 @@ public class Main {
                                     }
                                     if (!guardSix.isDead())// Gaurd six's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardSix.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1706,8 +1536,7 @@ public class Main {
                                     }
                                     if (!guardOne.isDead())// Gaurd one's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardOne.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1763,8 +1592,7 @@ public class Main {
                                     }
                                     if (!guardSix.isDead())// Guard sixs's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardSix.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1795,8 +1623,7 @@ public class Main {
                                     }
                                     if (!guardTwo.isDead())// Gaurd two's turn
                                     {
-                                        if (attackType == 1)// Determines attack buff based on your
-                                                            // attack Strong
+                                        if (attackType == 1)// Determines attack buff based on your attack Strong
                                         {
                                             damageTaken = guardTwo.getAttack()
                                                     + strong.getAttackPenalty();
@@ -1897,10 +1724,8 @@ public class Main {
                     if (choice == 2) {// Tree Dangerous
                         art.getNightChoiceTwoNightText();
                         GeneralUtils.pause(3);
-                        damageTaken =
-                        GeneralUtils.randomNumber(NightConstants.CHOICE_ONE_DMG_TAKEN_UPPER_BOUND)
-                                        + 1;
-                        switch (GeneralUtils.randomNumber(nightChance)) {
+                        damageTaken = GeneralUtils.randomNumber(NightConstants.CHOICE_ONE_DMG_TAKEN_UPPER_BOUND) + 1;
+                        switch (GeneralUtils.randomNumber(NightConstants.CHOICE_TWO_EVENT_CHOICE)) {
                             case 0: // Cold
                                 art.getNightChoiceTwoMorningColdText(damageTaken);
                                 break;
@@ -1920,8 +1745,7 @@ public class Main {
             }
 
             // Win screen
-            if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50
-                                                                              // treasures
+            if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50 treasures
                 GeneralUtils.clearScreen();
                 System.out.println("Congratulations " + characterName);
                 GeneralUtils.pause(3);

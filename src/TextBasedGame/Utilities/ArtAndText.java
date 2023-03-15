@@ -123,8 +123,8 @@ public class ArtAndText {
     }
   
   //Doctor
-  public void getDoctorInitialText(){
-		System.out.print(doctorInitialText);
+  public void getDoctorInitialText(int hp){
+		System.out.println(doctorInitialText + hp + " HP.");
 	}
 
   //Goblin

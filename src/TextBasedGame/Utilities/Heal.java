@@ -1,7 +1,10 @@
 package TextBasedGame.Utilities;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 public class Heal {
     private int maxHP;
-    private int output;
+    private int amountTOHeal;
 
     public Heal(int charHealthMax){
         maxHP = charHealthMax;
@@ -12,13 +15,12 @@ public class Heal {
     public int heal(int HP, int amountHealed){
         HP += amountHealed;
         if(HP < maxHP){
-            output = HP;
+            amountTOHeal = amountHealed;
         }
         else if(HP >= maxHP){
-            amountHealed = HP - maxHP;
-            output = (HP - amountHealed);
+            amountTOHeal = HP - maxHP;
         }
-        return output;
+        return amountTOHeal;
     }
     public void doctorOutputText(int characterHP, int amountHealed){
         System.out.println("You were healed: " + amountHealed + "Hp. Your new health is " + characterHP + "HP.");

@@ -40,9 +40,12 @@ public class Player extends UnitSuper{
         artifacts += increase;
     }
 
-    //Heal the player when they go to the doctor
-    public void heal(int newHP){
-        health = newHP;
+    /**
+     * Takes amount to add to health and adds it to health
+     * @param InHP
+     */
+    public void heal(int InHP){
+        health += InHP;
     }
     //Set character to Max hp
     public void setMaxHP() {
@@ -55,9 +58,5 @@ public class Player extends UnitSuper{
     //Set players attack damage to max
     public void setMaxAttack() {
         attack = maxAttack; 
-    }
-    //Sets players health to 0 and to end loop
-    public void kill(){
-        health = 0;
     }
 }

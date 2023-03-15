@@ -36,4 +36,9 @@ public class UnitSuper {
             health = 0;
         }
     }
+
+    //Sets players health to 0 and to end loop
+    public void kill(){
+        health = 0;
+    }
 }

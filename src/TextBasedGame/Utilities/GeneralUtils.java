@@ -27,7 +27,7 @@ public class GeneralUtils {
         /**
          * Generates a random number between 0 and the upperbound
          * @param upperBound one heigher than the highest number you want
-         * @return random number
+         * @return random number between 0 and upperBound
          */
         public static int randomNumber(int upperBound){
             int randomOutPutInt = -100;
