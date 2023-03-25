@@ -35,7 +35,8 @@ public final class Constants {
         public static final int WIN_ARTIFACTS_REWARD = 7;
     }
     public static final class TownConstants {
-        public static final int BEG_FINE = 3; // Is a constant
+        public static final int GUARD_HEALTH = 25;
+        public static final int GUARD_ATTACK = 15;
         public static final int JAIL_FIGHT_DMG_TAKEN_UPPER_BOUND = 8;
         public static final int JAIL_CHANCE_FIGHT_UPPER_BOUND = 6;
         public static final int COURT_SENTANCING_UPPER_BOUND = 31;
