@@ -66,8 +66,7 @@ public class Main {
         int choice = 0; // Choice from user
 
         // Dragon
-        int escapeChance = 0; // This is the chance out of 5 of events hapenning while escaping the
-                              // dragon
+        int escapeChance = 0; // This is the chance out of 5 of events hapenning while escaping the dragon
         // Bear
 
         // Bar
@@ -194,13 +193,11 @@ public class Main {
         // class if statement
         // Wait until player presses a button
         moveOn = scanner.next();
-        // Clears screen
         GeneralUtils.clearScreen();
 
         // Start game loop
         while (!player.isDead()) {
             GeneralUtils.pause(3);
-
             do {
                 event = GeneralUtils.randomNumber(GeneralConstants.EVENT_UPPER_BOUND);
             } while (event == lastEvent);
@@ -626,15 +623,9 @@ public class Main {
                                         player.getHP());
                             }
                             // add extras
-                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()) {// If any
-                                                                                        // goblin is
-                                                                                        // alive
+                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()) {// If any goblin is alive
                                 goblinsAreDead = false;
-                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()) {// if
-                                                                                             // all
-                                                                                             // goblins
-                                                                                             // are
-                                                                                             // dead
+                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()) {// if all goblins are dead
                                 goblinsAreDead = true;
                             }
                         }
@@ -644,33 +635,17 @@ public class Main {
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
                                         + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes
-                                                                                                 // health
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 20
+                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
                                         + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes
-                                                                                                 // health
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 20
+                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 2
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
 
                         // Fighting Explanation
                         if (!foughtOnce) {
@@ -842,55 +817,31 @@ public class Main {
                                 goblinsAreDead = true;
                             }
                         }
-                    } else if (goblinFollowerCount == 3) {// If 3 followers
+                    } else if (goblinFollowerCount == 3) // If 3 followers
                         // Creates follower goblin one
                         goblinFollowerDamage =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
                                         + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes
-                                                                                                 // health
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 20
+                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
                         // Creates follower goblin two
                         goblinFollowerDamage =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
                                         + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes
-                                                                                                 // health
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 20
+                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
                         Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 2
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
                         // Creates follower goblin three
                         goblinFollowerDamage =
                                 GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
                                         + 10; // Changes damage range to 10 - 15
                         goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 7; // Changes
-                                                                                                // health
-                                                                                                // range
-                                                                                                // to
-                                                                                                // 7
-                                                                                                // -
-                                                                                                // 17
+                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 7; // Changes health range to 7 - 17
                         Enemy goblinFollowerThree =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 3
+                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 3
 
                         // Fighting Explanation
                         if (!foughtOnce) {
@@ -1108,24 +1059,16 @@ public class Main {
                             }
                             // add extras
                             if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()
-                                    || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())// If
-                                                                                                    // any
-                                                                                                    // goblin
-                                                                                                    // is
-                                                                                                    // alive
+                                    || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())// If any goblin is alive
                             {
                                 goblinsAreDead = false;
                             } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()
-                                    && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead())// if
-                                                                                                  // all
-                                                                                                  // goblins
-                                                                                                  // are
-                                                                                                  // dead
+                                    && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead())// if all goblins are dead
                             {
                                 goblinsAreDead = true;
                             }
                         }
-                    }
+                    
                     if (goblinsAreDead) {// Reward
                         player.increaseArtifacts(GoblinConstants.WIN_ARTIFACTS_REWARD);
                         GoblinBattle.winText(player.getArtifact());
@@ -1160,17 +1103,14 @@ public class Main {
                                         * GeneralUtils.randomNumber(TownConstants.FINE_UPPER_BOUND);
                                 player.increaseArtifacts(fine);
                                 GuardFight.fine(fine, player.getArtifact());
-                            } else if ((courtSentancing >= 15) && (courtSentancing <= 24))// Jail 0
-                                                                                          // - 10
+                            } else if ((courtSentancing >= 15) && (courtSentancing <= 24))// Jail 0 - 10
                             {
                                 damageTaken = GeneralUtils.randomNumber(
                                         TownConstants.DMG_TAKEN_FROM_JAIL_UPPER_BOUND);
                                 GuardFight.jail(damageTaken, player.getHP());
                                 player.takeDamage(damageTaken);
                                 GeneralUtils.pause(5);
-                            } else if ((courtSentancing >= 25) && (courtSentancing <= 29))// Fine
-                                                                                          // and
-                                                                                          // Jail
+                            } else if ((courtSentancing >= 25) && (courtSentancing <= 29))// Fine and Jail
                             {
                                 // Fine
                                 fine = -1
@@ -1225,7 +1165,7 @@ public class Main {
                                 art.getCombatExplanation();
                             }
                             while (!player.isDead() && !guardsAreDead) {
-                                GuardFight.initialFightText();
+                                GuardFight.initialEventText();
 
                                 attackTarget = scanner.nextInt();
                                 art.getAttackTypeChoiceText();
