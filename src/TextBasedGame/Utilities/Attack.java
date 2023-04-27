@@ -14,6 +14,9 @@ public class Attack {
     public int getAttackDamage(){
         return damage;
     }
+    public int getMaxAttackDamage(){
+        return maxDMG;
+    }
     //Get Penalty from attack
     public int getAttackPenalty(){
         return weakness;

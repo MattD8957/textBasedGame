@@ -1,12 +1,14 @@
 package TextBasedGame;
 
 import java.util.*;
+import org.junit.platform.reporting.shadow.org.opentest4j.reporting.events.root.Events;
 import TextBasedGame.Characters.Player;
 import TextBasedGame.Characters.Enemy;
 import TextBasedGame.Events.Bar;
 import TextBasedGame.Events.BearBattle;
-import TextBasedGame.Events.DragonBattle;
 import TextBasedGame.Events.GuardFight;
+import TextBasedGame.Events.DragonBattle.DragonBattle;
+import TextBasedGame.Events.DragonBattle.DragonBattleText;
 import TextBasedGame.Events.GoblinBattle.GoblinBattleSuper;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
@@ -170,8 +172,7 @@ public class Main {
                 break;
         }
         // CREATE the Character
-        Player player = new Player(CharacterHPCreation, CharacterMaxHPCreation, characterName,
-                CharacterStandardAtackCreation, CharacterMaxAttackCreation);
+        Player player = new Player(CharacterHPCreation, CharacterMaxHPCreation, characterName);
         Attack strong = new Attack(characterAttackStrongDMG, characterAttackStrongMaxDMG,
                 characterAttackStrongPenalty); // Damage, Max damage, weakness
         Attack standard = new Attack(characterAttackStandardDMG, characterAttackStandardMaxDMG,
@@ -199,94 +200,10 @@ public class Main {
             }
             GeneralUtils.clearScreen();
             // EVENTS
-            switch (4) {
+            switch (event) {
                 case 0: // Fight dragon
-                    // Start text and picture
-                    do{
-                    art.getDragonArt();
-                    choice = scanner.nextInt();
-                    }while(!GeneralUtils.isAnOption(choice, 2));
-
-                    if (choice == 1) {// 1 For escape
-                        // 1 in 5 chance of freedom
-                        // 2 in 5 chance of falling and taking damage 1 to 10 dmg
-                        // 2 in 5 chance of waking the dragon and having to fight it - if you win
-                        // you still get the treasure
-                        escapeChance = GeneralUtils
-                                .randomNumber(DragonConstants.ESCAPE_CHANCE_UPPER_BOUND);
-                        if (escapeChance == 0) {// escape succesfully
-                            DragonBattle.escaped();
-                        } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take
-                                                                                // some damage 1 to
-                                                                                // 10
-                            damageTaken = GeneralUtils
-                                    .randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
-                            DragonBattle.tripThenEscape(damageTaken, player.getHP());
-                            player.takeDamage(damageTaken);
-                        } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to escape and have to fight the dragon
-                            art.getFailedToEscapeText();// Message after failing to escape
-                            // Goes to the battle
-                        }
-                    }
-                    if ((choice == 2) || (escapeChance == 3) || (escapeChance == 4)) {// To rob the
-                                                                                      // dragon
-                        if (!foughtOnce) {
-                            art.getCombatExplanation();
-                        }
-                        GeneralUtils.pause(1);
-                        dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon health 10 - 75
-                        dragonAttack =
-                                GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND)
-                                        + 20; // Generates dragon attack dmg 20 - 35
-                        Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack dmg 20 - 35
-
-                        while (!player.isDead() && !dragon.isDead()) {
-                            System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                            do{
-                            ArtAndText.getAttackTypeChoiceText();
-                            attackType = scanner.nextInt();
-                            } while (!GeneralUtils.isAnOption(attackType, 3));
-                            if (attackType == 1) {
-                                DragonBattle.characterAttackStrengthOne(strong.getAttackDamage(),
-                                        dragon.getHP());
-                                dragon.takeDamage(strong.getAttackDamage());
-                            } else if (attackType == 2) {
-                                DragonBattle.characterAttackStrengthTwo(standard.getAttackDamage(),
-                                        dragon.getHP());
-                                dragon.takeDamage(standard.getAttackDamage());
-                            } else if (attackType == 3) {
-                                DragonBattle.characterAttackStrengthThree(weak.getAttackDamage(),
-                                        dragon.getHP());
-                                dragon.takeDamage(weak.getAttackDamage());
-                            }
-                            if (!dragon.isDead()) {// If still alive dragon's turn
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1) {// Strong attack
-                                    damageTaken = dragon.getAttack() + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2) {// Standard attack
-                                    damageTaken = dragon.getAttack() + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3) {// Weak attack
-                                    damageTaken = dragon.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0) {// Positive attack
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0) {// negative attack
-                                        damageTaken = 0;
-                                    }
-                                }
-                                DragonBattle.endRoundtext(damageTaken, player.getHP());
-                            }
-                        }
-                        if (dragon.isDead()) {// After loop ends if Dragon died
-                            player.increaseArtifacts(1);
-                            foughtOnce = true;
-                            DragonBattle.finalText(player.getArtifact());
-                        }
-                    } else if (!(choice == 1)) {// type a number or letter that is not an option
-                        art.getFailedToMakeSelection();
-                        player.kill();// set health to 0 to end loop
-                    }
+                    DragonBattle dragon = new DragonBattle(player, foughtOnce, strong, standard, weak);
+                    dragon.dragon();
                     break;
                 case 1: // Fight Bear
                     art.getBearInitialText();
@@ -373,10 +290,9 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
+                                if (standard.getAttackDamage() <= standard.getMaxAttackDamage()) { // If not over max attack damage state attack damage
                                     System.out.println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
-                                    player.setMaxAttack();
+                                } else if (standard.getAttackDamage() > standard.getMaxAttackDamage()) { // If over max attack damage set to max attack damage and then state attack damage
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
                                     weak.setMaxAttackDamage();
@@ -390,18 +306,14 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
+                                if (standard.getAttackDamage() <= standard.getMaxAttackDamage()) { // If not over max attack damage state attack damage
                                     System.out.println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
-                                    player.setMaxAttack();
+                                } else if (standard.getAttackDamage() > standard.getMaxAttackDamage()) { // If over max attack damage set to max attack damage and then state attack damage
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
                                     weak.setMaxAttackDamage();
                                     System.out.println("New attack damage " + player.getAttack());
                                 }
-                            } else {
-                                art.getFailedToMakeSelection();
-                                player.kill();
                             }
                             break;
                         case 3: // Get quest from guards
@@ -424,22 +336,12 @@ public class Main {
 
                                 } else if (questChoiceRandomStuff == 3) {
 
-                                } else {
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
                                 }
                             } else if (questChoice == 3) {// TODO figure out what goes here
 
                             } else if (questChoice == 4) {// Don't want any of the quests
                                 art.getBarNoQuestText();
-                            } else {
-                                art.getFailedToMakeSelection();
-                                player.kill();// set health to 0 to end loop
                             }
-                            break;
-                        default: // type a number or letter that is not an option
-                            art.getFailedToMakeSelection();
-                            player.kill();// set health to 0 to end loop
                             break;
                     }
                     break;

@@ -1,10 +1,13 @@
-package TextBasedGame.Events;
+package TextBasedGame.Events.DragonBattle;
 
-public class DragonBattle{
+public class DragonBattleText{
 
     public static void escaped(){
         System.out.println("You succesfully escape and can continue your journey.");
     }
+    public static void getFailedToEscapeText(){
+        System.out.println("You fail to ecapse and awake the dragon. You will have to fight him.");
+      }
     public static void tripThenEscape(int damageTaken, int characterHP){
         System.out.println("On your way out you fall and take some damage. \nYou succesfully escape only taking " + damageTaken + " damge, you now have " + getHP(characterHP, damageTaken) + "HP. \nYou leave and continue your journey.");
     }

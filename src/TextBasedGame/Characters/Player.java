@@ -6,15 +6,13 @@ public class Player extends UnitSuper{
     //define private variables
     private int maxHP;
     private String name;
-    private int maxAttack;
     private double artifacts; //Come from robing and deafing the dragon.
     
     //Create Character
-    public Player(int health, int maxHP, String name, int attack, int maxattack){
-        super(health, attack);
+    public Player(int health, int maxHP, String name){
+        super(health, 0);
         this.maxHP = maxHP;
         this.name = name;
-        this.maxAttack = maxattack;
         this.artifacts = 0;
     }
     //Get name
@@ -27,10 +25,6 @@ public class Player extends UnitSuper{
         return maxHP;
     }
     
-    //Get Max attack damage
-    public int getMaxAttack(){
-        return maxAttack;
-    }
     //Get artifact Count
     public double getArtifact(){
         return artifacts;
@@ -54,9 +48,5 @@ public class Player extends UnitSuper{
     //Add to players attack damage
     public void increaseAttack(int increase){
         attack += increase;
-    }
-    //Set players attack damage to max
-    public void setMaxAttack() {
-        attack = maxAttack; 
     }
 }
