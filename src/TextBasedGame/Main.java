@@ -6,7 +6,8 @@ import TextBasedGame.Characters.Player;
 import TextBasedGame.Characters.Enemy;
 import TextBasedGame.Events.Bar;
 import TextBasedGame.Events.GuardFight;
-import TextBasedGame.Events.Bear.BearB;
+import TextBasedGame.Events.Bear.Bear;
+import TextBasedGame.Events.Bear.BearText;
 import TextBasedGame.Events.DragonBattle.DragonBattle;
 import TextBasedGame.Events.DragonBattle.DragonBattleText;
 import TextBasedGame.Events.GoblinBattle.GoblinBattleSuper;
@@ -207,7 +208,8 @@ public class Main {
                     dragon.dragon();
                     break;
                 case 1: // Fight Bear
-                    
+                        Bear bear = new Bear(player, foughtOnce, strong, standard, weak);
+                        bear.bear();
                     break;
                 case 2: // Go into a bar
                     do{

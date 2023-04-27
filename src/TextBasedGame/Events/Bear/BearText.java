@@ -1,6 +1,6 @@
-package TextBasedGame.Events;
+package TextBasedGame.Events.Bear;
 
-public class BearBattle {
+public class BearText {
     
     public static void characterAttackStrengthOne(int strongAttackDMG, int bearHP){
         System.out.println("You choose a strong attack! \nYou do " + strongAttackDMG + " damage. \nThe bear now has " + getHP(bearHP, strongAttackDMG) + " HP.");
@@ -13,6 +13,12 @@ public class BearBattle {
     }
     public static void bearTurnText(int damageTaken, int characterHP){
         System.out.println("The bear attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+    }
+    public static void getBearInitialText(){
+        System.out.println("You are travaling in the forest when you run into an agressive bear.");
+    }
+    public static void getBeatBearText(double artifacts){
+        System.out.println("Congratulations you beat the bear! You get to keep its artifact. \nYou now have " + artifacts + " artifacts.");
     }
     private static int getHP(int HP, int AtkDMG){
         if((HP - AtkDMG) >= 0){

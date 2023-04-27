@@ -11,8 +11,6 @@ public class ArtAndText {
   public static final String failedToMakeSelection = "You failed to make a selection.";
   //Events Text
   public static final String dragon = "You meet a dragon.\n              __\n          _.-'.-'-.__\n       .-'.       '-.'-._ __.--._\n-..'\\,-,/..-  _         .'   \\   '----._\n ). /_ _\\' ( ' '.         '-  '/'-----._'-.__\n '..'     '-r   _      .-.       '-._ \\\n '.\\. Y .).'       ( .'  .      .\\          '\\'.\n .-')'|'/'-.        \\)    )      '',_      _.c_.\\\n   .<, ,>.          |   _/\\        . ',   :   : \\\\\n  .' \\_/ '.        /  .'   |          '.     .'  \\)\n                  / .-'    '-.        : \\   _;   ||\n                 / /    _     \\_      '.'\\ ' /   ||\n                /.'   .'        \\_      .|   \\   \\|\n               / /   /      __.---'      '._  ;  ||\n              /.'  _:-.____< ,_           '.\\ \\  ||\n             // .-'     '-.__  '-'-\\_      '.\\/_ \\|\n            ( };====.===-==='        '.    .  \\\\: \\\n             \\\\ '._        /          :   ,'   )\\_ \\\n              \\\\   '------/            \\ .    /   )/\n              \\|        _|             )Y    |   /\n                \\\\      \\             .','   /  ,/\n                 \\\\    _/            /     _/\n                  \\\\   \\           .'    .'\n                   '| '1          /    .'\n                     '. \\        |:    /\n                       \\ |       /', .'\n                        \\(      ( ;z'\n                         \\:      \\ '(_\n                          \\_,     '._ '-.___\n                                      '-' -.\\\nYou can either rob it or try to escape\n1 to escape.\n2 to atempt to rob the dragon.";
-  public static final String bearInitailText = "You are travaling in the forest when you run into an agressive bear.";
-  public static final String bearWinText = "Congratulations you beat the bear! You get to keep its artifact. \nYou now have ";
   public static final String barText = "\nYou walk into a bar.\nYou have three choices;\nType 1 to start a brawl.\nType 2 to buy a weapon from a local salesman.\nType 3 to talk to the guard and get a quest.\n";
   public static final String blackSmithText = "You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts.\n1 for random \n2 to pay";
   public static final String barGuardQuestText = "\nYou talk to the guard to get a quest.\nHe gives you three quests and tells you to choose one.\nThe first quest is to take down a smugiling ring.\nThe second quest is to defeat an evil queen.\nThe third quest is TODO. \nOr you can take no quest. \nWhich quest do you choose? Type 1, 2, 3, or 4";
@@ -72,14 +70,6 @@ public class ArtAndText {
   }
   public void getDragonHPText(int dragonHP){
     System.out.println("The Dragon has " + dragonHP + " HP.");
-  }
-  
-  //Bear
-  public void getBearInitialText(){
-    System.out.println(bearInitailText);
-  }
-  public void getBeatBearText(double artifacts){
-    System.out.println(bearWinText + artifacts + " artifacts.");
   }
 
   //Bar
