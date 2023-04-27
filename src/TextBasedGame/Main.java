@@ -5,11 +5,12 @@ import org.junit.platform.reporting.shadow.org.opentest4j.reporting.events.root.
 import TextBasedGame.Characters.Player;
 import TextBasedGame.Characters.Enemy;
 import TextBasedGame.Events.Bar;
-import TextBasedGame.Events.BearBattle;
 import TextBasedGame.Events.GuardFight;
+import TextBasedGame.Events.Bear.BearB;
 import TextBasedGame.Events.DragonBattle.DragonBattle;
 import TextBasedGame.Events.DragonBattle.DragonBattleText;
 import TextBasedGame.Events.GoblinBattle.GoblinBattleSuper;
+import TextBasedGame.Events.Night.Night;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.GeneralUtils;
@@ -206,60 +207,7 @@ public class Main {
                     dragon.dragon();
                     break;
                 case 1: // Fight Bear
-                    art.getBearInitialText();
-                    if (!foughtOnce) {
-                        art.getCombatExplanation();
-                    }
-                    // Create bear
-                    bearHP = GeneralUtils.randomNumber(BearConstants.HP_UPPER_BOUND);
-                    bearHP += 20;// bear health 20 - 45
-                    bearAttackDMG = GeneralUtils.randomNumber(BearConstants.ATTACK_DMG_UPPER_BOUND);
-                    bearAttackDMG += 10;// bears do 10 to 20 dmg
-                    Enemy bear = new Enemy(bearHP, bearAttackDMG); // HP then attack dmg
-
-                    while (!player.isDead() && !bear.isDead()) {
-                        System.out.println("The bear has " + bear.getHP() + " HP.");
-                        do{
-                        ArtAndText.getAttackTypeChoiceText();
-                        attackType = scanner.nextInt();
-                        } while (!GeneralUtils.isAnOption(attackType, 3));
-                        if (attackType == 1) {
-                            BearBattle.characterAttackStrengthOne(strong.getAttackDamage(),
-                                    bear.getHP());
-                            bear.takeDamage(strong.getAttackDamage());
-                        } else if (attackType == 2) {
-                            BearBattle.characterAttackStrengthTwo(standard.getAttackDamage(),
-                                    bear.getHP());
-                            bear.takeDamage(standard.getAttackDamage());
-                        } else if (attackType == 3) {
-                            BearBattle.characterAttackStrengthThree(weak.getAttackDamage(),
-                                    bear.getHP());
-                            bear.takeDamage(weak.getAttackDamage());
-                        }
-                        if (!bear.isDead()) {// If still alive bear's turn
-                            // To determine which attack was used and so what buff
-                            if (attackType == 1) {// Strong attack
-                                damageTaken = bear.getAttack() + strong.getAttackPenalty();
-                                player.takeDamage(damageTaken);
-                            } else if (attackType == 2) {// Standard attack
-                                damageTaken = bear.getAttack() + standard.getAttackPenalty();
-                                player.takeDamage(damageTaken);
-                            } else if (attackType == 3) {// Weak attack
-                                damageTaken = bear.getAttack() + weak.getAttackPenalty();
-                                if (damageTaken >= 0) {// Positive attack
-                                    player.takeDamage(damageTaken);
-                                } else if (damageTaken < 0) {// negative attack
-                                    damageTaken = 0;
-                                }
-                            }
-                            BearBattle.bearTurnText(damageTaken, player.getHP());
-                        }
-                    }
-                    if (bear.isDead()) {// After loop ends if Bear died
-                        player.increaseArtifacts(BearConstants.ARTIFACTS_COLLECTION_AMOUNT);
-                        art.getBeatBearText(player.getArtifact());
-                        foughtOnce = true;
-                    }
+                    
                     break;
                 case 2: // Go into a bar
                     do{
@@ -1058,45 +1006,9 @@ public class Main {
                             break;
                     }
                     break;
-                case 6: // Night ADD variety
-                    do{
-                    art.getNightInitialText(player.getArtifact());
-                    choice = scanner.nextInt();// Town Extra damage
-                    } while (!GeneralUtils.isAnOption(choice, 2));
-                    if (choice == 1) { // Town Extra damage
-                        if ((player.getArtifact() - 1) > 0) {
-                            player.increaseArtifacts(-1);
-                            art.getNightChoiceOneNightText();
-                            GeneralUtils.pause(3);
-                            atk = GeneralUtils.randomNumber(
-                                    NightConstants.CHOICE_ONE_ATTACK_INCREASE_UPPER_BOUND) + 1; // Increase
-                            // attack
-                            // by 1-5
-                            art.getNightChoiceOneMorningText(atk);
-                            player.increaseAttack(atk);
-                        } else {
-                            System.out.println("You don't have enough artifacts for that.");
-                            choice = 2;
-                        }
-                    }
-                    if (choice == 2) {// Tree Dangerous
-                        art.getNightChoiceTwoNightText();
-                        GeneralUtils.pause(3);
-                        damageTaken = GeneralUtils
-                                .randomNumber(NightConstants.CHOICE_ONE_DMG_TAKEN_UPPER_BOUND) + 1;
-                        switch (GeneralUtils.randomNumber(NightConstants.CHOICE_TWO_EVENT_CHOICE)) {
-                            case 0: // Cold
-                                art.getNightChoiceTwoMorningColdText(damageTaken);
-                                break;
-                            case 1: // Animal
-                                art.getNightChoiceTwoMorningAnimalText(damageTaken, characterName);
-                                break;
-                            case 2: // ?
-                                art.getNightChoiceTwoMorningFigureOutText(damageTaken);
-                                break;
-                        }
-                        player.takeDamage(damageTaken);
-                    }
+                case 6: // Night
+                    Night night = new Night(player);
+                    night.night();
                     break;
                 default:
                     System.out.println("ERROR not a valid event");

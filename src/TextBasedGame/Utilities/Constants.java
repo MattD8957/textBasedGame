@@ -5,7 +5,7 @@ import java.lang.reflect.Array;
 public final class Constants {
     public static final class GeneralConstants {
         // General Constants
-        public static final int EVENT_UPPER_BOUND = 5;
+        public static final int EVENT_UPPER_BOUND = 6;
         public static final int TREASURE_TO_WIN = 50;
         public static final int[] Options1 = new int[]{1};
         public static final int[] Options2 = new int[]{1, 2};        
