@@ -1,6 +1,7 @@
 package TextBasedGame.Utilities;
 
 import java.util.Random;
+import TextBasedGame.Utilities.Constants.GeneralConstants;
 
 public class GeneralUtils {
     
@@ -96,6 +97,33 @@ public class GeneralUtils {
             }
         }
 
-      
-
+        /**
+         * Checks if the given int is an option
+         * @param given value from user
+         * @param max highest value option
+         * @return if the given value is an option
+         */
+        public static boolean isAnOption(int given, int max){
+            int[] options = null;
+            switch(max){
+                case 1: 
+                    options = GeneralConstants.Options1;
+                    break;
+                case 2: 
+                    options = GeneralConstants.Options2;
+                    break;
+                case 3:
+                    options = GeneralConstants.Options3;
+                    break;
+                case 4:
+                    options = GeneralConstants.Options4;
+                    break;
+            }
+            for(int test : options){
+                if(given == test){
+                    return true;
+                }
+            }
+            return false;
+        }
 }

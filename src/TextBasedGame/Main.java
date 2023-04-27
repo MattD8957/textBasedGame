@@ -11,6 +11,7 @@ import TextBasedGame.Events.GuardFight;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.GeneralUtils;
+import TextBasedGame.Utilities.GoblinBattleText;
 import TextBasedGame.Utilities.Heal;
 import TextBasedGame.Utilities.Constants.BarConstants;
 import TextBasedGame.Utilities.Constants.BearConstants;
@@ -203,16 +204,19 @@ public class Main {
             } while (event == lastEvent);
             lastEvent = event;
 
-            if (player.getHP() <= 30) { // To make game more fun
+            if (player.getHP() <= 20) { // To make game more fun
                 event = 3;
             }
-            // GeneralUtils.clearScreen();
+            GeneralUtils.clearScreen();
             // EVENTS
-            switch (event) {
+            switch (4) {
                 case 0: // Fight dragon
                     // Start text and picture
+                    do{
                     art.getDragonArt();
                     choice = scanner.nextInt();
+                    }while(!GeneralUtils.isAnOption(choice, 2));
+
                     if (choice == 1) {// 1 For escape
                         // 1 in 5 chance of freedom
                         // 2 in 5 chance of falling and taking damage 1 to 10 dmg
@@ -229,10 +233,7 @@ public class Main {
                                     .randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
                             DragonBattle.tripThenEscape(damageTaken, player.getHP());
                             player.takeDamage(damageTaken);
-                        } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to
-                                                                                // escape and have
-                                                                                // to fight the
-                                                                                // dragon
+                        } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to escape and have to fight the dragon
                             art.getFailedToEscapeText();// Message after failing to escape
                             // Goes to the battle
                         }
@@ -243,21 +244,18 @@ public class Main {
                             art.getCombatExplanation();
                         }
                         GeneralUtils.pause(1);
-                        dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon
-                                                                                                  // health
-                                                                                                  // 10
-                                                                                                  // -
-                                                                                                  // 75
+                        dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon health 10 - 75
                         dragonAttack =
                                 GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND)
                                         + 20; // Generates dragon attack dmg 20 - 35
-                        Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 -
-                                                                          // 75, Attack dmg 20 - 35
+                        Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack dmg 20 - 35
 
                         while (!player.isDead() && !dragon.isDead()) {
                             System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                            art.getAttackTypeChoiceText();
+                            do{
+                            ArtAndText.getAttackTypeChoiceText();
                             attackType = scanner.nextInt();
+                            } while (!GeneralUtils.isAnOption(attackType, 3));
                             if (attackType == 1) {
                                 DragonBattle.characterAttackStrengthOne(strong.getAttackDamage(),
                                         dragon.getHP());
@@ -314,8 +312,10 @@ public class Main {
 
                     while (!player.isDead() && !bear.isDead()) {
                         System.out.println("The bear has " + bear.getHP() + " HP.");
-                        art.getAttackTypeChoiceText();
+                        do{
+                        ArtAndText.getAttackTypeChoiceText();
                         attackType = scanner.nextInt();
+                        } while (!GeneralUtils.isAnOption(attackType, 3));
                         if (attackType == 1) {
                             BearBattle.characterAttackStrengthOne(strong.getAttackDamage(),
                                     bear.getHP());
@@ -355,8 +355,10 @@ public class Main {
                     }
                     break;
                 case 2: // Go into a bar
+                    do{
                     art.getBarText();
                     choice = scanner.nextInt();
+                    } while (!GeneralUtils.isAnOption(choice, 3));
                     switch (choice) {
                         case 1: // Start a brawl
                             damageTaken = GeneralUtils
@@ -365,10 +367,12 @@ public class Main {
                             player.takeDamage(damageTaken);
                             break;
                         case 2: // Buy a weapon
+                            do{
                             art.getBlackSmithText();
                             System.out.println(
                                     "You currently have: " + player.getArtifact() + " artifacts.");
                             blackSmithChoice = scanner.nextInt();
+                            } while (!GeneralUtils.isAnOption(blackSmithChoice, 2));
                             if (blackSmithChoice == 1) {
                                 System.out.println("Attack before addition: " + player.getAttack());
                                 atk = GeneralUtils
@@ -379,23 +383,9 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not over
-                                                                                   // max attack
-                                                                                   // damage state
-                                                                                   // attack damage
+                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
                                     System.out.println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If over
-                                                                                         // max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // set to
-                                                                                         // max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // and then
-                                                                                         // state
-                                                                                         // attack
-                                                                                         // damage
+                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
                                     player.setMaxAttack();
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
@@ -410,23 +400,9 @@ public class Main {
                                 strong.increaseAttackDamage(atk);
                                 standard.increaseAttackDamage(atk);
                                 weak.increaseAttackDamage(atk);
-                                if (player.getAttack() <= player.getMaxAttack()) { // If not over
-                                                                                   // max attack
-                                                                                   // damage state
-                                                                                   // attack damage
+                                if (player.getAttack() <= player.getMaxAttack()) { // If not over max attack damage state attack damage
                                     System.out.println("New attack damage: " + player.getAttack());
-                                } else if (player.getAttack() > player.getMaxAttack()) { // If over
-                                                                                         // max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // set to
-                                                                                         // max
-                                                                                         // attack
-                                                                                         // damage
-                                                                                         // and then
-                                                                                         // state
-                                                                                         // attack
-                                                                                         // damage
+                                } else if (player.getAttack() > player.getMaxAttack()) { // If over max attack damage set to max attack damage and then state attack damage
                                     player.setMaxAttack();
                                     strong.setMaxAttackDamage();
                                     standard.setMaxAttackDamage();
@@ -440,16 +416,18 @@ public class Main {
                             break;
                         case 3: // Get quest from guards
                             // TODO Finish this
+                            do{
                             art.getguardQuestText();
                             questChoice = scanner.nextInt();
+                            } while (!GeneralUtils.isAnOption(questChoice, 4));
                             if (questChoice == 1) {// Defeat smugiling group
 
                             } else if (questChoice == 2) {// Defeat Evil king
+                                do{
                                 art.getBarQuestTwoText();
                                 // Defeat the Evil king
-
-
                                 questChoiceRandomStuff = scanner.nextInt();
+                                } while (!GeneralUtils.isAnOption(questChoiceRandomStuff, 3));
                                 if (questChoiceRandomStuff == 1) {
 
                                 } else if (questChoiceRandomStuff == 2) {
@@ -476,8 +454,10 @@ public class Main {
                     }
                     break;
                 case 3: // Go to a doctor
+                    do {
                     art.getDoctorInitialText(player.getHP());
                     choice = scanner.nextInt();
+                    } while (!GeneralUtils.isAnOption(choice, 2));
                     GeneralUtils.pause(3);
                     if (choice == 1) {
                         // decide on amount healed 10 - 40
@@ -491,592 +471,60 @@ public class Main {
                     player.heal(amountHealed);
                     doc.doctorOutputText(player.getHP(), amountHealed);
                     break;
+
                 case 4: // Goblin horde
-                    art.getGoblinInitialText();
-                    // Create the goblins
-                    // Create leader Goblin
-                    goblinLeaderDamage =
-                            GeneralUtils.randomNumber(GoblinConstants.LEADER_DMG_UPPER_BOUND) + 10;
-                    goblinLeaderHealth =
-                            GeneralUtils.randomNumber(GoblinConstants.LEADER_HEALTH_UPPER_BOUND)
-                                    + 20; // 20 - 45 HP
-                    Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp,
-                                                                                           // Attack,
-                                                                                           // dmg
+                    GoblinBattleText.getGoblinInitialText();
+                    goblinLeaderDamage = GeneralUtils.randomNumber(GoblinConstants.LEADER_DMG_UPPER_BOUND) + 10;
+                    goblinLeaderHealth = GeneralUtils.randomNumber(GoblinConstants.LEADER_HEALTH_UPPER_BOUND) + 20; // 20 - 45 HP
+                    Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp, Attack, dmg
+                    if (!foughtOnce) {
+                        art.getCombatExplanation();
+                    }
 
                     // Random number to get amount of follower goblins
-                    goblinFollowerCount =
-                            GeneralUtils.randomNumber(GoblinConstants.FOLLWER_COUNT_UPPER_BOUND);
+                    goblinFollowerCount = GeneralUtils.randomNumber(GoblinConstants.FOLLWER_COUNT_UPPER_BOUND);
                     goblinFollowerCount++;// Makes range 1 - 3
-                    if (goblinFollowerCount == 1) {// If 1 follower
-                        // Creates follower goblin one
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes
-                                                                                                 // health
-                                                                                                 // range
-                                                                                                 // to
-                                                                                                 // 10
-                                                                                                 // -
-                                                                                                 // 20
-                        Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates
-                                                                                       // Goblin
-                                                                                       // follower 1
-                        // Start fight Same in every if statment for amount of followers
-                        // Fighting Explanation
-                        if (!foughtOnce) {
-                            art.getCombatExplanation();
-                        }
-                        // Initial statement
-                        GoblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(),
-                                goblinFollowerOne.getHP());
-                        while (!player.isDead() && !goblinsAreDead) {
-                            art.getGoblinFightTargetTextTwo(); // Chooses who will be attacked
-                            attackTarget = scanner.nextInt();
-                            art.getAttackTypeChoiceText();
-                            attackType = scanner.nextInt();
-                            if (attackTarget == 1) {// Leader
-                                art.getGoblinLeaderTargetText();
-                                if (attackType == 1) {// Strong attack
-                                    GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2) {// standard attack
-                                    GoblinBattle.goblinLeaderAttackStrong(
-                                            standard.getAttackDamage(), goblinLeader.getHP());
-                                    goblinLeader.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3) {// Weak attack
-                                    GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(weak.getAttackDamage());
-                                } else {// improper selection
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else if (attackTarget == 2) {// Follower 1
-                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if (attackType == 1) {// Strong attack
-                                    GoblinBattle.goblinFollowerOneAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2) {// standard attack
-                                    GoblinBattle.goblinFollowerOneAttackStandard(
-                                            standard.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3) {// Weak attack
-                                    GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(),
-                                            goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                } else {// improper selection
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else {// improper selection
-                                art.getFailedToMakeSelection();
-                                player.kill();// set health to 0 to end loop
-                            }
-                            // Goblins turn
-                            if (!goblinLeader.isDead()) {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1) {// Strong attack
-                                    damageTaken =
-                                            goblinLeader.getAttack() + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2) {// Standard attack
-                                    damageTaken =
-                                            goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3) {// Weak attack
-                                    damageTaken =
-                                            goblinLeader.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0) {// Positive attack
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0) {// negative attack
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinLeadersTurnOutPut(damageTaken, player.getHP());
-                            }
-                            if (!goblinFollowerOne.isDead()) {// Goblin Follower 1's turn
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1) {// Strong attack
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2) {// Standard attack
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3) {// Weak attack
-                                    damageTaken =
-                                            goblinFollowerOne.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0) {// Positive attack
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0) {// negative attack
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerOneTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            // add extras
-                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()) {// If any goblin is alive
-                                goblinsAreDead = false;
-                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()) {// if all goblins are dead
-                                goblinsAreDead = true;
-                            }
-                        }
-                    } else if (goblinFollowerCount == 2) {// If 2 followers
-                        // Creates follower goblin one
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        // Creates follower goblin two
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
-
-                        // Fighting Explanation
-                        if (!foughtOnce) {
-                            art.getCombatExplanation();
-                        }
-                        // Initial statement
-                        GoblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(),
-                                goblinFollowerOne.getHP(), goblinFollowerTwo.getHP());
-                        while (!player.isDead() && !goblinsAreDead) {
-                            art.getGoblinFightTargetTextThree(); // Chooses who will be attacked
-                            attackTarget = scanner.nextInt();
-                            art.getAttackTypeChoiceText();
-                            attackType = scanner.nextInt();
-                            if (attackTarget == 1)// Leader
-                            {
-                                System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if (attackType == 1) {// Strong attack
-                                    GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2) {// standard attack
-                                    GoblinBattle.goblinLeaderAttackStrong(
-                                            standard.getAttackDamage(), goblinLeader.getHP());
-                                    goblinLeader.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3) {// Weak attack
-                                    GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(weak.getAttackDamage());
-                                } else {// improper selection
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else if (attackTarget == 2) {// Follower 1
-                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if (attackType == 1) {// Strong attack
-                                    GoblinBattle.goblinFollowerOneAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinFollowerOneAttackStandard(
-                                            standard.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(),
-                                            goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                } else// improper selection
-                                {
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else if (attackTarget == 3) // Follower 2
-                            {
-                                System.out.println(ArtAndText.goblinFollowerTwoTargetText);
-                                if (attackType == 1)// Strong attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackStandard(
-                                            standard.getAttackDamage(), goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(),
-                                            goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(weak.getAttackDamage());
-                                }
-                            } else// improper selection
-                            {
-                                art.getFailedToMakeSelection();
-                                player.kill();// set health to 0 to end loop
-                            }
-                            // Goblins turn
-                            if (!goblinLeader.isDead()) {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinLeadersTurnOutPut(damageTaken, player.getHP());
-                            }
-                            if (!goblinFollowerOne.isDead())// Goblin Follower 1's turn
-                            {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinFollowerOne.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerOneTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            if (!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
-                            {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerTwoTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            // add extras
-                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()
-                                    || !goblinFollowerTwo.isDead())// If any goblin is alive
-                            {
-                                goblinsAreDead = false;
-                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()
-                                    && goblinFollowerTwo.isDead())// if all goblins are dead
-                            {
-                                goblinsAreDead = true;
-                            }
-                        }
-                    } else if (goblinFollowerCount == 3) // If 3 followers
-                        // Creates follower goblin one
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerOne =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        // Creates follower goblin two
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerTwo =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 2
-                        // Creates follower goblin three
-                        goblinFollowerDamage =
-                                GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND)
-                                        + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils
-                                .randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 7; // Changes health range to 7 - 17
-                        Enemy goblinFollowerThree =
-                                new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 3
-
-                        // Fighting Explanation
-                        if (!foughtOnce) {
-                            art.getCombatExplanation();
-                        }
-                        // Initial statement
-                        GoblinBattle.initialText(goblinFollowerCount, goblinLeader.getHP(),
-                                goblinFollowerOne.getHP(), goblinFollowerTwo.getHP(),
-                                goblinFollowerThree.getHP());
-                        while (!player.isDead() && !goblinsAreDead) {
-                            art.getGoblinFightTargetTextFour(); // Chooses who will be attacked
-                            attackTarget = scanner.nextInt();
-                            art.getAttackTypeChoiceText();
-                            attackType = scanner.nextInt();
-                            if (attackTarget == 1)// Leader
-                            {
-                                System.out.println(ArtAndText.goblinLeaderTargetText);
-                                if (attackType == 1)// Strong attack
-                                {
-                                    GoblinBattle.goblinLeaderAttackStrong(strong.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinLeaderAttackStrong(
-                                            standard.getAttackDamage(), goblinLeader.getHP());
-                                    goblinLeader.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinLeaderAttackWeak(weak.getAttackDamage(),
-                                            goblinLeader.getHP());
-                                    goblinLeader.takeDamage(weak.getAttackDamage());
-                                } else// improper selection
-                                {
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else if (attackTarget == 2) // Follower 1
-                            {
-                                System.out.println(ArtAndText.goblinFollowerOneTargetText);
-                                if (attackType == 1)// Strong attack
-                                {
-                                    GoblinBattle.goblinFollowerOneAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinFollowerOneAttackStandard(
-                                            standard.getAttackDamage(), goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinFollowerOneAttackWeak(weak.getAttackDamage(),
-                                            goblinFollowerOne.getHP());
-                                    goblinFollowerOne.takeDamage(weak.getAttackDamage());
-                                } else// improper selection
-                                {
-                                    art.getFailedToMakeSelection();
-                                    player.kill();// set health to 0 to end loop
-                                }
-                            } else if (attackTarget == 3) // Follower 2
-                            {
-                                System.out.println(ArtAndText.goblinFollowerTwoTargetText);
-                                if (attackType == 1)// Strong attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackStandard(
-                                            standard.getAttackDamage(), goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinFollowerTwoAttackWeak(weak.getAttackDamage(),
-                                            goblinFollowerTwo.getHP());
-                                    goblinFollowerTwo.takeDamage(weak.getAttackDamage());
-                                }
-                            } else if (attackTarget == 4) // Follower 3
-                            {
-                                System.out.println(ArtAndText.goblinFollowerThreeTargetText);
-                                if (attackType == 1)// Strong attack
-                                {
-                                    GoblinBattle.goblinFollowerThreeAttackStrong(
-                                            strong.getAttackDamage(), goblinFollowerThree.getHP());
-                                    goblinFollowerThree.takeDamage(strong.getAttackDamage());
-                                } else if (attackType == 2)// standard attack
-                                {
-                                    GoblinBattle.goblinFollowerThreeAttackStandard(
-                                            standard.getAttackDamage(),
-                                            goblinFollowerThree.getHP());
-                                    goblinFollowerThree.takeDamage(standard.getAttackDamage());
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    GoblinBattle.goblinFollowerThreeAttackWeak(
-                                            weak.getAttackDamage(), goblinFollowerThree.getHP());
-                                    goblinFollowerThree.takeDamage(weak.getAttackDamage());
-                                }
-                            } else// improper selection
-                            {
-                                art.getFailedToMakeSelection();
-                                player.kill();// set health to 0 to end loop
-                            }
-                            // Goblins turn
-                            if (!goblinLeader.isDead()) {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinLeader.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinLeadersTurnOutPut(damageTaken, player.getHP());
-                            }
-                            if (!goblinFollowerOne.isDead())// Goblin Follower 1's turn
-                            {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken = goblinFollowerOne.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinFollowerOne.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerOneTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            if (!goblinFollowerTwo.isDead())// Goblin Follower 2's turn
-                            {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken = goblinFollowerTwo.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken =
-                                            goblinFollowerTwo.getAttack() + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerTwoTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            if (!goblinFollowerThree.isDead())// Goblin Follower 3's turn
-                            {
-                                // To determine which attack was used and so what buff
-                                if (attackType == 1)// Strong attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack()
-                                            + strong.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 2)// Standard attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack()
-                                            + standard.getAttackPenalty();
-                                    player.takeDamage(damageTaken);
-                                } else if (attackType == 3)// Weak attack
-                                {
-                                    damageTaken = goblinFollowerThree.getAttack()
-                                            + weak.getAttackPenalty();
-                                    if (damageTaken >= 0)// Positive attack
-                                    {
-                                        player.takeDamage(damageTaken);
-                                    } else if (damageTaken < 0)// negative attack
-                                    {
-                                        damageTaken = 0;
-                                    }
-                                }
-                                GoblinBattle.goblinFollowerThreeTurnOutPut(damageTaken,
-                                        player.getHP());
-                            }
-                            // add extras
-                            if (!goblinLeader.isDead() || !goblinFollowerOne.isDead()
-                                    || !goblinFollowerTwo.isDead() || !goblinFollowerThree.isDead())// If any goblin is alive
-                            {
-                                goblinsAreDead = false;
-                            } else if (goblinLeader.isDead() && goblinFollowerOne.isDead()
-                                    && goblinFollowerTwo.isDead() && goblinFollowerThree.isDead())// if all goblins are dead
-                            {
-                                goblinsAreDead = true;
-                            }
-                        }
-                    
+                    switch(goblinFollowerCount){
+                        case 1: 
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollower = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        GoblinBattle gBattle1 = new GoblinBattle(player, goblinLeader, goblinFollower, foughtOnce, strong, standard, weak);
+                        goblinsAreDead = gBattle1.One();
+                        break;
+                        case 2:
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollowerOne = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollowerTwo = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        GoblinBattle gBattle2 = new GoblinBattle(player, goblinLeader, goblinFollowerOne, goblinFollowerTwo, foughtOnce, strong, standard, weak);
+                        goblinsAreDead = gBattle2.Two();
+                        break;
+                        case 3:
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollower1 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollower2 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
+                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
+                        Enemy goblinFollower3 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
+                        GoblinBattle gBattle3 = new GoblinBattle(player, goblinLeader, goblinFollower1, goblinFollower2, goblinFollower3, foughtOnce, strong, standard, weak);
+                        goblinsAreDead = gBattle3.Three();
+                    }                   
                     if (goblinsAreDead) {// Reward
                         player.increaseArtifacts(GoblinConstants.WIN_ARTIFACTS_REWARD);
-                        GoblinBattle.winText(player.getArtifact());
+                        GoblinBattleText.winText(player.getArtifact());
                     }
                     break;
                 case 5: // Fight guards
+                    do{
                     GuardFight.initialEventText();
                     choice = scanner.nextInt();
+                    } while (GeneralUtils.isAnOption(choice, 3));
                     switch (choice) {
                         case 1: // Go willingly
                             GuardFight.goPeacefulText();
@@ -1165,11 +613,14 @@ public class Main {
                                 art.getCombatExplanation();
                             }
                             while (!player.isDead() && !guardsAreDead) {
+                                do{
                                 GuardFight.initialEventText();
-
                                 attackTarget = scanner.nextInt();
-                                art.getAttackTypeChoiceText();
+                                } while (GeneralUtils.isAnOption(attackTarget, 6));
+                                do{
+                                ArtAndText.getAttackTypeChoiceText();
                                 attackType = scanner.nextInt();
+                                } while (GeneralUtils.isAnOption(attackType, 3));
                                 if (attackTarget == 1)// Guard one
                                 {
                                     System.out.println("You attack guard one.");
@@ -1722,8 +1173,10 @@ public class Main {
                                 }
                             }
                             if (guardsAreDead) {
+                                do{
                                 GuardFight.fightWinText();
                                 choice = scanner.nextInt();
+                                } while (choice != 1 || choice != 2);
                                 if (choice == 1) {// Take from guards
                                     artifactsFoundOnGuards = GeneralUtils.randomNumber(
                                             TownConstants.ARTIFACTS_ON_GUARDS_UPPER_BOUND);
@@ -1734,10 +1187,12 @@ public class Main {
                                 } else if (choice == 2) {// Dont take from guards
                                     System.out.println("You leave the guards and contimplate, ");
                                 }
+                                do{
                                 System.out.print("Do I want to loot the town?");
                                 System.out.println("1 = Yes.");
                                 System.out.println("2 = No.");
                                 choice = scanner.nextInt();
+                                } while (!GeneralUtils.isAnOption(choice, 2));
                                 if (choice == 1)// Yes
                                 {
                                     System.out.println("You are a bad person.");
@@ -1756,8 +1211,10 @@ public class Main {
                     }
                     break;
                 case 6: // Night ADD variety
+                    do{
                     art.getNightInitialText(player.getArtifact());
                     choice = scanner.nextInt();// Town Extra damage
+                    } while (!GeneralUtils.isAnOption(choice, 2));
                     if (choice == 1) { // Town Extra damage
                         if ((player.getArtifact() - 1) > 0) {
                             player.increaseArtifacts(-1);
@@ -1799,8 +1256,7 @@ public class Main {
             }
 
             // Win screen
-            if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50
-                                                                           // treasures
+            if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50 treasures
                 GeneralUtils.clearScreen();
                 System.out.println("Congratulations " + characterName);
                 GeneralUtils.pause(3);
@@ -1818,7 +1274,7 @@ public class Main {
             GeneralUtils.clearScreen();
             // Death screen
             art.getYouDied();
-            art.getEndingText();
+            // art.getEndingText();
             // End program
             System.exit(2);
         }
