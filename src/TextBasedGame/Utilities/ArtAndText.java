@@ -11,13 +11,7 @@ public class ArtAndText {
   public static final String failedToMakeSelection = "You failed to make a selection.";
   //Events Text
   public static final String dragon = "You meet a dragon.\n              __\n          _.-'.-'-.__\n       .-'.       '-.'-._ __.--._\n-..'\\,-,/..-  _         .'   \\   '----._\n ). /_ _\\' ( ' '.         '-  '/'-----._'-.__\n '..'     '-r   _      .-.       '-._ \\\n '.\\. Y .).'       ( .'  .      .\\          '\\'.\n .-')'|'/'-.        \\)    )      '',_      _.c_.\\\n   .<, ,>.          |   _/\\        . ',   :   : \\\\\n  .' \\_/ '.        /  .'   |          '.     .'  \\)\n                  / .-'    '-.        : \\   _;   ||\n                 / /    _     \\_      '.'\\ ' /   ||\n                /.'   .'        \\_      .|   \\   \\|\n               / /   /      __.---'      '._  ;  ||\n              /.'  _:-.____< ,_           '.\\ \\  ||\n             // .-'     '-.__  '-'-\\_      '.\\/_ \\|\n            ( };====.===-==='        '.    .  \\\\: \\\n             \\\\ '._        /          :   ,'   )\\_ \\\n              \\\\   '------/            \\ .    /   )/\n              \\|        _|             )Y    |   /\n                \\\\      \\             .','   /  ,/\n                 \\\\    _/            /     _/\n                  \\\\   \\           .'    .'\n                   '| '1          /    .'\n                     '. \\        |:    /\n                       \\ |       /', .'\n                        \\(      ( ;z'\n                         \\:      \\ '(_\n                          \\_,     '._ '-.___\n                                      '-' -.\\\nYou can either rob it or try to escape\n1 to escape.\n2 to atempt to rob the dragon.";
-  public static final String barText = "\nYou walk into a bar.\nYou have three choices;\nType 1 to start a brawl.\nType 2 to buy a weapon from a local salesman.\nType 3 to talk to the guard and get a quest.\n";
-  public static final String blackSmithText = "You meet a local blacksmith, he offers a sword that will increase your damage by 1 to 15. You could also pay for a gaurenteed incrase of 15, for 2 artifacts.\n1 for random \n2 to pay";
-  public static final String barGuardQuestText = "\nYou talk to the guard to get a quest.\nHe gives you three quests and tells you to choose one.\nThe first quest is to take down a smugiling ring.\nThe second quest is to defeat an evil queen.\nThe third quest is TODO. \nOr you can take no quest. \nWhich quest do you choose? Type 1, 2, 3, or 4";
-  public static final String barTakeQuestOneText = " ";
-  public static final String barTakeQuestTwoText = "He lays out the story, an evil king takes over a foreign kingdom and subjugates the people. \nThey are living in poverty suppersed by the cruel lord and his servants. This riles you up and you ask were you can find this place. He responds, \"Head due north until you reach Leictinstein, then head to the east for 6 miles. You will come to a set of cross roads with 3 options, go to the right, because right is always right.\" You say thank you and head off.";
-  public static final String barTakeQuestThreeText = " ";
-  public static final String barTakeNoQuestText = "He says, \"I understand they are not easy tasks, it will be a challenge for the millitary.\" You say goodbye and head out of the tavern looking for a place to sleep.";
+
   public static final String doctorInitialText = "\nYou go to a doctor, he can heal you 10 to 40HP for free \n Or you can pay 2 artifacts to be healed a gaurenteed 70HP. \n 1 for Random \n 2 for 70HP \n You currently have: ";
 
   public static final String goblinFollowerOneTargetText = "You attack the first Henchman.";
@@ -71,31 +65,6 @@ public class ArtAndText {
   public void getDragonHPText(int dragonHP){
     System.out.println("The Dragon has " + dragonHP + " HP.");
   }
-
-  //Bar
-  public void getBarText(){
-    System.out.println(barText);
-  }
-    //Blacksmith
-    public void getBlackSmithText(){
-      System.out.println(blackSmithText);
-    }
-    //Quests
-    public void getguardQuestText(){
-      System.out.println(barGuardQuestText);
-    }
-    public void getBarQuestOneText(){
-      System.out.println(barTakeQuestOneText);
-    }
-    public void getBarQuestTwoText(){
-      System.out.println(barTakeQuestTwoText);
-    }
-    public void getBarQuestThreeText(){
-      System.out.println(barTakeQuestThreeText);
-    }
-    public void getBarNoQuestText(){
-      System.out.println(barTakeNoQuestText);
-    }
   
   //Doctor
   public void getDoctorInitialText(int hp){

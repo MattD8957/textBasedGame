@@ -4,8 +4,12 @@ import java.util.*;
 import org.junit.platform.reporting.shadow.org.opentest4j.reporting.events.root.Events;
 import TextBasedGame.Characters.Player;
 import TextBasedGame.Characters.Enemy;
-import TextBasedGame.Events.Bar;
 import TextBasedGame.Events.GuardFight;
+import TextBasedGame.Events.Bar.Bar;
+import TextBasedGame.Events.Bar.BarText;
+import TextBasedGame.Events.Bar.Blacksmith;
+import TextBasedGame.Events.Bar.Brawl;
+import TextBasedGame.Events.Bar.QuestOver;
 import TextBasedGame.Events.Bear.Bear;
 import TextBasedGame.Events.Bear.BearText;
 import TextBasedGame.Events.DragonBattle.DragonBattle;
@@ -208,92 +212,12 @@ public class Main {
                     dragon.dragon();
                     break;
                 case 1: // Fight Bear
-                        Bear bear = new Bear(player, foughtOnce, strong, standard, weak);
-                        bear.bear();
+                    Bear bear = new Bear(player, foughtOnce, strong, standard, weak);
+                    bear.bear();
                     break;
                 case 2: // Go into a bar
-                    do{
-                    art.getBarText();
-                    choice = scanner.nextInt();
-                    } while (!GeneralUtils.isAnOption(choice, 3));
-                    switch (choice) {
-                        case 1: // Start a brawl
-                            damageTaken = GeneralUtils
-                                    .randomNumber(BarConstants.FIGHT_DMG_TAKEN_UPPER_BOUND);
-                            Bar.barBrawl(damageTaken, player.getHP());
-                            player.takeDamage(damageTaken);
-                            break;
-                        case 2: // Buy a weapon
-                            do{
-                            art.getBlackSmithText();
-                            System.out.println(
-                                    "You currently have: " + player.getArtifact() + " artifacts.");
-                            blackSmithChoice = scanner.nextInt();
-                            } while (!GeneralUtils.isAnOption(blackSmithChoice, 2));
-                            if (blackSmithChoice == 1) {
-                                System.out.println("Attack before addition: " + player.getAttack());
-                                atk = GeneralUtils
-                                        .randomNumber(BarConstants.ATTACK_DMG_INCREASE_UPPER_BOUND);
-                                atk++;
-                                // incerase attack damage
-                                player.increaseAttack(atk);
-                                strong.increaseAttackDamage(atk);
-                                standard.increaseAttackDamage(atk);
-                                weak.increaseAttackDamage(atk);
-                                if (standard.getAttackDamage() <= standard.getMaxAttackDamage()) { // If not over max attack damage state attack damage
-                                    System.out.println("New attack damage: " + player.getAttack());
-                                } else if (standard.getAttackDamage() > standard.getMaxAttackDamage()) { // If over max attack damage set to max attack damage and then state attack damage
-                                    strong.setMaxAttackDamage();
-                                    standard.setMaxAttackDamage();
-                                    weak.setMaxAttackDamage();
-                                    System.out.println("New attack damage " + player.getAttack());
-                                }
-                            } else if (blackSmithChoice == 2) {
-                                System.out.println("Attack before addition: " + player.getAttack());
-                                atk = BarConstants.ATTACK_DMG_INCREASE_PAYED;
-                                // incerase attack damage
-                                player.increaseAttack(atk);
-                                strong.increaseAttackDamage(atk);
-                                standard.increaseAttackDamage(atk);
-                                weak.increaseAttackDamage(atk);
-                                if (standard.getAttackDamage() <= standard.getMaxAttackDamage()) { // If not over max attack damage state attack damage
-                                    System.out.println("New attack damage: " + player.getAttack());
-                                } else if (standard.getAttackDamage() > standard.getMaxAttackDamage()) { // If over max attack damage set to max attack damage and then state attack damage
-                                    strong.setMaxAttackDamage();
-                                    standard.setMaxAttackDamage();
-                                    weak.setMaxAttackDamage();
-                                    System.out.println("New attack damage " + player.getAttack());
-                                }
-                            }
-                            break;
-                        case 3: // Get quest from guards
-                            // TODO Finish this
-                            do{
-                            art.getguardQuestText();
-                            questChoice = scanner.nextInt();
-                            } while (!GeneralUtils.isAnOption(questChoice, 4));
-                            if (questChoice == 1) {// Defeat smugiling group
-
-                            } else if (questChoice == 2) {// Defeat Evil king
-                                do{
-                                art.getBarQuestTwoText();
-                                // Defeat the Evil king
-                                questChoiceRandomStuff = scanner.nextInt();
-                                } while (!GeneralUtils.isAnOption(questChoiceRandomStuff, 3));
-                                if (questChoiceRandomStuff == 1) {
-
-                                } else if (questChoiceRandomStuff == 2) {
-
-                                } else if (questChoiceRandomStuff == 3) {
-
-                                }
-                            } else if (questChoice == 3) {// TODO figure out what goes here
-
-                            } else if (questChoice == 4) {// Don't want any of the quests
-                                art.getBarNoQuestText();
-                            }
-                            break;
-                    }
+                    Bar bar = new Bar(player, strong, standard, weak, foughtOnce);
+					bar.bar();
                     break;
                 case 3: // Go to a doctor
                     do {
