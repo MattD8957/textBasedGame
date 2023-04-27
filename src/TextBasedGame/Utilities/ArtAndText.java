@@ -47,7 +47,7 @@ public class ArtAndText {
   public void getWelcomeArt(){//Get Welcome art
     System.out.println(welcome);
   }
-  public void getCombatExplanation(){
+  public static void getCombatExplanation(){
     System.out.println(combatExplanation);
   }
   public void getYouDied(){

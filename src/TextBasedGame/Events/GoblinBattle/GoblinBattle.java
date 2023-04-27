@@ -1,12 +1,10 @@
-package TextBasedGame.Events;
+package TextBasedGame.Events.GoblinBattle;
 
 import TextBasedGame.Characters.Enemy;
 import TextBasedGame.Characters.Player;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
-import TextBasedGame.Utilities.Constants;
 import TextBasedGame.Utilities.GeneralUtils;
-import TextBasedGame.Utilities.GoblinBattleText;
 import java.util.Scanner;
 
 public class GoblinBattle {
@@ -17,7 +15,7 @@ public class GoblinBattle {
     Enemy Follower2;
     Enemy Follower3;
     boolean foughtOnce;
-    boolean goblinsAreDead;
+    boolean goblinsAreDead = false;
     int attackTarget;
     int attackType;
     int damageTaken;
@@ -27,18 +25,9 @@ public class GoblinBattle {
 
     Scanner input = new Scanner(System.in);
 
-    /**
-     * 
-     * @param player
-     * @param Leader
-     * @param Follower1
-     * @param foughtOnce
-     * @param strong
-     * @param standard
-     * @param weak
-     */
     public GoblinBattle(Player player, Enemy Leader, Enemy Follower1, boolean foughtOnce,
             Attack strong, Attack standard, Attack weak) {
+        this.player = player;
         this.Leader = Leader;
         this.Follower1 = Follower1;
         this.foughtOnce = foughtOnce;
@@ -47,19 +36,9 @@ public class GoblinBattle {
         this.weak = weak;
     }
 
-    /**
-     * 
-     * @param player
-     * @param Leader
-     * @param Follower1
-     * @param Follower2
-     * @param foughtOnce
-     * @param strong
-     * @param standard
-     * @param weak
-     */
     public GoblinBattle(Player player, Enemy Leader, Enemy Follower1, Enemy Follower2,
             boolean foughtOnce, Attack strong, Attack standard, Attack weak) {
+        this.player = player;
         this.Leader = Leader;
         this.Follower1 = Follower1;
         this.Follower2 = Follower2;
@@ -69,20 +48,9 @@ public class GoblinBattle {
         this.weak = weak;
     }
 
-    /**
-     * 
-     * @param player
-     * @param Leader
-     * @param Follower1
-     * @param Follower2
-     * @param Follower3
-     * @param foughtOnce
-     * @param strong
-     * @param standard
-     * @param weak
-     */
     public GoblinBattle(Player player, Enemy Leader, Enemy Follower1, Enemy Follower2,
             Enemy Follower3, boolean foughtOnce, Attack strong, Attack standard, Attack weak) {
+        this.player = player;
         this.Leader = Leader;
         this.Follower1 = Follower1;
         this.Follower2 = Follower2;
@@ -95,13 +63,17 @@ public class GoblinBattle {
 
     public boolean One() {
         GoblinBattleText.initialText(1, Leader.getHP(), Follower1.getHP());
+        goblinsAreDead = false;
         while (!player.isDead() && !goblinsAreDead) {
             do {
                 GoblinBattleText.getGoblinFightTargetTextTwo(); // Chooses who will be attacked
                 attackTarget = input.nextInt();
             } while (!GeneralUtils.isAnOption(attackTarget, 2));
+            
+            do {
             ArtAndText.getAttackTypeChoiceText();
             attackType = input.nextInt();
+            } while(!GeneralUtils.isAnOption(attackType, 3));
             if (attackTarget == 1) {// Leader
                 GoblinBattleText.getGoblinLeaderTargetText();
                 if (attackType == 1) {// Strong attack
@@ -182,16 +154,17 @@ public class GoblinBattle {
     public boolean Two() {
         // Initial statement
         GoblinBattleText.initialText(2, Leader.getHP(), Follower1.getHP(), Follower2.getHP());
+        goblinsAreDead = false;
         while (!player.isDead() && !goblinsAreDead) {
             do {
                 GoblinBattleText.getGoblinFightTargetTextThree(); // Chooses who will be attacked
                 attackTarget = input.nextInt();
-            } while (GeneralUtils.isAnOption(attackTarget, 3));
+            } while (!GeneralUtils.isAnOption(attackTarget, 3));
 
             do {
                 ArtAndText.getAttackTypeChoiceText();
                 attackType = input.nextInt();
-            } while (GeneralUtils.isAnOption(attackType, 3));
+            } while (!GeneralUtils.isAnOption(attackType, 3));
             if (attackTarget == 1)// Leader
             {
                 GoblinBattleText.getGoblinLeaderTargetText();
@@ -334,16 +307,17 @@ public class GoblinBattle {
     public boolean Three() {
         GoblinBattleText.initialText(3, Leader.getHP(), Follower1.getHP(), Follower2.getHP(),
                 Follower3.getHP());
+        goblinsAreDead = false;
         while (!player.isDead() && !goblinsAreDead) {
             do {
                 GoblinBattleText.getGoblinFightTargetTextThree(); // Chooses who will be attacked
                 attackTarget = input.nextInt();
-            } while (GeneralUtils.isAnOption(attackTarget, 4));
+            } while (!GeneralUtils.isAnOption(attackTarget, 4));
 
             do {
                 ArtAndText.getAttackTypeChoiceText();
                 attackType = input.nextInt();
-            } while (GeneralUtils.isAnOption(attackType, 3));
+            } while (!GeneralUtils.isAnOption(attackType, 3));
 
             if (attackTarget == 1)// Leader
             {

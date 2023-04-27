@@ -1,4 +1,4 @@
-package TextBasedGame.Utilities;
+package TextBasedGame.Events.GoblinBattle;
 
 public class GoblinBattleText {
     public GoblinBattleText(){

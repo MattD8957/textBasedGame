@@ -6,19 +6,17 @@ import TextBasedGame.Characters.Enemy;
 import TextBasedGame.Events.Bar;
 import TextBasedGame.Events.BearBattle;
 import TextBasedGame.Events.DragonBattle;
-import TextBasedGame.Events.GoblinBattle;
 import TextBasedGame.Events.GuardFight;
+import TextBasedGame.Events.GoblinBattle.GoblinBattleSuper;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.GeneralUtils;
-import TextBasedGame.Utilities.GoblinBattleText;
 import TextBasedGame.Utilities.Heal;
 import TextBasedGame.Utilities.Constants.BarConstants;
 import TextBasedGame.Utilities.Constants.BearConstants;
 import TextBasedGame.Utilities.Constants.DoctorConstants;
 import TextBasedGame.Utilities.Constants.DragonConstants;
 import TextBasedGame.Utilities.Constants.GeneralConstants;
-import TextBasedGame.Utilities.Constants.GoblinConstants;
 import TextBasedGame.Utilities.Constants.NightConstants;
 import TextBasedGame.Utilities.Constants.TownConstants;
 
@@ -45,12 +43,6 @@ public class Main {
         // Bear
         int bearHP = 0;
         int bearAttackDMG = 0;
-        // Goblin
-        int goblinLeaderDamage = 0;
-        int goblinLeaderHealth = 0;
-        int goblinFollowerCount = 0;
-        int goblinFollowerHealth = 0;
-        int goblinFollowerDamage = 0;
         // Rest of Game
         // Random
         String characterName; // gets the name the player wants for the player
@@ -77,8 +69,6 @@ public class Main {
         // Doctor
         int amountHealed = 0;// amount of HP added by the doctor
         int amountHealedOld = 0;
-        // Goblins
-        boolean goblinsAreDead = false; // Checks if goblin horde is dead for loop
         // Town
         int fine = 0; // Use to fine the player of artifacts
         int fightStart = 0; // Random to decide if a fight starts in jail
@@ -473,52 +463,8 @@ public class Main {
                     break;
 
                 case 4: // Goblin horde
-                    GoblinBattleText.getGoblinInitialText();
-                    goblinLeaderDamage = GeneralUtils.randomNumber(GoblinConstants.LEADER_DMG_UPPER_BOUND) + 10;
-                    goblinLeaderHealth = GeneralUtils.randomNumber(GoblinConstants.LEADER_HEALTH_UPPER_BOUND) + 20; // 20 - 45 HP
-                    Enemy goblinLeader = new Enemy(goblinLeaderHealth, goblinLeaderDamage);// Hp, Attack, dmg
-                    if (!foughtOnce) {
-                        art.getCombatExplanation();
-                    }
-
-                    // Random number to get amount of follower goblins
-                    goblinFollowerCount = GeneralUtils.randomNumber(GoblinConstants.FOLLWER_COUNT_UPPER_BOUND);
-                    goblinFollowerCount++;// Makes range 1 - 3
-                    switch(goblinFollowerCount){
-                        case 1: 
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollower = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        GoblinBattle gBattle1 = new GoblinBattle(player, goblinLeader, goblinFollower, foughtOnce, strong, standard, weak);
-                        goblinsAreDead = gBattle1.One();
-                        break;
-                        case 2:
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerOne = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollowerTwo = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        GoblinBattle gBattle2 = new GoblinBattle(player, goblinLeader, goblinFollowerOne, goblinFollowerTwo, foughtOnce, strong, standard, weak);
-                        goblinsAreDead = gBattle2.Two();
-                        break;
-                        case 3:
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollower1 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollower2 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        goblinFollowerDamage = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_DMG_UPPER_BOUND) + 10; // Changes damage range to 10 - 15
-                        goblinFollowerHealth = GeneralUtils.randomNumber(GoblinConstants.FOLLOWER_HEALTH_UPPER_BOUND) + 10; // Changes health range to 10 - 20
-                        Enemy goblinFollower3 = new Enemy(goblinFollowerHealth, goblinFollowerDamage); // creates Goblin follower 1
-                        GoblinBattle gBattle3 = new GoblinBattle(player, goblinLeader, goblinFollower1, goblinFollower2, goblinFollower3, foughtOnce, strong, standard, weak);
-                        goblinsAreDead = gBattle3.Three();
-                    }                   
-                    if (goblinsAreDead) {// Reward
-                        player.increaseArtifacts(GoblinConstants.WIN_ARTIFACTS_REWARD);
-                        GoblinBattleText.winText(player.getArtifact());
-                    }
+                    GoblinBattleSuper goblin = new GoblinBattleSuper(player, strong, standard, weak);
+                    goblin.battle(foughtOnce);
                     break;
                 case 5: // Fight guards
                     do{
