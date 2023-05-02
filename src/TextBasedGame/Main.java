@@ -13,13 +13,12 @@ import TextBasedGame.Events.Town.Town;
 import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.CreateCharacters;
-import TextBasedGame.Utilities.GeneralUtils;
+import TextBasedGame.Utilities.GeneralUtils; 
 import TextBasedGame.Utilities.Constants.GeneralConstants;
 
 public class Main {
 	public static void main(String args[]) {
-		// Rest of Game
-		// Random
+		// Variables
 		String moveOn = "Hi!"; // Player imputs when to continue
 		int event = -1;// chooses which event will happen
 		boolean foughtOnce = false; // Checks if player has fought to give combat explanation
@@ -39,14 +38,12 @@ public class Main {
 		Attack weak = create.createWeakAttack();
 
 		// Information for player at start of game TODO Decide on amount of artifacts
-		// Wait until player presses a button
-		moveOn = scanner.next();
+		moveOn = scanner.next(); // Wait until player presses a button
 		GeneralUtils.clearScreen();
 
 		// Start game loop
 		while (!player.isDead()) {
 			event = GeneralUtils.generateEvent(player);
-
 			// EVENTS
 			switch (event) {
 				case 0: // Fight dragon
