@@ -1,6 +1,7 @@
 package TextBasedGame.Utilities;
 
 import TextBasedGame.Characters.Player;
+import TextBasedGame.Events.Doctor.Heal;
 
 public class CreateCharacters {
     int CharacterHPCreation;
@@ -114,9 +115,10 @@ public class CreateCharacters {
         }
     }
 
-    public Player createPlayer() {
+    public Player createPlayer(Heal heal) {
         Player player = new Player(CharacterHPCreation, CharacterMaxHPCreation, name);
         getGameExplantion();
+        heal.setMaxHP(player.getMaxHP());
         return player;
     }
 

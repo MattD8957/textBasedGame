@@ -28,7 +28,7 @@ public class ArtAndText {
     }
 
   //General
-  public void getWelcomeArt(){//Get Welcome art
+  public static void getWelcomeArt(){//Get Welcome art
     System.out.println(welcome);
   }
   public static void getCombatExplanation(){
