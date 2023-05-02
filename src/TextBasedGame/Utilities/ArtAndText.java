@@ -43,18 +43,18 @@ public class ArtAndText {
   public void getEndingText(){
     System.out.println(endingText);
   }
-  public void getFailedToMakeSelection(){
+  public static void getFailedToMakeSelection(){
     System.out.println(failedToMakeSelection);
   }
 
   //Game explanations
-  public void getGameExplantionRogue(){
+  public static void getGameExplantionRogue(){
     System.out.println(gameExplanationRogueText);
   }
-  public void getGameExplantionPaladin(){
+  public static void getGameExplantionPaladin(){
     System.out.println(gameExplanationPaladinText);
   }
-  public void getGameExplantionBarbarian(){
+  public static void getGameExplantionBarbarian(){
     System.out.println(gameExplanationBarbarianText);
   }
 
@@ -67,7 +67,7 @@ public class ArtAndText {
   }
   
   //Doctor
-  public void getDoctorInitialText(int hp){
+  public static void getDoctorInitialText(int hp){
 		System.out.println(doctorInitialText + hp + " HP.");
   }
   

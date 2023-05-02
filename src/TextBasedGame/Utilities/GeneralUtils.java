@@ -4,7 +4,7 @@ import java.util.Random;
 import TextBasedGame.Utilities.Constants.GeneralConstants;
 
 public class GeneralUtils {
-    
+
     /**
      * Clears the screen
      */
@@ -125,5 +125,32 @@ public class GeneralUtils {
                 }
             }
             return false;
+        }
+
+        public static void winScreen(String characterName, ArtAndText art){
+            GeneralUtils.clearScreen();
+				System.out.println("Congratulations " + characterName);
+				pause(3);
+				// Win screen
+				art.getYouWin();
+				art.getEndingText();
+				// End program
+				System.exit(1);
+        }
+
+        public static void loseScreen(ArtAndText art){
+            pause(3);
+			// Clear screen
+			clearScreen();
+			// Death screen
+			art.getYouDied();
+			art.getEndingText();
+			// End program
+			System.exit(2);
+        }
+
+        public static void StartScreen(){
+            // Clear screen
+            
         }
 }

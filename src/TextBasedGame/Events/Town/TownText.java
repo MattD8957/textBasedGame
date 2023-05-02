@@ -1,6 +1,6 @@
-package TextBasedGame.Events;
+package TextBasedGame.Events.Town;
 
-public class GuardFight {
+public class TownText {
 
     // Text Returns
     public static void initialEventText() {

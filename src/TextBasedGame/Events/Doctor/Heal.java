@@ -1,6 +1,4 @@
-package TextBasedGame.Utilities;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+package TextBasedGame.Events.Doctor;
 
 public class Heal {
     private int maxHP;
@@ -9,6 +7,7 @@ public class Heal {
     public Heal(int charHealthMax){
         maxHP = charHealthMax;
     }
+
     public void setMaxHP(int newMaxHP){
         maxHP = newMaxHP;
     }

@@ -21,7 +21,7 @@ public class Bear {
     int bearAttackDMG;
     int attackType;
     int damageTaken;
-    
+
     public Bear(Player player, boolean foughtOnce, Attack strong, Attack standard, Attack weak) {
         this.player = player;
         this.foughtOnce = foughtOnce;
@@ -44,21 +44,18 @@ public class Bear {
         // Battle
         while (!player.isDead() && !bear.isDead()) {
             System.out.println("The bear has " + bear.getHP() + " HP.");
-            do{
-            ArtAndText.getAttackTypeChoiceText();
-            attackType = input.nextInt();
+            do {
+                ArtAndText.getAttackTypeChoiceText();
+                attackType = input.nextInt();
             } while (!GeneralUtils.isAnOption(attackType, 3));
             if (attackType == 1) {
-                BearText.characterAttackStrengthOne(strong.getAttackDamage(),
-                        bear.getHP());
+                BearText.characterAttackStrengthOne(strong.getAttackDamage(), bear.getHP());
                 bear.takeDamage(strong.getAttackDamage());
             } else if (attackType == 2) {
-                BearText.characterAttackStrengthTwo(standard.getAttackDamage(),
-                        bear.getHP());
+                BearText.characterAttackStrengthTwo(standard.getAttackDamage(), bear.getHP());
                 bear.takeDamage(standard.getAttackDamage());
             } else if (attackType == 3) {
-                BearText.characterAttackStrengthThree(weak.getAttackDamage(),
-                        bear.getHP());
+                BearText.characterAttackStrengthThree(weak.getAttackDamage(), bear.getHP());
                 bear.takeDamage(weak.getAttackDamage());
             }
             if (!bear.isDead()) {// If still alive bear's turn
@@ -81,7 +78,7 @@ public class Bear {
             }
         }
         if (bear.isDead()) {// After loop ends if Bear died
-            player.increaseArtifacts(BearConstants.ARTIFACTS_COLLECTION_AMOUNT);
+            player.ChangeArtifacts(BearConstants.ARTIFACTS_COLLECTION_AMOUNT);
             BearText.getBeatBearText(player.getArtifact());
             foughtOnce = true;
         }

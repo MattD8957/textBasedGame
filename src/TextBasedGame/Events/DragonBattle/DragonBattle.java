@@ -14,7 +14,7 @@ public class DragonBattle {
     Attack strong;
     Attack standard;
     Attack weak;
-    
+
     Scanner input = new Scanner(System.in);
 
     boolean foughtOnce;
@@ -25,7 +25,8 @@ public class DragonBattle {
     int dragonAttack;
     int attackType;
 
-    public DragonBattle (Player player, boolean foughtOnce, Attack strong, Attack standard, Attack weak){
+    public DragonBattle(Player player, boolean foughtOnce, Attack strong, Attack standard,
+            Attack weak) {
         this.player = player;
         this.foughtOnce = foughtOnce;
         this.strong = strong;
@@ -33,11 +34,11 @@ public class DragonBattle {
         this.weak = weak;
     }
 
-    public void dragon(){
-    do{
-        ArtAndText.getDragonArt();
-        choice = input.nextInt();
-        } while(!GeneralUtils.isAnOption(choice, 2));
+    public void dragon() {
+        do {
+            ArtAndText.getDragonArt();
+            choice = input.nextInt();
+        } while (!GeneralUtils.isAnOption(choice, 2));
 
         if (choice == 1) {// 1 For escape
             // 1 in 5 chance of freedom
@@ -47,12 +48,13 @@ public class DragonBattle {
             escapeChance = GeneralUtils.randomNumber(DragonConstants.ESCAPE_CHANCE_UPPER_BOUND);
             if (escapeChance == 0) {// escape succesfully
                 DragonBattleText.escaped();
-            } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take some damage 1 to 10
-                damageTaken = GeneralUtils
-                        .randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
+            } else if ((escapeChance == 1) || (escapeChance == 2)) {// trip and take some damage 1
+                                                                    // to 10
+                damageTaken = GeneralUtils.randomNumber(DragonConstants.ESCAPE_DMG_UPPER_BOUND);
                 DragonBattleText.tripThenEscape(damageTaken, player.getHP());
                 player.takeDamage(damageTaken);
-            } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to escape and have to fight the dragon
+            } else if ((escapeChance == 3) || (escapeChance == 4)) {// You fail to escape and have
+                                                                    // to fight the dragon
                 DragonBattleText.getFailedToEscapeText();// Message after failing to escape
                 // Goes to the battle
             }
@@ -62,16 +64,24 @@ public class DragonBattle {
                 ArtAndText.getCombatExplanation();
             }
             GeneralUtils.pause(1);
-            dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon health 10 - 75
-            dragonAttack = GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND)
-                            + 20; // Generates dragon attack dmg 20 - 35
-            Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack dmg 20 - 35
+            dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon
+                                                                                      // health 10 -
+                                                                                      // 75
+            dragonAttack = GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Generates
+                                                                                                   // dragon
+                                                                                                   // attack
+                                                                                                   // dmg
+                                                                                                   // 20
+                                                                                                   // -
+                                                                                                   // 35
+            Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack
+                                                              // dmg 20 - 35
 
             while (!player.isDead() && !dragon.isDead()) {
                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");
-                do{
-                ArtAndText.getAttackTypeChoiceText();
-                attackType = input.nextInt();
+                do {
+                    ArtAndText.getAttackTypeChoiceText();
+                    attackType = input.nextInt();
                 } while (!GeneralUtils.isAnOption(attackType, 3));
                 if (attackType == 1) {
                     DragonBattleText.characterAttackStrengthOne(strong.getAttackDamage(),
@@ -106,7 +116,7 @@ public class DragonBattle {
                 }
             }
             if (dragon.isDead()) {// After loop ends if Dragon died
-                player.increaseArtifacts(1);
+                player.ChangeArtifacts(1);
                 foughtOnce = true;
                 DragonBattleText.finalText(player.getArtifact());
             }
