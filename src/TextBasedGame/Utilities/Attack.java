@@ -29,4 +29,12 @@ public class Attack {
     public void setMaxAttackDamage(){
         damage = maxDMG; 
     }
+
+    //FOR DEV MODE
+    public void setDamage(int damage){
+        this.damage = damage;
+    }
+    public void setMaxDamage(int maxDMG){
+        this.maxDMG = maxDMG;
+    }
 }

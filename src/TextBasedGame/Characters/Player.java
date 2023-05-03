@@ -54,4 +54,12 @@ public class Player extends UnitSuper {
     public void increaseAttack(int increase) {
         attack += increase;
     }
+
+    /**
+     * Sets players Max HP
+     * @param maxHP
+     */
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
 }

@@ -41,4 +41,12 @@ public class UnitSuper {
     public void kill(){
         health = 0;
     }
+
+    //DEV MODE
+    public void setHealth(int health){
+        this.health = health;
+    }
+    public void setAttack(int attack){
+        this.attack = attack;
+    }
 }

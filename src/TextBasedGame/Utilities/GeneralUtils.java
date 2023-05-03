@@ -51,20 +51,23 @@ public class GeneralUtils {
      * 
      * @return random event between 0 and 6
      */
-    public static int generateEvent(Player player) {
+    public static int generateEvent(Player player, DEVMode DEV) {
         int event = -1;
         int lastEvent = 0;
         GeneralUtils.pause(3);
-        do {
-            event = GeneralUtils.randomNumber(GeneralConstants.EVENT_UPPER_BOUND);
-        } while (event == lastEvent);
-        lastEvent = event;
+        if (DEV.getDEVMODE()  && DEV.getOverridenEvent() != -1) {
+            event = DEV.getOverridenEvent();
+        } else {
+            do {
+                event = GeneralUtils.randomNumber(GeneralConstants.EVENT_UPPER_BOUND);
+            } while (event == lastEvent);
+            lastEvent = event;
 
-        if (player.getHP() <= 20) { // To make game more fun
-            event = 3;
+            if (player.getHP() <= 20) { // To make game more fun
+                event = 3;
+            }
         }
         GeneralUtils.clearScreen();
-
         return event;
     }
 
@@ -155,24 +158,24 @@ public class GeneralUtils {
         return false;
     }
 
-    public static void winScreen(String characterName, ArtAndText art) {
+    public static void winScreen(String characterName) {
         GeneralUtils.clearScreen();
         System.out.println("Congratulations " + characterName);
         pause(3);
         // Win screen
-        art.getYouWin();
-        art.getEndingText();
+        ArtAndText.getYouWin();
+        ArtAndText.getEndingText();
         // End program
         System.exit(1);
     }
 
-    public static void loseScreen(ArtAndText art) {
+    public static void loseScreen() {
         pause(3);
         // Clear screen
         clearScreen();
         // Death screen
-        art.getYouDied();
-        art.getEndingText();
+        ArtAndText.getYouDied();
+        ArtAndText.getEndingText();
         // End program
         System.exit(2);
     }

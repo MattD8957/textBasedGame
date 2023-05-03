@@ -10,9 +10,9 @@ import TextBasedGame.Events.DragonBattle.DragonBattle;
 import TextBasedGame.Events.GoblinBattle.GoblinBattleSuper;
 import TextBasedGame.Events.Night.Night;
 import TextBasedGame.Events.Town.Town;
-import TextBasedGame.Utilities.ArtAndText;
 import TextBasedGame.Utilities.Attack;
 import TextBasedGame.Utilities.CreateCharacters;
+import TextBasedGame.Utilities.DEVMode;
 import TextBasedGame.Utilities.GeneralUtils; 
 import TextBasedGame.Utilities.Constants.GeneralConstants;
 
@@ -21,29 +21,37 @@ public class Main {
 		// Variables
 		String moveOn = "Hi!"; // Player imputs when to continue
 		int event = -1;// chooses which event will happen
+		int count = 0; // Counts how many times the player has looped
 		boolean foughtOnce = false; // Checks if player has fought to give combat explanation
-
 		// Create Classes
-		ArtAndText art = new ArtAndText();
 		Scanner scanner = new Scanner(System.in);
 		Heal heal = new Heal(100);
-
 		//Opening screen
 		CreateCharacters create = GeneralUtils.StartScreen(scanner);
-
+		
 		// CREATE the Character
 		Player player = create.createPlayer(heal);
 		Attack strong = create.createStrongAttack();
 		Attack standard = create.createStandardAttack();
 		Attack weak = create.createWeakAttack();
-
+		DEVMode DEV = new DEVMode(player, strong, standard, weak);
+		
 		// Information for player at start of game TODO Decide on amount of artifacts
 		moveOn = scanner.next(); // Wait until player presses a button
 		GeneralUtils.clearScreen();
+		if(moveOn.equals("DEV")){
+			System.out.println("DEV MODE ACTIVATED");
+			DEV.DEVScreen();
+			DEV.turnOnDEVMode();
+		}
 
 		// Start game loop
 		while (!player.isDead()) {
-			event = GeneralUtils.generateEvent(player);
+			if(DEV.getDEVMODE() && count != 0){
+				DEV.DEVScreen();
+			}
+
+			event = GeneralUtils.generateEvent(player, DEV);
 			// EVENTS
 			switch (event) {
 				case 0: // Fight dragon
@@ -81,11 +89,13 @@ public class Main {
 
 			// Win screen
 			if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50 treasures
-				GeneralUtils.winScreen(player.getName(), art);
+				GeneralUtils.winScreen(player.getName());
 			}
+
+			count++;
 		}
 		// Death screen
-		GeneralUtils.loseScreen(art);
+		GeneralUtils.loseScreen();
 
 		System.out.println("Hi\n" + moveOn);
 		scanner.close();

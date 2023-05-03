@@ -23,10 +23,6 @@ public class ArtAndText {
   public static final String youWin = "__      __    ____     __    __      ___       ___    _____      __      _  _______ \n) \\    / (   / __ \\    ) )  ( (     (  (       )  )  (_   _)    /  \\    / ) \\     / \n \\ \\  / /   / /  \\ \\  ( (    ) )     \\  \\  _  /  /     | |     / /\\ \\  / /   \\   /  \n  \\ \\/ /   ( ()  () )  ) )  ( (       \\  \\/ \\/  /      | |     ) ) ) ) ) )    ) (   \n   \\  /    ( ()  () ) ( (    ) )       )   _   (       | |    ( ( ( ( ( (     \\_/   \n    )(      \\ \\__/ /   ) \\__/ (        \\  ( )  /      _| |__  / /  \\ \\/ /      _    \n   /__\\      \\____/    \\______/         \\_/ \\_/      /_____( (_/    \\__/      (_)   \n";
   public static final String endingText = "Created by Matthew Dowling. \n Special thanks to: \n Allie \n Jack Nelson \n Mrs. Kovacic \n Nick DaSilva \n ";
 
-  //Create Art
-  public ArtAndText(){
-    }
-
   //General
   public static void getWelcomeArt(){//Get Welcome art
     System.out.println(welcome);
@@ -34,13 +30,13 @@ public class ArtAndText {
   public static void getCombatExplanation(){
     System.out.println(combatExplanation);
   }
-  public void getYouDied(){
+  public static void getYouDied(){
     System.out.println(youDied);
   }
-  public void getYouWin(){
+  public static void getYouWin(){
     System.out.println(youWin);
   }
-  public void getEndingText(){
+  public static void getEndingText(){
     System.out.println(endingText);
   }
   public static void getFailedToMakeSelection(){
@@ -62,7 +58,7 @@ public class ArtAndText {
   public static void getDragonArt(){//Get dragon art
     System.out.println(dragon);
   }
-  public void getDragonHPText(int dragonHP){
+  public static void getDragonHPText(int dragonHP){
     System.out.println("The Dragon has " + dragonHP + " HP.");
   }
   
