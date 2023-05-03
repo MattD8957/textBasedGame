@@ -64,18 +64,9 @@ public class DragonBattle {
                 ArtAndText.getCombatExplanation();
             }
             GeneralUtils.pause(1);
-            dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon
-                                                                                      // health 10 -
-                                                                                      // 75
-            dragonAttack = GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Generates
-                                                                                                   // dragon
-                                                                                                   // attack
-                                                                                                   // dmg
-                                                                                                   // 20
-                                                                                                   // -
-                                                                                                   // 35
-            Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack
-                                                              // dmg 20 - 35
+            dragonHP = GeneralUtils.randomNumber(DragonConstants.HP_UPPER_BOUND) + 10;// Dragon health 10 - 75
+            dragonAttack = GeneralUtils.randomNumber(DragonConstants.ATTACK_DMG_UPPER_BOUND) + 20; // Generates dragon attack dmg 20 - 35
+            Enemy dragon = new Enemy(dragonHP, dragonAttack); // Create Dragon HP 10 - 75, Attack dmg 20 - 35
 
             while (!player.isDead() && !dragon.isDead()) {
                 System.out.println("The Dragon has " + dragon.getHP() + " HP.");

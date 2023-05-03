@@ -75,16 +75,16 @@ public class GoblinBattleText {
     }
     //Goblins Turn
     public static void goblinLeadersTurnOutPut(int damageTaken, int characterHP){
-        System.out.println("The leader attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The leader attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void goblinFollowerOneTurnOutPut(int damageTaken, int characterHP){
-        System.out.println("The henchman attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The henchman attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void goblinFollowerTwoTurnOutPut(int damageTaken, int characterHP){
-        System.out.println("The second henchman attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The second henchman attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void goblinFollowerThreeTurnOutPut(int damageTaken, int characterHP){
-        System.out.println("The third henchman attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The third henchman attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void winText(double artifacts){
         System.out.println("Congratulations you beat the goblin horde! You get to keep their artifacts. \nYou now have " + artifacts + " artifacts.");

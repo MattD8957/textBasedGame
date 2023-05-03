@@ -35,7 +35,6 @@ public class TownText {
                 + "Hp. \nThe rest of your stay is uneventful");
     }
 
-
     // Chances out of 31 (0-30)
     // Fine 15 in 31
     // Jail 10 in 31
@@ -49,8 +48,7 @@ public class TownText {
     public static void jail(int damageTaken, int characterHP) {
         System.out.println(
                 "You are then sentenced to one year in jail \nNear the end of your stay you get sick and take "
-                        + damageTaken + " dmg. \nYou now have " + getHP(characterHP, damageTaken)
-                        + "Hp.");
+                        + damageTaken + " dmg. \nYou now have " + getHP(characterHP, damageTaken) + "Hp.");
     }
 
     public static void execution() {

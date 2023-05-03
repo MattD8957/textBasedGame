@@ -109,7 +109,11 @@ public class GoblinBattle {
                 // To determine which attack was used and so what buff
                 if (attackType == 1) {// Strong attack
                     damageTaken = Leader.getAttack() + strong.getAttackPenalty();
+                    System.out.println("DMG" + damageTaken);
+                    System.out.println("HP" + player.getHP());
                     player.takeDamage(damageTaken);
+                    System.out.println("HP" + player.getHP());
+
                 } else if (attackType == 2) {// Standard attack
                     damageTaken = Leader.getAttack() + standard.getAttackPenalty();
                     player.takeDamage(damageTaken);

@@ -12,7 +12,7 @@ public class BearText {
         System.out.println("You choose a weak attack! \nYou do " + weakAttackDMG + " damage. \nThe bear now has " + getHP(bearHP, weakAttackDMG) + " HP.");
     }
     public static void bearTurnText(int damageTaken, int characterHP){
-        System.out.println("The bear attacks doing " + damageTaken + " damage. \nYou now have " + getHP(characterHP, damageTaken) + " HP.");
+        System.out.println("The bear attacks doing " + damageTaken + " damage. \nYou now have " + characterHP + " HP.");
     }
     public static void getBearInitialText(){
         System.out.println("You are travaling in the forest when you run into an agressive bear.");

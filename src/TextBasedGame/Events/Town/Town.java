@@ -40,7 +40,7 @@ public class Town {
         do {
             TownText.initialEventText();
             choice = input.nextInt();
-        } while (GeneralUtils.isAnOption(choice, 3));
+        } while (!GeneralUtils.isAnOption(choice, 3));
         switch (choice) {
             case 1: // Go willingly
                 GoWillingly.willing(player);

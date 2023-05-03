@@ -1,28 +1,31 @@
 package TextBasedGame.Events.Doctor;
 
+import TextBasedGame.Characters.Player;
+
 public class Heal {
     private int maxHP;
     private int amountTOHeal;
 
-    public Heal(int charHealthMax){
+    public Heal(int charHealthMax) {
         maxHP = charHealthMax;
     }
 
-    public void setMaxHP(int newMaxHP){
+    public void setMaxHP(int newMaxHP) {
         maxHP = newMaxHP;
     }
-    public int heal(int HP, int amountHealed){
+
+    public void heal(int HP, int amountHealed, Player player) {
         HP += amountHealed;
-        if(HP < maxHP){
-            amountTOHeal = amountHealed;
+        if (HP < maxHP) {
+            player.heal(amountHealed);
+        } else if (HP >= maxHP) {
+            player.setHealthToMaxHP();
         }
-        else if(HP >= maxHP){
-            amountTOHeal = HP - maxHP;
-        }
-        return amountTOHeal;
     }
-    public void doctorOutputText(int characterHP, int amountHealed){
-        System.out.println("You were healed: " + amountHealed + "Hp. Your new health is " + characterHP + "HP.");
+
+    public void doctorOutputText(int characterHP, int amountHealed) {
+        System.out.println("You were healed: " + amountHealed + "Hp. Your new health is "
+                + characterHP + "HP.");
     }
 }
 

@@ -78,34 +78,29 @@ public class TownFight {
                         }
                         if (!guardOne.isDead())// Guard One's turn
                         {
-                            if (attackType == 1)// Determines attack buff based on your
-                                                // attack Strong
+                            if (attackType == 1)// Determines attack buff based on your attack Strong
                             {
                                 damageTaken = guardOne.getAttack() + strong.getAttackPenalty();
                                 player.takeDamage(damageTaken);
-                                System.out
-                                        .println("Guard one attacks doing " + damageTaken + "dmg.");
+                                System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                 System.out.println("You now have " + player.getHP() + "Hp.");
                             } else if (attackType == 2)// Standard
                             {
                                 damageTaken = guardOne.getAttack() + standard.getAttackPenalty();
                                 player.takeDamage(damageTaken);
-                                System.out
-                                        .println("Guard one attacks doing " + damageTaken + "dmg.");
+                                System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                 System.out.println("You now have " + player.getHP() + "Hp.");
                             } else if (attackType == 3)// Weak
                             {
                                 damageTaken = guardOne.getAttack() + weak.getAttackPenalty();
                                 player.takeDamage(damageTaken);
-                                System.out
-                                        .println("Guard one attacks doing " + damageTaken + "dmg.");
+                                System.out.println("Guard one attacks doing " + damageTaken + "dmg.");
                                 System.out.println("You now have " + player.getHP() + "Hp.");
                             }
                         }
                         if (!guardThree.isDead())// Gaurd three's turn
                         {
-                            if (attackType == 1)// Determines attack buff based on your
-                                                // attack Strong
+                            if (attackType == 1)// Determines attack buff based on your attack Strong
                             {
                                 damageTaken = guardThree.getAttack() + strong.getAttackPenalty();
                                 player.takeDamage(damageTaken);

@@ -46,7 +46,7 @@ public class Player extends UnitSuper {
     }
 
     // Set character to Max hp
-    public void setMaxHP() {
+    public void setHealthToMaxHP() {
         health = maxHP;
     }
 

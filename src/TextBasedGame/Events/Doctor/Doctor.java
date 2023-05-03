@@ -11,11 +11,11 @@ public class Doctor {
     Scanner scanner = new Scanner(System.in);
     int choice;
     int amountHealed;
-    Heal doc;
+    Heal heal;
     Player player;
 
     public Doctor(Player player) {
-        this.doc = new Heal(player.getMaxHP());
+        this.heal = new Heal(player.getMaxHP());
         this.player = player;
     }
 
@@ -25,15 +25,12 @@ public class Doctor {
             choice = scanner.nextInt();
         } while (!GeneralUtils.isAnOption(choice, 2));
         GeneralUtils.pause(3);
-        if (choice == 1) {
-            // decide on amount healed 10 - 40
-            amountHealed =
-                    GeneralUtils.randomNumber(DoctorConstants.AMOUNT_HEALED_UPPER_BOUND) + 10;
+        if (choice == 1) { // decide on amount healed 10 - 40
+            amountHealed = GeneralUtils.randomNumber(DoctorConstants.AMOUNT_HEALED_UPPER_BOUND) + 10;
         } else if (choice == 2) {
             amountHealed = DoctorConstants.AMOUNT_HEALED_PAYED;
         }
-        amountHealed = doc.heal(player.getHP(), amountHealed);
-        player.heal(amountHealed);
-        doc.doctorOutputText(player.getHP(), amountHealed);
+        heal.heal(player.getHP(), amountHealed, player);
+        heal.doctorOutputText(player.getHP(), amountHealed);
     }
 }
