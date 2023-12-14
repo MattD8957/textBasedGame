@@ -23,13 +23,13 @@ public class Main {
 		int event = -1;// chooses which event will happen
 		int count = 0; // Counts how many times the player has looped
 		boolean foughtOnce = false; // Checks if player has fought to give combat explanation
-		// Create Classes
-		Scanner scanner = new Scanner(System.in);
-		Heal heal = new Heal(100);
-		//Opening screen
-		CreateCharacters create = GeneralUtils.StartScreen(scanner);
 		
-		// CREATE the Character
+		// CREATE the Classes
+		Scanner scanner = new Scanner(System.in);
+
+		CreateCharacters create = GeneralUtils.StartScreen(scanner); // START screen
+		
+		Heal heal = new Heal(100);
 		Player player = create.createPlayer(heal);
 		Attack strong = create.createStrongAttack();
 		Attack standard = create.createStandardAttack();
@@ -39,6 +39,7 @@ public class Main {
 		// Information for player at start of game TODO Decide on amount of artifacts
 		moveOn = scanner.next(); // Wait until player presses a button
 		GeneralUtils.clearScreen();
+
 		if(moveOn.equals("DEV")){
 			System.out.println("DEV MODE ACTIVATED");
 			DEV.DEVScreen();
@@ -51,7 +52,7 @@ public class Main {
 				DEV.DEVScreen();
 			}
 
-			event = GeneralUtils.generateEvent(player, DEV);
+			event = GeneralUtils.generateEvent(player.getHP(), DEV);
 			// EVENTS
 			switch (event) {
 				case 0: // Fight dragon
@@ -89,13 +90,13 @@ public class Main {
 
 			// Win screen
 			if (player.getArtifact() >= GeneralConstants.TREASURE_TO_WIN) {// If you collect 50 treasures
-				GeneralUtils.winScreen(player.getName());
+				GeneralUtils.winScreen(player.getName(), count, player.getArtifact());
 			}
 
 			count++;
 		}
 		// Death screen
-		GeneralUtils.loseScreen();
+		GeneralUtils.loseScreen(count, player.getArtifact());
 
 		System.out.println("Hi\n" + moveOn);
 		scanner.close();

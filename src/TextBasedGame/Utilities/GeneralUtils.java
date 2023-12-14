@@ -51,10 +51,10 @@ public class GeneralUtils {
      * 
      * @return random event between 0 and 6
      */
-    public static int generateEvent(Player player, DEVMode DEV) {
+    public static int generateEvent(double playerHP, DEVMode DEV) {
         int event = -1;
         int lastEvent = 0;
-        GeneralUtils.pause(3);
+        GeneralUtils.pause(4);
         if (DEV.getDEVMODE()  && DEV.getOverridenEvent() != -1) {
             event = DEV.getOverridenEvent();
         } else {
@@ -63,7 +63,7 @@ public class GeneralUtils {
             } while (event == lastEvent);
             lastEvent = event;
 
-            if (player.getHP() <= 20) { // To make game more fun
+            if (playerHP <= 20) { // To make game more fun
                 event = 3;
             }
         }
@@ -158,24 +158,24 @@ public class GeneralUtils {
         return false;
     }
 
-    public static void winScreen(String characterName) {
+    public static void winScreen(String characterName, int count, double artifact) {
         GeneralUtils.clearScreen();
         System.out.println("Congratulations " + characterName);
         pause(3);
         // Win screen
         ArtAndText.getYouWin();
-        ArtAndText.getEndingText();
+        ArtAndText.getEndingText(count, artifact);
         // End program
         System.exit(1);
     }
 
-    public static void loseScreen() {
+    public static void loseScreen(int count, double artifact) {
         pause(3);
         // Clear screen
         clearScreen();
         // Death screen
         ArtAndText.getYouDied();
-        ArtAndText.getEndingText();
+        ArtAndText.getEndingText(count, artifact);
         // End program
         System.exit(2);
     }

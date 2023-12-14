@@ -36,8 +36,8 @@ public class ArtAndText {
   public static void getYouWin(){
     System.out.println(youWin);
   }
-  public static void getEndingText(){
-    System.out.println(endingText);
+  public static void getEndingText(int count, double artifact){
+    System.out.println("It took you " + count + " events to collect " + artifact + " artifacts." + endingText);
   }
   public static void getFailedToMakeSelection(){
     System.out.println(failedToMakeSelection);
